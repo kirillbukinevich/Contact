@@ -1,0 +1,86 @@
+package logic.commands.addcommands;
+
+import logic.commands.maincommands.EditCommand;
+import logic.database.EmployeeDAO;
+import logic.entity.Attachment;
+import logic.entity.Employee;
+import logic.processcommand.ActionCommand;
+import org.apache.commons.fileupload.FileItem;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.time.LocalDate;
+import java.util.List;
+
+/**
+ * Created by aefrd on 12.09.2016.
+ */
+public class AddAttachmentCommand implements ActionCommand {
+    public String execute(HttpServletRequest request) {
+        Employee employee = getEmployeeFromSession(request);
+        addFile(request, employee);
+        fillAllParameters(request);
+        String page = "/web/jsp/addedit.jsp";
+        return page;
+    }
+
+    public void fillAllParameters(HttpServletRequest request) {
+        EditCommand editCommand = new EditCommand();
+        editCommand.fillAllParameters(request);
+
+    }
+
+    public void addFile(HttpServletRequest request, Employee employee) {
+        Attachment attachment = getFile(request, employee);
+        addAttachmentToBD(attachment);
+        employee.getAttachmentList().add(attachment);
+    }
+
+    public Attachment getFile(HttpServletRequest request, Employee employee) {
+        Attachment attachment = new Attachment();
+        processAttachmentFile(request, attachment);
+        final int EMPLOYEEID = employee.getId();
+        attachment.setEmployeeID(EMPLOYEEID);
+        attachment.setComment((String) request.getAttribute("comment"));
+        attachment.setLoadDate(LocalDate.now());
+        return attachment;
+    }
+
+    public boolean processAttachmentFile(HttpServletRequest request, Attachment attachment) {
+        List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
+        String filePath  = request.getAttribute("file_path").toString();
+        for (FileItem fi : fileItems) {
+            if (!fi.isFormField()) {
+//                    attachment.setFileByte(fi.get());
+                attachment.setFileName(fi.getName());
+                String fileName = fi.getName();
+                String resultFileName = filePath +
+                        fileName.substring(fileName.lastIndexOf("\\") + 1);
+                File file = new File(resultFileName);
+                System.out.println("resultFileName: " + resultFileName);
+                try {
+                    fi.write(file);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                request.setAttribute(fi.getFieldName(), fi.getString());
+            }
+        }
+        return true;
+    }
+
+    public boolean addAttachmentToBD(Attachment attachment) {
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        employeeDAO.addAttachment(attachment);
+        return true;
+    }
+
+    public Employee getEmployeeFromSession(HttpServletRequest request) {
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        return employee;
+    }
+
+
+}

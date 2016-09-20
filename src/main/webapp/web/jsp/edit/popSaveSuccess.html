@@ -1,0 +1,50 @@
+<!-- Trigger/Open The Modal -->
+
+    <button class="btn btn-info" id="btnSave" name="command" value="save" >Save</button>
+<!-- The Modal -->
+<div id="myModal3" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Success save!</h2>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+
+                <!-- write here-->
+                <button class="btn btn-info" id="close_button" name="command"
+                        value="contact">Close
+                </button>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Get the modal
+
+    // Get the button that opens the modal
+
+
+    var close_button = document.getElementById("close_button");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[2];
+
+    // When the user clicks the button, open the modal
+    var modal3 = document.getElementById('myModal3');
+    var btnSave = document.getElementById("btnSave")
+    btnSave.onclick = function () {
+        modal3.style.display = "block";
+    }
+    close_button.onclick = function () {
+        modal3.style.display = "none"
+    }
+
+
+</script>
