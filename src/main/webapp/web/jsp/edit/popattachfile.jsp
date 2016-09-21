@@ -9,14 +9,14 @@
             <div class="modal-header">
                 <span class="close">X</span>
 
-                <h2>New File</h2>
+                <h2>${type_operation}</h2>
             </div>
             <div class="modal-body">
 
                 <div class="form-group">
                     <!-- write here-->
-                    <input type="file" class="btn-file" name="file_name" required>
-                    <input type="text" class="form-control" name="comment">
+                    <input type="file" class="btn-file" name="file_name" value="${file_name}" required>
+                    <input type="text" class="form-control" name="comment" value="${comment_file}">
                 </div>
 
                 <input type="submit" class="btn btn-info" name="command"

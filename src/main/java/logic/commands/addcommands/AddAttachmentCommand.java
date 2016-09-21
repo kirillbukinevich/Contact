@@ -3,6 +3,7 @@ package logic.commands.addcommands;
 import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Attachment;
+import logic.entity.ContactPhone;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
 import org.apache.commons.fileupload.FileItem;
@@ -10,6 +11,7 @@ import org.apache.commons.fileupload.FileItem;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,9 +34,10 @@ public class AddAttachmentCommand implements ActionCommand {
 
     public void addFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = getFile(request, employee);
-        addAttachmentToBD(attachment);
+        addAttachmentToBD(attachment,employee,request);
         employee.getAttachmentList().add(attachment);
     }
+
 
     public Attachment getFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = new Attachment();
@@ -71,12 +74,22 @@ public class AddAttachmentCommand implements ActionCommand {
         return true;
     }
 
-    public boolean addAttachmentToBD(Attachment attachment) {
+    public boolean addAttachmentToBD(Attachment attachment,Employee employee,HttpServletRequest request) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
+        ArrayList<Attachment> attachmentList = employee.getAttachmentList();
+        Attachment editAttachment = checkEditAttachment(request);
+        if(editAttachment!=null) {
+            attachmentList.remove(editAttachment);
+            employeeDAO.deleteAttachment(editAttachment.getId());
+        }
         employeeDAO.addAttachment(attachment);
         return true;
     }
-
+    public Attachment checkEditAttachment(HttpServletRequest request){
+        Attachment editAttachment =  (Attachment)request.getSession().getAttribute("edit_attachment");
+        request.getSession().setAttribute("edit_attachment",null);
+        return editAttachment;
+    }
     public Employee getEmployeeFromSession(HttpServletRequest request) {
         Employee employee = (Employee) request.getSession().getAttribute("employee");
         return employee;

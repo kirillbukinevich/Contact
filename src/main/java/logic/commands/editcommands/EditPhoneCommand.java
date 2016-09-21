@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class EditPhoneCommand extends UpdateCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
+        String page = super.execute(request);
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
         for (String aSelectedPhone : selectedPhone) {
             this.editPhone(request, Integer.parseInt(aSelectedPhone));
         }
 
-        String page = super.execute(request);
         return page;
     }
 
@@ -40,7 +40,8 @@ public class EditPhoneCommand extends UpdateCommand implements ActionCommand{
         request.setAttribute("code_operator",editPhone.getCodeOperator());
         request.setAttribute("phone_number",editPhone.getNumber());
         request.setAttribute("phone_type",editPhone.getType());
-
+        request.setAttribute("comment_phone",editPhone.getComment());
+        request.setAttribute("type_operation","Edit phone");
         return true;
     }
 

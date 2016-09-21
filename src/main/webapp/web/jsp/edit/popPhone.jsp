@@ -10,7 +10,7 @@
         <div class="modal-header">
             <span class="close">X</span>
 
-            <h2>Add phone</h2>
+            <h2>${type_operation}</h2>
         </div>
         <div class="modal-body">
             <form name="loginForm" method="post" action="controller" id="edit_phone">
@@ -31,7 +31,7 @@
                     </SELECT>
 
                     <label>Comment</label>
-                    <input type="text" class="form-control" name="comment">
+                    <input type="text" class="form-control" name="comment" value="${comment_phone}">
 
                 </div>
             </form>

@@ -7,6 +7,7 @@ import logic.commands.addcommands.AddPhotoCommand;
 import logic.commands.deletecommands.DeleteAttachmentCommand;
 import logic.commands.deletecommands.DeleteCommand;
 import logic.commands.deletecommands.DeletePhoneCommand;
+import logic.commands.editcommands.EditAttachmentCommand;
 import logic.commands.editcommands.EditPhoneCommand;
 import logic.commands.emailcommand.EmailCommand;
 import logic.commands.emailcommand.SendMailCommand;
@@ -97,7 +98,12 @@ public enum CommandEnum {
         {
             this.command = new EditPhoneCommand();
         }
-    },;
+    },
+    UPDATE_EDIT_ATTACHMENT{
+        {
+            this.command = new EditAttachmentCommand();
+        }
+    };
 
     ActionCommand command;
 
