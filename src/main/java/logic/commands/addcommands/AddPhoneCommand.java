@@ -8,6 +8,7 @@ import logic.entity.ContactPhone;
 import logic.entity.Employee;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 /**
  * Created by aefrd on 10.09.2016.
@@ -30,8 +31,21 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         employeeDAO.addPhone(phone, EMPLOYEEID);
 
+        ArrayList<ContactPhone> phoneList =  employee.getPhoneList();
+        ContactPhone editPhone = checkEditPhone(request);
+        if(editPhone!=null) {
+            phoneList.remove(editPhone);
+            employeeDAO = new EmployeeDAO();
+            employeeDAO.deletePhone(editPhone.getId());
+        }
         employee.getPhoneList().add(phone);
 
+    }
+    public ContactPhone checkEditPhone(HttpServletRequest request){
+        ContactPhone editPhone =  (ContactPhone)request.getSession().getAttribute("edit_phone");
+        request.getSession().setAttribute("edit_phone",null);
+        System.out.println("editPhone: " + editPhone);
+        return editPhone;
     }
 
 

@@ -16,18 +16,18 @@
             <form name="loginForm" method="post" action="controller" id="edit_phone">
                 <div class="form-group">
                     <label for="code_country">Enter code country</label>
-                    <input type="number" class="form-control" name="code_country" id="code_country" min="0" max="999" required>
+                    <input type="number" class="form-control" name="code_country" value="${code_country}" id="code_country" min="0" max="999" required>
 
                     <label for="code_operator">Enter code operator</label>
-                    <input type="number" class="form-control" name="code_operator" id="code_operator" min="0" max="99" required>
+                    <input type="number" class="form-control" name="code_operator" value="${code_operator}" id="code_operator" min="0" max="99" required>
 
                     <label for="phone_number">Enter phone number</label>
-                    <input type="number" class="form-control" name="phone_number" id="phone_number" min="1000000" max="9999999" required>
+                    <input type="number" class="form-control" name="phone_number" value="${phone_number}" id="phone_number" min="1000000" max="9999999" required>
 
                     <select class="selectpicker" name="phone_type">
                         <OPTION> home
                         <OPTION> mobile
-                        <OPTION selected>
+                        <OPTION selected>${phone_type}
                     </SELECT>
 
                     <label>Comment</label>

@@ -19,7 +19,7 @@ public class UpdateCommand implements ActionCommand{
     }
     public boolean chooseDialog(HttpServletRequest request){
         String command = request.getParameter("command");
-        if(command.equals("update_phone")) {
+        if(command.equals("update_phone") || command.equals("update_edit_phone")) {
             request.setAttribute("popDialog", "myModal");
         }else if(command.equals("update_attachment")){
             request.setAttribute("popDialog", "attachModal");

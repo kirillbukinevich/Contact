@@ -53,11 +53,6 @@ public enum CommandEnum {
             this.command = new EditCommand();
         }
     },
-    EDITPHONE{
-        {
-            this.command = new EditPhoneCommand();
-        }
-    },
     EMPTY {
         {
             this.command = new EmptyCommand();
@@ -97,7 +92,12 @@ public enum CommandEnum {
         {
             this.command = new UpdateCommand();
         }
-    };
+    },
+    UPDATE_EDIT_PHONE{
+        {
+            this.command = new EditPhoneCommand();
+        }
+    },;
 
     ActionCommand command;
 
