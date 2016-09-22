@@ -1,5 +1,6 @@
 package logic.commands.addcommands;
 
+import logic.commands.UpdateCommand;
 import logic.processcommand.ActionCommand;
 import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
@@ -14,20 +15,14 @@ import java.util.List;
 /**
  * Created by aefrd on 13.09.2016.
  */
-public class AddPhotoCommand implements ActionCommand {
+public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
         savePhoto(request,employee);
-        fillAllParameters(request);
+        super.fillAllParameters(request);
         String page = "/web/jsp/addedit.jsp";
         return page;
     }
-    public void fillAllParameters(HttpServletRequest request){
-        EditCommand editCommand = new EditCommand();
-        editCommand.fillAllParameters(request);
-
-    }
-
     public void savePhoto(HttpServletRequest request,Employee employee) {
         Photo photo = getPhoto(request,employee);
         addPhotoToBD(photo);

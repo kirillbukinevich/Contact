@@ -9,8 +9,6 @@
         <div class="form">
             <form name="loginForm" method="post" action="controller">
                 <div class="modal-header">
-                    <span class="close">X</span>
-
                     <h2>Search</h2>
                 </div>
 
@@ -87,8 +85,6 @@
     var btn5 = document.getElementById("myBtn5");
 
     // Get the <span> element that closes the modal
-    var span5 = document.getElementsByClassName("close")[4];
-
     var close_button5 = document.getElementById("close_button2");
 
     close_button5.onclick = function () {

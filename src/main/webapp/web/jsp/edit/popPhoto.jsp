@@ -62,6 +62,7 @@
     close_button2.onclick = function () {
         modal4.style.display = "none"
     }
+
     function myFunction(){
         var x = document.getElementById("myFile");
         var txt = "";

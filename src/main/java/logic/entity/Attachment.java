@@ -5,14 +5,14 @@
 
 package logic.entity;
 
-import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Attachment {
     private int id;
     private int employeeID;
     private String fileName;
-    private LocalDate loadDate;
+    private LocalDateTime loadDate;
     private String comment;
 
     public Attachment() {
@@ -42,11 +42,11 @@ public class Attachment {
         this.fileName = fileName;
     }
 
-    public LocalDate getLoadDate() {
+    public LocalDateTime getLoadDate() {
         return this.loadDate;
     }
 
-    public void setLoadDate(LocalDate loadDate) {
+    public void setLoadDate(LocalDateTime loadDate) {
         this.loadDate = loadDate;
     }
 

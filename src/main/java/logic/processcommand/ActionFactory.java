@@ -6,6 +6,7 @@
 package logic.processcommand;
 
 import logic.commands.EmptyCommand;
+import logic.configuration.LogConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,14 +20,13 @@ public class ActionFactory {
         if(action==null){
             action = (String)request.getAttribute("command");
         }
-
-        System.out.println("action: " + action);
+        LogConfiguration.LOGGER.info("command: " + action);
         if (action != null && !action.isEmpty()) {
             try {
                 CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
                 current = currentEnum.getCurrentCommand();
             } catch (IllegalArgumentException var5) {
-                ;
+                LogConfiguration.LOGGER.error("wrong command: " + var5);
             }
 
             return (ActionCommand) current;

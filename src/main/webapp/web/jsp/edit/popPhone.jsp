@@ -8,8 +8,6 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">X</span>
-
             <h2>${type_operation}</h2>
         </div>
         <div class="modal-body">
@@ -39,6 +37,9 @@
         <div class="modal-footer">
             <button class="btn btn-info" form="edit_phone" name="command" value="addPhone">
                 Add</button>
+            <button class="btn btn-info" id="close_popPhone" >Close
+            </button>
+
 
         </div>
     </div>
@@ -56,19 +57,13 @@
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
+    var close_button = document.getElementById("close_popPhone");
+    close_button.onclick = function () {
         modal.style.display = "none";
+        return false;
     }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+
+
     var code_country = document.getElementById("code_country");
     code_country.oninvalid = function(event) {
         event.target.setCustomValidity('enter correct code country for e.g. 375');

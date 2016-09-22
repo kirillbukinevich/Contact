@@ -19,10 +19,13 @@
                     <input type="text" class="form-control" name="comment" value="${comment_file}">
                 </div>
 
-                <input type="submit" class="btn btn-info" name="command"
-                       value="addFile"/>
             </div>
             <div class="modal-footer">
+                <input type="submit" class="btn btn-info" name="command"
+                       value="addFile"/>
+
+                <button class="btn btn-info" id="close_popAttach" >Close
+                </button>
 
             </div>
         </div>
@@ -32,17 +35,16 @@
         // Get the modal
         var attachModal = document.getElementById('attachModal');
 
-        var span = document.getElementsByClassName("close")[1];
 
-        span.onclick = function () {
-            attachModal.style.display = "none";
+
+        var close_button = document.getElementById("close_popAttach");
+        close_button.onclick = function () {
+            attachModal.style.display = "none"
+            return false;
         }
 
-        window.onclick = function (event) {
-            if (event.target == attachModal) {
-                attachModal.style.display = "none";
-            }
-        }
+
+
 
     </script>
 </form>

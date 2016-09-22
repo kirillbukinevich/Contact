@@ -4,7 +4,7 @@ package logic.commands.maincommands;
 import logic.processcommand.ActionCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.*;
-import logic.processcommand.ConfigurationManager;
+import logic.configuration.ConfigurationManager;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 

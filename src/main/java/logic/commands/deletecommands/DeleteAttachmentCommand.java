@@ -1,5 +1,6 @@
 package logic.commands.deletecommands;
 
+import logic.commands.UpdateCommand;
 import logic.processcommand.ActionCommand;
 import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
@@ -12,23 +13,18 @@ import java.util.List;
 /**
  * Created by aefrd on 12.09.2016.
  */
-public class DeleteAttachmentCommand implements ActionCommand{
+public class DeleteAttachmentCommand extends UpdateCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
         String[] selectedFile = request.getParameterValues("check_selected_file");
         for (String aSelectedFile : selectedFile) {
             this.deleteAttachment(request, Integer.parseInt(aSelectedFile));
         }
-        fillAllParameters(request);
+        super.fillAllParameters(request);
 
         String page = "/web/jsp/addedit.jsp";
         return page;
     }
 
-    public void fillAllParameters(HttpServletRequest request){
-        EditCommand editCommand = new EditCommand();
-        editCommand.fillAllParameters(request);
-
-    }
 
     public boolean deleteAttachment(HttpServletRequest request, final int ATTACHMENTID) {
         Employee employee = getEmployeeFromSession(request);

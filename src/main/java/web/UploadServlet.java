@@ -1,6 +1,6 @@
 package web;
 
-import logic.processcommand.ConfigurationManager;
+import logic.configuration.ConfigurationManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {

@@ -7,7 +7,8 @@ package web;
 
 import logic.processcommand.ActionCommand;
 import logic.processcommand.ActionFactory;
-import logic.processcommand.ConfigurationManager;
+import logic.configuration.ConfigurationManager;
+import logic.configuration.LogConfiguration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,19 +38,19 @@ public class Controller extends HttpServlet {
         ActionFactory client = new ActionFactory();
 
         ActionCommand command = client.defineCommand(request);
-
+        LogConfiguration.LOGGER.info("start execute command");
         page = command.execute(request);
+        LogConfiguration.LOGGER.info("finish execute command");
 
         if (page != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
 
         } else {
-            page = "/web/jsp/welcome.jsp";
+            page = "/web/jsp/error.jsp";
             request.getSession().setAttribute("nullPage", "null");
             response.sendRedirect(request.getContextPath() + page);
         }
 
     }
-
 }

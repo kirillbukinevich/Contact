@@ -1,5 +1,6 @@
 package logic.commands.addcommands;
 
+import logic.commands.UpdateCommand;
 import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Attachment;
@@ -11,25 +12,20 @@ import org.apache.commons.fileupload.FileItem;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by aefrd on 12.09.2016.
  */
-public class AddAttachmentCommand implements ActionCommand {
+public class AddAttachmentCommand extends UpdateCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
         addFile(request, employee);
-        fillAllParameters(request);
+        super.fillAllParameters(request);
         String page = "/web/jsp/addedit.jsp";
         return page;
-    }
-
-    public void fillAllParameters(HttpServletRequest request) {
-        EditCommand editCommand = new EditCommand();
-        editCommand.fillAllParameters(request);
-
     }
 
     public void addFile(HttpServletRequest request, Employee employee) {
@@ -45,7 +41,7 @@ public class AddAttachmentCommand implements ActionCommand {
         final int EMPLOYEEID = employee.getId();
         attachment.setEmployeeID(EMPLOYEEID);
         attachment.setComment((String) request.getAttribute("comment"));
-        attachment.setLoadDate(LocalDate.now());
+        attachment.setLoadDate(LocalDateTime.now());
         return attachment;
     }
 

@@ -5,7 +5,7 @@
 
 package logic.database;
 
-import logic.processcommand.ConfigurationManager;
+import logic.configuration.ConfigurationManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -2,7 +2,6 @@ package logic.commands.addcommands;
 
 import logic.commands.UpdateCommand;
 import logic.processcommand.ActionCommand;
-import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.ContactPhone;
 import logic.entity.Employee;
@@ -63,5 +62,7 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
         Employee employee = (Employee)request.getSession().getAttribute("employee");
         return employee;
     }
+
+
 
 }

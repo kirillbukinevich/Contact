@@ -6,11 +6,13 @@
 package logic.database;
 
 import logic.entity.*;
+import logic.configuration.LogConfiguration;
+import sun.rmi.runtime.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import static logic.configuration.LogConfiguration.LOGGER;
 public class EmployeeDAO {
     private static Connection connection;
     private static Connection connection2;
@@ -38,21 +40,25 @@ public class EmployeeDAO {
     }
 
     public void startEditContact() {
+        LOGGER.info("start edit contact");
         try {
             connection.setAutoCommit(false);
+            throw  new SQLException();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't start edit contact ", e);
         }
     }
+
 
     public boolean saveContact() {
         try {
             if(!connection.getAutoCommit()) {
                 connection.commit();
                 connection.setAutoCommit(true);
+                LOGGER.info("save contact");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't save contact ", e);
         }
         return true;
 
@@ -62,9 +68,10 @@ public class EmployeeDAO {
             if(!connection.getAutoCommit()) {
                 connection.rollback();
                 connection.setAutoCommit(true);
+                LOGGER.info("cancel edit contact");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't cancel edit contact ", e);
         }
         return true;
 
@@ -80,9 +87,10 @@ public class EmployeeDAO {
             this.preparedStatement.setString(4, phone.getType());
             this.preparedStatement.setString(5, phone.getComment());
             this.preparedStatement.executeUpdate();
+            LOGGER.info("add phone to BD");
             phone.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't add phone to BD ", e);
         }
         return true;
     }
@@ -93,12 +101,13 @@ public class EmployeeDAO {
                 "VALUES(?,?,?," + EMPLOYEEID + ")");
         try {
             this.preparedStatement.setString(1, attachment.getFileName());
-            this.preparedStatement.setDate(2, Date.valueOf(attachment.getLoadDate()));
+            this.preparedStatement.setTimestamp(2, Timestamp.valueOf(attachment.getLoadDate()));
             this.preparedStatement.setString(3, attachment.getComment());
             this.preparedStatement.executeUpdate();
+            LOGGER.info("add attachment to BD");
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't add attachment to BD ", e);
         }
         return true;
     }
@@ -110,8 +119,9 @@ public class EmployeeDAO {
         try {
             this.preparedStatement.setString(1, photo.getPhotoName());
             this.preparedStatement.executeUpdate();
+            LOGGER.info("add photo to BD");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't add photo to BD ", e);
         }
         return true;
     }
@@ -134,25 +144,30 @@ public class EmployeeDAO {
             this.preparedStatement.setString(10, employee.getWorkPlace());
             this.preparedStatement.setInt(11, employee.getId());
             this.preparedStatement.executeUpdate();
+            LOGGER.info("update employee to BD");
             this.editAddress(employee.getAddress(), employee.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info("can't update employee to BD ", e);
         }
         return true;
     }
 
-    public boolean editAddress(Address address, final int EMPLOYEEID) throws SQLException {
+    public boolean editAddress(Address address, final int EMPLOYEEID){
         this.preparedStatement = this.getPreparedStatement("UPDATE address SET country=?,city=?,street=?,house=?," +
                 "flat=?,index_address=? WHERE employee_id=? ");
-        this.preparedStatement.setString(1, address.getCountryName());
-        this.preparedStatement.setString(2, address.getCityName());
-        this.preparedStatement.setString(3, address.getStreetName());
-        this.preparedStatement.setInt(4, address.getHouseNumber());
-        this.preparedStatement.setInt(5, address.getFlatNumber());
-        this.preparedStatement.setInt(6, address.getIndex());
-        this.preparedStatement.setInt(7, EMPLOYEEID);
-
-        this.preparedStatement.executeUpdate();
+        try {
+            this.preparedStatement.setString(1, address.getCountryName());
+            this.preparedStatement.setString(2, address.getCityName());
+            this.preparedStatement.setString(3, address.getStreetName());
+            this.preparedStatement.setInt(4, address.getHouseNumber());
+            this.preparedStatement.setInt(5, address.getFlatNumber());
+            this.preparedStatement.setInt(6, address.getIndex());
+            this.preparedStatement.setInt(7, EMPLOYEEID);
+            this.preparedStatement.executeUpdate();
+            LOGGER.info("update address to BD");
+        } catch (SQLException e) {
+            LOGGER.error("can't update address to BD ", e);
+        }
         return true;
     }
 
@@ -175,7 +190,6 @@ public class EmployeeDAO {
         try {
             Statement e = connection.createStatement();
             ResultSet rs = e.executeQuery(query);
-
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setId(rs.getInt("id"));
@@ -202,7 +216,7 @@ public class EmployeeDAO {
 
             System.out.println("records " + noOfRecords);
         } catch (SQLException var8) {
-            var8.printStackTrace();
+            LOGGER.error("can't get employee list ", var8);
         }
 
         return list;
@@ -218,7 +232,7 @@ public class EmployeeDAO {
             resultSet.next();
             email = resultSet.getString(1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't get email ",e);
         }
         return email;
     }
@@ -242,7 +256,7 @@ public class EmployeeDAO {
                 phoneList.add(contactPhone);
             }
         } catch (SQLException var6) {
-            var6.printStackTrace();
+            LOGGER.error("can't get phone list ",var6);
         }
 
         return phoneList;
@@ -279,14 +293,14 @@ public class EmployeeDAO {
                 employee.setPhoto(photo);
             }
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't get employee on id ",var5);
         }
 
         return employee;
     }
     public int getNewEmployeeID() {
-        this.preparedStatement = this.getPreparedStatement("INSERT INTO main_info (id) VALUES (NULL)");
         try {
+            this.preparedStatement = this.getPreparedStatement("INSERT INTO main_info (id) VALUES (NULL)");
             this.preparedStatement.executeUpdate();
             final  int EMPLOYEEID = retriveId(preparedStatement);
             this.preparedStatement = this.getPreparedStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
@@ -296,7 +310,7 @@ public class EmployeeDAO {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't get new employee id ",e);
         }
         return 0;
     }
@@ -313,12 +327,12 @@ public class EmployeeDAO {
                 attachment.setId(e.getInt(1));
                 attachment.setEmployeeID(e.getInt(2));
                 attachment.setFileName(e.getString(3));
-                attachment.setLoadDate(e.getDate(4).toLocalDate());
+                attachment.setLoadDate(e.getTimestamp(4).toLocalDateTime());
                 attachment.setComment(e.getString(5));
                 attachmentList.add(attachment);
             }
         } catch (SQLException var6) {
-            var6.printStackTrace();
+            LOGGER.error("can't get attachment list ",var6);
         }
 
         return attachmentList;
@@ -334,7 +348,7 @@ public class EmployeeDAO {
                 photo.setPhotoName(e.getString(1));
             }
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't get photo ",var5);
         }
         return photo.getPhotoName();
     }
@@ -358,7 +372,7 @@ public class EmployeeDAO {
                 address.setIndex(e.getInt("index_address"));
             }
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't retrieve address ",var5);
         }
 
         return address;
@@ -383,7 +397,7 @@ public class EmployeeDAO {
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't delete phone ",var5);
         }
 
         return true;
@@ -397,7 +411,7 @@ public class EmployeeDAO {
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't delete attachment ",var5);
         }
 
         return true;
@@ -447,7 +461,7 @@ public class EmployeeDAO {
             deleteAllContactPhone(ID);
             deletePhoto(ID);
         } catch (SQLException var5) {
-            var5.printStackTrace();
+            LOGGER.error("can't delete employee ",var5);
         }
 
         return true;

@@ -24,13 +24,12 @@ public class SearchCommand implements ActionCommand{
       ArrayList<String> parameterList = Collections.list(request.getParameterNames());
       parameterList.remove("command");
       criteria = processDateCriteria(request,parameterList,criteria);
-
-
       for(String parameterName : parameterList){
         if(isCriteria(request.getParameter(parameterName))){
             criteria.append(" " + parameterName.substring(5) + "=" + "'" + request.getParameter(parameterName) + "' ");
         }
       }
+      System.out.println(criteria);
       if(criteria.toString().equals("WHERE")){
           request.getSession().setAttribute("search_criteria"," ");
       }else {
@@ -49,7 +48,6 @@ public class SearchCommand implements ActionCommand{
     public StringBuffer processDateCriteria(HttpServletRequest request, ArrayList<String> paramList, StringBuffer criteria){
         String date = request.getParameter("find_date_of_birth");
         if(!date.isEmpty()){
-            String[] dateYearDayMonth = date.split("-");
             String direct = request.getParameter("find_date_direction");
             if(direct.equals("since")){
                 criteria.append(" date_of_birth >" + "'" + date + "' ");

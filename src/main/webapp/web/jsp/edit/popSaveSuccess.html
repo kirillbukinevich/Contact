@@ -31,10 +31,9 @@
     // Get the button that opens the modal
 
 
-    var close_button = document.getElementById("close_button");
+
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[2];
 
     // When the user clicks the button, open the modal
     var modal3 = document.getElementById('myModal3');
@@ -42,6 +41,7 @@
     btnSave.onclick = function () {
         modal3.style.display = "block";
     }
+    var close_button = document.getElementById("close_button");
     close_button.onclick = function () {
         modal3.style.display = "none"
     }

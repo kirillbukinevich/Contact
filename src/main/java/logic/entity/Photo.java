@@ -1,15 +1,5 @@
 package logic.entity;
 
-import logic.processcommand.ConfigurationManager;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.IOUtils;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 /**
  * Created by aefrd on 13.09.2016.
  */

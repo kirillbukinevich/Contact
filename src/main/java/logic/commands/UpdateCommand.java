@@ -43,7 +43,7 @@ public class UpdateCommand implements ActionCommand{
         employee.setFirstName(request.getParameter("first_name"));
         employee.setLastName(request.getParameter("last_name"));
         employee.setPatronymic(request.getParameter("patronymic"));
-        String[] date = null;
+        String[] date;
         if (!(request.getParameter("date_of_birth") == null)) {
             date = request.getParameter("date_of_birth").split("\\-");
             LocalDate localDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
