@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true" antiResourceLocking="true" path="/zcontact">
+
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+    <Resource
+            driverClassName="com.mysql.jdbc.Driver"
+            maxActive="4"
+            maxIdle="2"
+            maxWait="5000"
+            name="jdbc/EmployeesDS"
+            username="kirillbukinevich"
+            password="password"
+            type="javax.sql.DataSource"
+            url="jdbc:mysql://localhost:3306/bukinevichKirillStudentLabDB"
+            validationQuery="SELECT 1">
+    </Resource>
+</Context>

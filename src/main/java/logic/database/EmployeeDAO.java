@@ -6,35 +6,23 @@
 package logic.database;
 
 import logic.entity.*;
-import logic.configuration.LogConfiguration;
-import sun.rmi.runtime.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import static logic.configuration.LogConfiguration.LOGGER;
+
 public class EmployeeDAO {
-    private static Connection connection;
-    private static Connection connection2;
-
-    static {
-        try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            connection2 = ConnectionFactory.getInstance().getConnection();
-            System.out.println("connect....");
-        } catch (SQLException var1) {
-            var1.printStackTrace();
-        } catch (ClassNotFoundException var2) {
-            var2.printStackTrace();
-        }
-
-    }
-
+    private static Connection connection = ConnectionFactory.getConnection();
+    private static Connection connection2 = ConnectionFactory.getConnection();
     private ArrayList phoneList = new ArrayList();
     private ArrayList attachmentList = new ArrayList();
     private Statement stmt;
     private int noOfRecords;
     private PreparedStatement preparedStatement;
+
+
 
     public EmployeeDAO() {
     }
@@ -43,7 +31,7 @@ public class EmployeeDAO {
         LOGGER.info("start edit contact");
         try {
             connection.setAutoCommit(false);
-            throw  new SQLException();
+            throw new SQLException();
         } catch (SQLException e) {
             LOGGER.error("can't start edit contact ", e);
         }
@@ -52,7 +40,7 @@ public class EmployeeDAO {
 
     public boolean saveContact() {
         try {
-            if(!connection.getAutoCommit()) {
+            if (!connection.getAutoCommit()) {
                 connection.commit();
                 connection.setAutoCommit(true);
                 LOGGER.info("save contact");
@@ -63,9 +51,10 @@ public class EmployeeDAO {
         return true;
 
     }
-    public boolean rollBack(){
+
+    public boolean rollBack() {
         try {
-            if(!connection.getAutoCommit()) {
+            if (!connection.getAutoCommit()) {
                 connection.rollback();
                 connection.setAutoCommit(true);
                 LOGGER.info("cancel edit contact");
@@ -112,7 +101,7 @@ public class EmployeeDAO {
         return true;
     }
 
-    public boolean addPhoto(Photo photo){
+    public boolean addPhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
         this.preparedStatement = this.getPreparedStatement("INSERT INTO photo(photo_name,employee_id) " +
                 "VALUES(?," + EMPLOYEEID + ")");
@@ -152,7 +141,7 @@ public class EmployeeDAO {
         return true;
     }
 
-    public boolean editAddress(Address address, final int EMPLOYEEID){
+    public boolean editAddress(Address address, final int EMPLOYEEID) {
         this.preparedStatement = this.getPreparedStatement("UPDATE address SET country=?,city=?,street=?,house=?," +
                 "flat=?,index_address=? WHERE employee_id=? ");
         try {
@@ -181,7 +170,7 @@ public class EmployeeDAO {
         return this.preparedStatement;
     }
 
-    public List<Employee> getEmployeesList(int offset, int noOfRecords,String criteria) {
+    public List<Employee> getEmployeesList(int offset, int noOfRecords, String criteria) {
         String query = "select SQL_CALC_FOUND_ROWS * from main_info JOIN address ON main_info.id = address.employee_id "
                 + criteria + " limit " + offset + ", " + noOfRecords;
 
@@ -222,7 +211,7 @@ public class EmployeeDAO {
         return list;
     }
 
-    public String getEmail(final int ID){
+    public String getEmail(final int ID) {
         String query = "SELECT email FROM main_info WHERE id = ?";
         String email = new String();
         try {
@@ -232,7 +221,7 @@ public class EmployeeDAO {
             resultSet.next();
             email = resultSet.getString(1);
         } catch (SQLException e) {
-            LOGGER.error("can't get email ",e);
+            LOGGER.error("can't get email ", e);
         }
         return email;
     }
@@ -256,7 +245,7 @@ public class EmployeeDAO {
                 phoneList.add(contactPhone);
             }
         } catch (SQLException var6) {
-            LOGGER.error("can't get phone list ",var6);
+            LOGGER.error("can't get phone list ", var6);
         }
 
         return phoneList;
@@ -293,16 +282,17 @@ public class EmployeeDAO {
                 employee.setPhoto(photo);
             }
         } catch (SQLException var5) {
-            LOGGER.error("can't get employee on id ",var5);
+            LOGGER.error("can't get employee on id ", var5);
         }
 
         return employee;
     }
+
     public int getNewEmployeeID() {
         try {
             this.preparedStatement = this.getPreparedStatement("INSERT INTO main_info (id) VALUES (NULL)");
             this.preparedStatement.executeUpdate();
-            final  int EMPLOYEEID = retriveId(preparedStatement);
+            final int EMPLOYEEID = retriveId(preparedStatement);
             this.preparedStatement = this.getPreparedStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
             this.preparedStatement.executeUpdate();
             System.out.println(EMPLOYEEID);
@@ -310,7 +300,7 @@ public class EmployeeDAO {
 
 
         } catch (SQLException e) {
-            LOGGER.error("can't get new employee id ",e);
+            LOGGER.error("can't get new employee id ", e);
         }
         return 0;
     }
@@ -332,13 +322,13 @@ public class EmployeeDAO {
                 attachmentList.add(attachment);
             }
         } catch (SQLException var6) {
-            LOGGER.error("can't get attachment list ",var6);
+            LOGGER.error("can't get attachment list ", var6);
         }
 
         return attachmentList;
     }
 
-    public String getPhoto(final int ID){
+    public String getPhoto(final int ID) {
         String query = "select photo.photo_name from photo JOIN main_info ON main_info.id = photo.employee_id WHERE photo.employee_id=" + ID;
         Photo photo = new Photo();
         try {
@@ -348,7 +338,7 @@ public class EmployeeDAO {
                 photo.setPhotoName(e.getString(1));
             }
         } catch (SQLException var5) {
-            LOGGER.error("can't get photo ",var5);
+            LOGGER.error("can't get photo ", var5);
         }
         return photo.getPhotoName();
     }
@@ -372,7 +362,7 @@ public class EmployeeDAO {
                 address.setIndex(e.getInt("index_address"));
             }
         } catch (SQLException var5) {
-            LOGGER.error("can't retrieve address ",var5);
+            LOGGER.error("can't retrieve address ", var5);
         }
 
         return address;
@@ -388,7 +378,6 @@ public class EmployeeDAO {
     }
 
 
-
     public boolean deletePhone(final int PHONEID) {
         String deleteSQL = "DELETE FROM phone WHERE phone.id = ?";
 
@@ -397,7 +386,7 @@ public class EmployeeDAO {
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
-            LOGGER.error("can't delete phone ",var5);
+            LOGGER.error("can't delete phone ", var5);
         }
 
         return true;
@@ -411,7 +400,7 @@ public class EmployeeDAO {
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
-            LOGGER.error("can't delete attachment ",var5);
+            LOGGER.error("can't delete attachment ", var5);
         }
 
         return true;
@@ -431,9 +420,9 @@ public class EmployeeDAO {
     public boolean deleteAllAttachments(final int EMPLOYEEID) throws SQLException {
         String deleteSQL = "DELETE FROM attachments WHERE attachments.employee_id = ?";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-            preparedStatement.setInt(1, EMPLOYEEID);
-            preparedStatement.executeUpdate();
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
+        preparedStatement.setInt(1, EMPLOYEEID);
+        preparedStatement.executeUpdate();
 
         return true;
     }
@@ -461,7 +450,7 @@ public class EmployeeDAO {
             deleteAllContactPhone(ID);
             deletePhoto(ID);
         } catch (SQLException var5) {
-            LOGGER.error("can't delete employee ",var5);
+            LOGGER.error("can't delete employee ", var5);
         }
 
         return true;
@@ -482,7 +471,6 @@ public class EmployeeDAO {
         }
 
     }
-
 
 
 }

@@ -5,34 +5,31 @@
 
 package logic.database;
 
-import logic.configuration.ConfigurationManager;
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import static logic.configuration.LogConfiguration.LOGGER;
 
 public class ConnectionFactory {
-    private static ConnectionFactory instance = new ConnectionFactory();
-    String url = ConfigurationManager.getProperty("databaseUrl");
-    String user = ConfigurationManager.getProperty("userName");
-    String password = ConfigurationManager.getProperty("userPassword");
-    String driverClass = "com.mysql.jdbc.Driver";
+    private static Connection con;
+    private static DataSource dataSource;
 
     private ConnectionFactory() {
-        try {
-            Class.forName(this.driverClass);
-        } catch (ClassNotFoundException var2) {
-            var2.printStackTrace();
-        }
-
     }
 
-    public static ConnectionFactory getInstance() {
-        return instance;
-    }
-
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
-        Connection connection = DriverManager.getConnection(this.url, this.user, this.password);
-        return connection;
+    public static synchronized Connection getConnection() {
+            try {
+                Context ctx = new InitialContext();
+                dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeesDS");
+                con = dataSource.getConnection();
+            } catch (NamingException e) {
+                LOGGER.error(e);
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        return con;
     }
 }
