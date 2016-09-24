@@ -33,6 +33,7 @@ public class UploadServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, java.io.IOException {
+        System.out.println("here");
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
         request.setAttribute("file_path",filePath);

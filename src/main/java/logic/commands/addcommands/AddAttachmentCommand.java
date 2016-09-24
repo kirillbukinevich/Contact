@@ -1,17 +1,14 @@
 package logic.commands.addcommands;
 
-import logic.commands.UpdateCommand;
-import logic.commands.maincommands.EditCommand;
+import logic.commands.maincommands.UpdateCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Attachment;
-import logic.entity.ContactPhone;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
 import org.apache.commons.fileupload.FileItem;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

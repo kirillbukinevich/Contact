@@ -23,7 +23,7 @@ public class Employee {
     private Address address = new Address();
     private ArrayList<ContactPhone> phoneList = new ArrayList<ContactPhone>();
     private ArrayList<Attachment> attachmentList = new ArrayList<Attachment>();
-    private String photo;
+    private Photo photo;
     public Employee() {
     }
 
@@ -123,11 +123,11 @@ public class Employee {
         this.address = address;
     }
 
-    public String getPhoto() {
+    public Photo getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Photo photo) {
         this.photo = photo;
     }
 

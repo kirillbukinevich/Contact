@@ -42,8 +42,8 @@
                 </div>
                 <div class="col-xs-5"></div>
                 <div class="col-xs-3">
-                    <p style="color: #fffdfb; font-size: 28px; font-family: Monaco,serif; position: absolute;top: 0px;left: 0px;">
-                        Happy Employees And Corporate Culture Quotes</p>
+                    <h2 style="color: #fffdfb; font-family: Monaco,serif; position: absolute;top: 0px;left: 0px;">
+                        Happy Employees And Corporate Culture Quotes</h2>
                 </div>
 
             </div>

@@ -1,8 +1,7 @@
 package logic.commands.addcommands;
 
-import logic.commands.UpdateCommand;
+import logic.commands.maincommands.UpdateCommand;
 import logic.processcommand.ActionCommand;
-import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Employee;
 import logic.entity.Photo;
@@ -23,10 +22,11 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
         String page = "/web/jsp/addedit.jsp";
         return page;
     }
-    public void savePhoto(HttpServletRequest request,Employee employee) {
+    public boolean savePhoto(HttpServletRequest request,Employee employee) {
         Photo photo = getPhoto(request,employee);
         addPhotoToBD(photo);
-        employee.setPhoto(photo.getPhotoName());
+        employee.setPhoto(photo);
+        return true;
     }
 
     public Photo getPhoto(HttpServletRequest request,Employee employee) {
@@ -60,7 +60,7 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
 
     public boolean addPhotoToBD(Photo photo){
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.addPhoto(photo);
+        employeeDAO.updatePhoto(photo);
         return true;
     }
     public Employee getEmployeeFromSession(HttpServletRequest request){

@@ -111,13 +111,14 @@ public class EditCommand implements ActionCommand {
         return true;
     }
     public boolean fillPhotoParameter(HttpServletRequest request, Employee employee){
-        String photo = employee.getPhoto();
-        if(photo==null){
-            photo = ConfigurationManager.getProperty("path.defaultPhoto");
+        Photo photo = employee.getPhoto();
+        String photoResult;
+        if(photo.getPhotoName()==null){
+            photoResult =  ConfigurationManager.getProperty("path.defaultPhoto");
         }else {
-            photo = ConfigurationManager.getProperty("path.saveFile") + photo;
+            photoResult = ConfigurationManager.getProperty("path.saveFile") + photo.getPhotoName();
         }
-        request.setAttribute("photo",getPhotoForJSP(request,photo));
+        request.setAttribute("photo",getPhotoForJSP(request,photoResult));
         return true;
     }
 

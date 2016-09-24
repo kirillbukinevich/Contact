@@ -21,6 +21,7 @@ public class ActionFactory {
             action = (String)request.getAttribute("command");
         }
         LogConfiguration.LOGGER.info("command: " + action);
+        System.out.println("command: " + action);
         if (action != null && !action.isEmpty()) {
             try {
                 CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());

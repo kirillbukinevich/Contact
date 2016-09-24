@@ -11,6 +11,7 @@ import logic.configuration.ConfigurationManager;
 import logic.configuration.LogConfiguration;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,11 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        ConfigurationManager.initProperty(config);
+    }
+
     public Controller() {
     }
 
@@ -32,7 +38,7 @@ public class Controller extends HttpServlet {
     }
 
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ConfigurationManager.initProperty(request);
+
         String page = null;
         response.setContentType("text/html");
         ActionFactory client = new ActionFactory();

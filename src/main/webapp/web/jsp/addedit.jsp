@@ -16,64 +16,68 @@
 <body>
 <form name="edit_form" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
-        <div class="col-xs-1">
-            <jsp:include page="edit/popPhoto.jsp"/>
-        </div>
-        <div class="col-xs-5">
-
-
-            <div class="form">
-
-                <jsp:include page="edit/main_table.jsp"/>
-                <jsp:include page="edit/popSaveSuccess.html"/>
-
+        <div class="row">
+            <div class="col-xs-1">
+                <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
+                    <img class="img-responsive" src="data:image/png;base64, <c:out value='${photo}'/>"/>
+                </button>
             </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="row">
-                <%--show contact phone--%>
-                <div class="col-xs-11">
+            <div class="col-xs-5">
 
 
-                    <jsp:include page="edit/phones.jsp"/>
+                <div class="form">
+
+                    <jsp:include page="edit/main_table.jsp"/>
+                    <jsp:include page="edit/popSaveSuccess.html"/>
+
                 </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="row">
+                    <%--show contact phone--%>
+                    <div class="col-xs-11">
 
-                <div class="col-xs-1">
-                    <div class="btn-group-vertical">
 
-                        <%--handling edit remove and new operations--%>
-                        <button form="edit_form" class="btn btn-info" id="myBtn" name="command" value="update_phone">
-                            New
-                        </button>
-                        <jsp:include page="edit/popPhone.jsp"/>
-                        <button form="edit_form" class="btn btn-info" id="editPhone" name="command"
-                                value="update_edit_phone" disabled="true">Edit
-                        </button>
-                        <button form="edit_form" class="btn btn-info" name="command" value="deletePhone">Delete</button>
-
+                        <jsp:include page="edit/phones.jsp"/>
                     </div>
 
-                </div>
-            </div>
+                    <div class="col-xs-1">
+                        <div class="btn-group-vertical">
 
-            <%--show attach files--%>
-            <div class="row">
-                <div class="col-xs-11">
-                    <jsp:include page="edit/attachments.jsp"/>
-                </div>
-                <div class="col-xs-1">
+                            <%--handling edit remove and new operations--%>
+                            <button form="edit_form" class="btn btn-info" id="myBtn" name="command"
+                                    value="update_phone">
+                                New
+                            </button>
+                            <button form="edit_form" class="btn btn-info" id="editPhone" name="command"
+                                    value="update_edit_phone" disabled="true">Edit
+                            </button>
+                            <button form="edit_form" class="btn btn-info" name="command" value="deletePhone">Delete
+                            </button>
 
-                    <div class="btn-group-vertical">
-                        <button form="edit_form" class="btn btn-info" id="myBtn2" name="command"
-                                value="update_attachment">New
-                        </button>
-                        <jsp:include page="edit/popattachfile.jsp"/>
-                        <button form="edit_form" class="btn btn-info" name="command" id="editAttachFile"
-                                value="update_edit_attachment" disabled = 'true'>Edit
-                        </button>
-                        <button form="edit_form" class="btn btn-info" name="command"
-                                value="deleteAttachFile">Delete
-                        </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <%--show attach files--%>
+                <div class="row">
+                    <div class="col-xs-11">
+                        <jsp:include page="edit/attachments.jsp"/>
+                    </div>
+                    <div class="col-xs-1">
+
+                        <div class="btn-group-vertical">
+                            <button form="edit_form" class="btn btn-info" id="myBtn2" name="command"
+                                    value="update_attachment">New
+                            </button>
+                            <button form="edit_form" class="btn btn-info" name="command" id="editAttachFile"
+                                    value="update_edit_attachment" disabled='true'>Edit
+                            </button>
+                            <button form="edit_form" class="btn btn-info" name="command"
+                                    value="deleteAttachFile">Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,13 +86,20 @@
 </form>
 </body>
 </html>
+<jsp:include page="edit/popattachfile.jsp"/>
+<jsp:include page="edit/popPhone.jsp"/>
+<jsp:include page="edit/popPhoto.jsp"/>
+
 <script>
-    var popDialog = "${pageContext.request.getAttribute("popDialog")}"
+    var popDialog = "${pageContext.request.getAttribute("popDialog")}";
     if (popDialog === "myModal") {
         modal.style.display = "block";
     }
     if (popDialog === "attachModal") {
         attachModal.style.display = "block";
+    }
+    if (popDialog === "myModal4") {
+        modal4.style.display = "block";
     }
     function checkboxes(buttonId) {
         var inputElems = document.getElementsByTagName("input"),

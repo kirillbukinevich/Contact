@@ -11,29 +11,41 @@
 
 </head>
 <body>
+<c:set var="template" value="${birthday_template}" scope="page"/>
 <div class="container">
     <h3 style="color: #f9ff3a">Contact Form</h3>
-    <form name="loginForm" method="POST" action="controller">
+
+    <form id="emailForm" method="POST" action="controller">
         <fieldset>
             <input type="text" class="form-control" name="list_mail" value="${lst_mail}">
         </fieldset>
         <fieldset>
-            <input type="text" class="form-control" name="theme" placeholder="Enter the theme">
+            <input type="text" class="form-control" name="theme" placeholder="Enter the theme" value="${template.subject}" >
         </fieldset>
         <fieldset>
-            <label>
-                <input type="text" class="form-control" name="templates">
+            <label>Choose template
+                <select class="select-style" name="template" id="template" >
+                    <OPTION selected>
+                    <OPTION> birthday
+                    <OPTION> email
+                </SELECT><br><br>
             </label>
+            <button class="btn btn-success" name="command" value="ApplyTemplateEmailCommand">apply</button>
         </fieldset>
         <fieldset>
-            <textarea class="form-control" name="message" placeholder="Enter the message" required></textarea>
+            <textarea class="form-control" name="message" placeholder="Enter the message" >${template.body}</textarea>
         </fieldset>
         <fieldset>
             <button class="btn btn-success" name="command" value="sendemail">Send</button>
         </fieldset>
     </FORM>
+    ${template.includePage}
 </div>
 
 
 </body>
 </html>
+<script type="text/javascript">
+
+
+</script>

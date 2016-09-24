@@ -1,5 +1,6 @@
 package logic.configuration;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +16,7 @@ public class ConfigurationManager {
     private ConfigurationManager() {
     }
 
-    public static boolean initProperty(HttpServletRequest request) {
+    public static boolean initProperty(ServletConfig request) {
         try {
             InputStream inputStream = request.getServletContext().getResourceAsStream("/WEB-INF/classes/config.properties");
             config = new Properties();

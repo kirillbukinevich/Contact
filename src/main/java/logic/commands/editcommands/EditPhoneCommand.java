@@ -1,15 +1,12 @@
 package logic.commands.editcommands;
 
-import logic.commands.UpdateCommand;
-import logic.commands.maincommands.EditCommand;
-import logic.database.EmployeeDAO;
+import logic.commands.maincommands.UpdateCommand;
 import logic.entity.ContactPhone;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by aefrd on 17.09.2016.

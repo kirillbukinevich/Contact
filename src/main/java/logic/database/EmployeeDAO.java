@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package logic.database;
 
 import logic.entity.*;
@@ -31,7 +26,6 @@ public class EmployeeDAO {
         LOGGER.info("start edit contact");
         try {
             connection.setAutoCommit(false);
-            throw new SQLException();
         } catch (SQLException e) {
             LOGGER.error("can't start edit contact ", e);
         }
@@ -101,16 +95,16 @@ public class EmployeeDAO {
         return true;
     }
 
-    public boolean addPhoto(Photo photo) {
+    public boolean updatePhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
-        this.preparedStatement = this.getPreparedStatement("INSERT INTO photo(photo_name,employee_id) " +
-                "VALUES(?," + EMPLOYEEID + ")");
+        this.preparedStatement = this.getPreparedStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
             this.preparedStatement.setString(1, photo.getPhotoName());
+            this.preparedStatement.setInt(2,EMPLOYEEID);
             this.preparedStatement.executeUpdate();
-            LOGGER.info("add photo to BD");
+            LOGGER.info("update photo to BD");
         } catch (SQLException e) {
-            LOGGER.error("can't add photo to BD ", e);
+            LOGGER.error("can't update photo to BD ", e);
         }
         return true;
     }
@@ -278,7 +272,7 @@ public class EmployeeDAO {
                 employee.setAddress(this.retriveAddress(employee.getId()));
                 employee.setAttachmentList(getAttachmentList(employee.getId()));
                 employee.setPhoneList(getPhoneList(employee.getId()));
-                String photo = getPhoto(employee.getId());
+                Photo photo = getPhoto(employee.getId());
                 employee.setPhoto(photo);
             }
         } catch (SQLException var5) {
@@ -295,7 +289,9 @@ public class EmployeeDAO {
             final int EMPLOYEEID = retriveId(preparedStatement);
             this.preparedStatement = this.getPreparedStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
             this.preparedStatement.executeUpdate();
-            System.out.println(EMPLOYEEID);
+            this.preparedStatement = this.getPreparedStatement("INSERT INTO photo (employee_id) VALUES (?)");
+            this.preparedStatement.setInt(1,EMPLOYEEID);
+            this.preparedStatement.executeUpdate();
             return EMPLOYEEID;
 
 
@@ -328,19 +324,20 @@ public class EmployeeDAO {
         return attachmentList;
     }
 
-    public String getPhoto(final int ID) {
-        String query = "select photo.photo_name from photo JOIN main_info ON main_info.id = photo.employee_id WHERE photo.employee_id=" + ID;
+    public Photo getPhoto(final int ID) {
+        String query = "select photo.photo_name photo,employee_id from photo JOIN main_info ON main_info.id = photo.employee_id WHERE photo.employee_id=" + ID;
         Photo photo = new Photo();
         try {
             this.stmt = connection2.createStatement();
             ResultSet e = this.stmt.executeQuery(query);
             while (e.next()) {
                 photo.setPhotoName(e.getString(1));
+                photo.setEmployeeID(e.getInt(2));
             }
         } catch (SQLException var5) {
             LOGGER.error("can't get photo ", var5);
         }
-        return photo.getPhotoName();
+        return photo;
     }
 
     public Address retriveAddress(int ID) {

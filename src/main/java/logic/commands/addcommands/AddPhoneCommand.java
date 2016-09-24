@@ -1,6 +1,6 @@
 package logic.commands.addcommands;
 
-import logic.commands.UpdateCommand;
+import logic.commands.maincommands.UpdateCommand;
 import logic.processcommand.ActionCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.ContactPhone;

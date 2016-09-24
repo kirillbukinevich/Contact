@@ -7,8 +7,10 @@ import logic.commands.addcommands.AddPhotoCommand;
 import logic.commands.deletecommands.DeleteAttachmentCommand;
 import logic.commands.deletecommands.DeleteCommand;
 import logic.commands.deletecommands.DeletePhoneCommand;
+import logic.commands.deletecommands.DeletePhotoCommand;
 import logic.commands.editcommands.EditAttachmentCommand;
 import logic.commands.editcommands.EditPhoneCommand;
+import logic.commands.emailcommand.ApplyTemplateEmailCommand;
 import logic.commands.emailcommand.EmailCommand;
 import logic.commands.emailcommand.SendMailCommand;
 import logic.commands.maincommands.*;
@@ -22,6 +24,11 @@ public enum CommandEnum {
     ADDFILE {
         {
             this.command = new AddAttachmentCommand();
+        }
+    },
+    APPLYTEMPLATEEMAILCOMMAND{
+        {
+            this.command = new ApplyTemplateEmailCommand();
         }
     },
     CONTACT {
@@ -42,6 +49,11 @@ public enum CommandEnum {
     DELETEATTACHFILE {
         {
             this.command = new DeleteAttachmentCommand();
+        }
+    },
+    DELETE_PHOTO{
+        {
+            this.command = new DeletePhotoCommand();
         }
     },
     EMAIL{
@@ -102,6 +114,11 @@ public enum CommandEnum {
     UPDATE_EDIT_ATTACHMENT{
         {
             this.command = new EditAttachmentCommand();
+        }
+    },
+    UPDATE_PHOTO{
+        {
+            this.command = new UpdateCommand();
         }
     };
 

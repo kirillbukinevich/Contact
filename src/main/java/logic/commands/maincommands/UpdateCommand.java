@@ -1,4 +1,4 @@
-package logic.commands;
+package logic.commands.maincommands;
 
 import logic.commands.maincommands.EditCommand;
 import logic.entity.Address;
@@ -25,6 +25,8 @@ public class UpdateCommand implements ActionCommand{
         }else if(command.equals("update_attachment") || command.equals("update_edit_attachment")){
             request.setAttribute("popDialog", "attachModal");
             request.setAttribute("type_operation","New File");
+        }else if(command.equals("update_photo")){
+            request.setAttribute("popDialog","myModal4");
         }
         return true;
 

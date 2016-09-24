@@ -1,8 +1,7 @@
 package logic.commands.deletecommands;
 
-import logic.commands.UpdateCommand;
+import logic.commands.maincommands.UpdateCommand;
 import logic.processcommand.ActionCommand;
-import logic.commands.maincommands.EditCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
