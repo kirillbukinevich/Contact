@@ -12,9 +12,9 @@
 
 <label>i am</label>
 <select class="select-style" name="gender">
-    <OPTION selected> ${gender}
-    <OPTION> male
-    <OPTION> female
+    <OPTION selected>
+    <OPTION ${gender == 'male' ? 'selected' : ''}> male
+    <OPTION ${gender == 'female' ? 'selected' : ''}> female
 </SELECT><br><br>
 
 <label>Nationality</label>
@@ -23,9 +23,9 @@
 
 <label>Family Status</label>
 <select class="select-style" name="family_status" id="family_status" required>
-    <OPTION selected> ${family_status}
-    <OPTION> married
-    <OPTION> free
+    <OPTION selected>
+    <OPTION ${family_status == 'married' ? 'selected' : ' '}> married
+    <OPTION ${family_status == 'free' ? 'selected' : ' '}> free
 </SELECT><br><br>
 
 <label>Web site</label>

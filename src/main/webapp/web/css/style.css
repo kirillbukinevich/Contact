@@ -101,19 +101,19 @@ td{
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 .panel-body {
-    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
-    background: linear-gradient(to right, #79c6ee, #3520c4);
+    background: -webkit-linear-gradient(left, #79c6ee, #5187c4);
+    background: linear-gradient(to right, #79c6ee, #5187c4);
     font-family: 'Roboto', sans-serif;
 }
 
 .panel-footer{
-    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
-    background: linear-gradient(to right, #79c6ee, #3520c4);
+    background: -webkit-linear-gradient(left, #79c6ee, #5187c4);
+    background: linear-gradient(to right, #79c6ee, #5187c4);
     font-family: 'Roboto', sans-serif;
 }
 .back-color{
-    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
-    background: linear-gradient(to right, #79c6ee, #3520c4);
+    background: -webkit-linear-gradient(left, #79c6ee, #5187c4);
+    background: linear-gradient(to right, #79c6ee, #5187c4);
 }
 
 .form{
