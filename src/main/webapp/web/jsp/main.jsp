@@ -15,8 +15,8 @@
 <body class="back-color">
 <div class="container-fluid">
     <div class="panel panel-default">
-        <div class="row">
-            <div class="panel-heading">
+        <div class="panel-heading">
+            <div class="row">
                 <div class="col-xs-4">
                     <div class="btn-group">
                         <button form="contact_form" class="btn btn-trans btn-trans-success " name="command" value="new">
@@ -27,8 +27,8 @@
                                 id="editbutton" disabled=true>Edit
                         </button>
 
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
-                                value="delete">
+                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton" name="command"
+                                value="delete" disabled="true"><span class="glyphicon glyphicon-remove" ></span>
                             Delete
                         </button>
 
@@ -36,14 +36,14 @@
                         <jsp:include page="search.jsp"/>
 
                         <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="email"
-                                id="sendmailbutton" disabled = "true">Send email
+                                id="sendmailbutton" disabled = "true"><span class="glyphicon glyphicon-envelope" ></span>
+                            Send email
                         </button>
                     </div>
                 </div>
                 <div class="col-xs-5"></div>
                 <div class="col-xs-3">
-                    <h2 style="color: #fffdfb; font-family: Monaco,serif; position: absolute;top: 0px;left: 0px;">
-                        Happy Employees And Corporate Culture Quotes</h2>
+
                 </div>
 
             </div>
@@ -101,7 +101,7 @@
                                     <c:choose>
                                         <c:when test="${currentPage eq i}">
                                             <td>
-                                                <button class="btn btn-danger">${i}</button>
+                                                <button class="btn btn-danger" disabled="true">${i}</button>
                                             </td>
                                         </c:when>
                                         <c:otherwise>
@@ -134,6 +134,10 @@
         </div>
 
     </div>
+    <div class="row">
+        <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; position: absolute;bottom: 2%; left: 30%;">
+            Only Happy Employees!</h2>
+    </div>
 </div>
 </body>
 </html>
@@ -164,11 +168,14 @@
             }
         }
         var sendmailbutton = document.getElementById("sendmailbutton");
+        var deletebutton = document.getElementById("deletebutton");
         if (count == 0) {
             sendmailbutton.disabled = true;
+            deletebutton.disabled = true;
 
         } else {
             sendmailbutton.disabled = false;
+            deletebutton.disabled = false;
         }
     }
 

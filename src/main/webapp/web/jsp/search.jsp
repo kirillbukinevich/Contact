@@ -1,5 +1,6 @@
 <!-- Trigger/Open The Modal -->
-<button class="btn btn-trans btn-trans-success" id="myBtn5" name="command" value="empty">Search</button>
+<button class="btn btn-trans btn-trans-success" id="myBtn5" ><span class="glyphicon glyphicon-search" ></span>
+    Search</button>
 
 <!-- The Modal -->
 <div id="myModal5" class="modal">

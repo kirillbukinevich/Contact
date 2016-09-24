@@ -1,14 +1,30 @@
+h2 {
+    text-shadow: 0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+}
 input[type=text]:hover {
     background-color:#ffff66;
     border-color:#999999;
 }
 .panel-heading {
-    background: url("../image/header.jpeg") center;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    height: 110px;
+    background: url("../image/header.jpeg");
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+
 }
 .btn-trans {
     background:none;
@@ -85,20 +101,19 @@ td{
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 .panel-body {
-    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #25c481, #25b7c4);
+    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
+    background: linear-gradient(to right, #79c6ee, #3520c4);
     font-family: 'Roboto', sans-serif;
 }
 
 .panel-footer{
-    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #25c481, #25b7c4);
+    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
+    background: linear-gradient(to right, #79c6ee, #3520c4);
     font-family: 'Roboto', sans-serif;
 }
 .back-color{
-    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #25c481, #25b7c4);
-    font-family: 'Roboto', sans-serif;
+    background: -webkit-linear-gradient(left, #79c6ee, #3520c4);
+    background: linear-gradient(to right, #79c6ee, #3520c4);
 }
 
 .form{

@@ -17,12 +17,12 @@
 <form name="edit_form" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-1">
+            <div class="col-md-1">
                 <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
                     <img class="img-responsive" src="data:image/png;base64, <c:out value='${photo}'/>"/>
                 </button>
             </div>
-            <div class="col-xs-5">
+            <div class="col-md-5">
 
 
                 <div class="form">
@@ -32,27 +32,31 @@
 
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-md-6">
                 <div class="row">
                     <%--show contact phone--%>
-                    <div class="col-xs-11">
+                    <div class="col-sm-11">
 
 
                         <jsp:include page="edit/phones.jsp"/>
                     </div>
 
-                    <div class="col-xs-1">
+                    <div class="col-sm-1">
                         <div class="btn-group-vertical">
 
                             <%--handling edit remove and new operations--%>
                             <button form="edit_form" class="btn btn-info" id="myBtn" name="command"
-                                    value="update_phone">
+                                    value="update_phone"><span class="glyphicon glyphicon-plus"></span>
                                 New
                             </button>
                             <button form="edit_form" class="btn btn-info" id="editPhone" name="command"
-                                    value="update_edit_phone" disabled="true">Edit
+                                    value="update_edit_phone" disabled="true">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Edit
                             </button>
-                            <button form="edit_form" class="btn btn-info" name="command" value="deletePhone">Delete
+                            <button form="edit_form" class="btn btn-info" name="command" value="deletePhone">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                Delete
                             </button>
 
                         </div>
@@ -62,20 +66,25 @@
 
                 <%--show attach files--%>
                 <div class="row">
-                    <div class="col-xs-11">
+                    <div class="col-sm-11">
                         <jsp:include page="edit/attachments.jsp"/>
                     </div>
-                    <div class="col-xs-1">
+                    <div class="col-sm-1">
 
                         <div class="btn-group-vertical">
                             <button form="edit_form" class="btn btn-info" id="myBtn2" name="command"
-                                    value="update_attachment">New
+                                    value="update_attachment"><span class="glyphicon glyphicon-plus"></span>
+                                New
                             </button>
                             <button form="edit_form" class="btn btn-info" name="command" id="editAttachFile"
-                                    value="update_edit_attachment" disabled='true'>Edit
+                                    value="update_edit_attachment" disabled='true'>
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Edit
                             </button>
                             <button form="edit_form" class="btn btn-info" name="command"
-                                    value="deleteAttachFile">Delete
+                                    value="deleteAttachFile">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                Delete
                             </button>
                         </div>
                     </div>
