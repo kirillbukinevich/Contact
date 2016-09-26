@@ -21,10 +21,6 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        ConfigurationManager.initProperty(config);
-    }
 
     public Controller() {
     }

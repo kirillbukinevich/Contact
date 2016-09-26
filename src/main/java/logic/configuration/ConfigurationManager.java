@@ -1,6 +1,7 @@
 package logic.configuration;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,14 +17,14 @@ public class ConfigurationManager {
     private ConfigurationManager() {
     }
 
-    public static boolean initProperty(ServletConfig request) {
+    public static boolean initProperty(ServletContext request) {
         try {
-            InputStream inputStream = request.getServletContext().getResourceAsStream("/WEB-INF/classes/config.properties");
+            InputStream inputStream = request.getResourceAsStream("/WEB-INF/classes/config.properties");
             config = new Properties();
             config.load(inputStream);
             LogConfiguration.LOGGER.debug("config resources loaded");
         } catch (IOException e) {
-            e.printStackTrace();
+            LogConfiguration.LOGGER.error("can't config resources");
         }
         return true;
     }

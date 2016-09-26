@@ -3,7 +3,9 @@ package logic.database;
 import logic.entity.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static logic.configuration.LogConfiguration.LOGGER;
@@ -16,7 +18,6 @@ public class EmployeeDAO {
     private Statement stmt;
     private int noOfRecords;
     private PreparedStatement preparedStatement;
-
 
 
     public EmployeeDAO() {
@@ -100,7 +101,7 @@ public class EmployeeDAO {
         this.preparedStatement = this.getPreparedStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
             this.preparedStatement.setString(1, photo.getPhotoName());
-            this.preparedStatement.setInt(2,EMPLOYEEID);
+            this.preparedStatement.setInt(2, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             LOGGER.info("update photo to BD");
         } catch (SQLException e) {
@@ -162,6 +163,22 @@ public class EmployeeDAO {
         }
 
         return this.preparedStatement;
+    }
+
+    public List<String> getBirthdayList() {
+        LinkedList<String> birthdayList = new LinkedList<>();
+        try {
+            String query = "SELECT first_name,patronymic,last_name FROM main_info WHERE date_of_birth=" + LocalDate.now();
+            Statement statement = connection2.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                birthdayList.add(resultSet.getString(1) + " " +
+                        resultSet.getString(2 + " " + resultSet.getString(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return birthdayList;
     }
 
     public List<Employee> getEmployeesList(int offset, int noOfRecords, String criteria) {
@@ -290,7 +307,7 @@ public class EmployeeDAO {
             this.preparedStatement = this.getPreparedStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
             this.preparedStatement.executeUpdate();
             this.preparedStatement = this.getPreparedStatement("INSERT INTO photo (employee_id) VALUES (?)");
-            this.preparedStatement.setInt(1,EMPLOYEEID);
+            this.preparedStatement.setInt(1, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             return EMPLOYEEID;
 
