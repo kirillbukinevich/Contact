@@ -3,7 +3,7 @@
 
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="phoneModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -37,7 +37,7 @@
         <div class="modal-footer">
             <button class="btn btn-info" form="edit_phone" name="command" value="addPhone">
                 Add</button>
-            <button class="btn btn-info" id="close_popPhone" >Close
+            <button class="btn btn-info" id="close_phoneModal" >Close
             </button>
 
 
@@ -46,30 +46,3 @@
 
 </div>
 </html>
-<script>
-    // Get the modal
-
-    var modal = document.getElementById('myModal');
-
-    var span = document.getElementsByClassName("close")[0];
-    var close_button = document.getElementById("close_popPhone");
-
-    close_button.onclick = function () {
-        modal.style.display = "none";
-        return false;
-    }
-
-
-    var code_country = document.getElementById("code_country");
-    code_country.oninvalid = function(event) {
-        event.target.setCustomValidity('enter correct code country for e.g. 375');
-    }
-    var code_operator = document.getElementById("code_operator");
-    code_operator.oninvalid = function(event) {
-        event.target.setCustomValidity('enter correct code operator for e.g. 33');
-    }
-    var phone_number = document.getElementById("phone_number");
-    phone_number.oninvalid = function(event) {
-        event.target.setCustomValidity('enter correct phone number for e.g. 1234567');
-    }
-</script>

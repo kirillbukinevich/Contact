@@ -12,7 +12,8 @@
             <tbody>
             <c:forEach var="phone" items="${phoneList}" varStatus="status">
                 <tr>
-                    <td><input type="checkbox" name="check_selected_phone" value="${phone.id}" onchange="checkboxes('editPhone')"></td>
+                    <td><input type="checkbox" name="check_selected_phone" value="${phone.id}"
+                               onchange="checkboxes('editPhone','deletePhone')"></td>
                     <td>
                         <a href="<c:url value="controller?command=editPhone">
                             <c:param name="phone_id" value="${phone.id}"/>

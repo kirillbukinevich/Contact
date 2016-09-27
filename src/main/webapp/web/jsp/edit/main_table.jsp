@@ -50,33 +50,4 @@
 <input type="number" class="form-control" name="index" id="index" value="${index}"
        placeholder="index" min="100000" max="999999" required>
 
-<script>
-    var fName = document.getElementById("first_name");
-    fName.oninvalid = function(event) {
-        event.target.setCustomValidity('first name should only contain letters. e.g. john,ol-lo');
-    }
-    var lName = document.getElementById("last_name");
-    fName.oninvalid = function(event) {
-        event.target.setCustomValidity('last name should only contain letters. e.g. john,ol-lo');
-    }
-    var patronymic = document.getElementById("patronymic");
-    patronymic.oninvalid = function(event) {
-        event.target.setCustomValidity('patronymic should only contain letters. e.g. john,ol-lo');
-    }
-    var country = document.getElementById("city");
-    country.oninvalid = function(event) {
-        event.target.setCustomValidity('please enter the real contry name');
-    }
-    var city = document.getElementById("city");
-    city.oninvalid = function(event) {
-        event.target.setCustomValidity('please enter the real city name');
-    }
-    var street = document.getElementById("street");
-    street.oninvalid = function(event) {
-        event.target.setCustomValidity('please enter real street name');
-    }
 
-
-
-
-</script>

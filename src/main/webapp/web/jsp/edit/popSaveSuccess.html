@@ -1,11 +1,11 @@
 <!-- Trigger/Open The Modal -->
 
-<button class="btn btn-info" id="btnSave" name="command" value="save">
+<button class="btn btn-info" id="btnSave" name="command" value="save" onclick="popDialog('saveModal')">
     <span class="glyphicon glyphicon-floppy-saved"></span>
     Save
 </button>
 <!-- The Modal -->
-<div id="myModal3" class="modal">
+<div id="saveModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -18,7 +18,7 @@
         <div class="modal-footer">
 
             <!-- write here-->
-            <button class="btn btn-info" id="close_button" name="command"
+            <button class="btn btn-info" id="close_saveModal" name="command"
                     value="contact">Close
             </button>
 
@@ -27,25 +27,3 @@
     </div>
 
 </div>
-
-<script>
-    // Get the modal
-
-    // Get the button that opens the modal
-
-
-    // Get the <span> element that closes the modal
-
-    // When the user clicks the button, open the modal
-    var modal3 = document.getElementById('myModal3');
-    var btnSave = document.getElementById("btnSave")
-    btnSave.onclick = function () {
-        modal3.style.display = "block";
-    }
-    var close_button = document.getElementById("close_button");
-    close_button.onclick = function () {
-        modal3.style.display = "none"
-    }
-
-
-</script>

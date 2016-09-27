@@ -11,7 +11,8 @@
             <tbody>
             <c:forEach var="file" items="${attachList}" varStatus="status">
                 <tr>
-                    <td><input type="checkbox" name="check_selected_file" value="${file.id}" onchange="checkboxes('editAttachFile')"></td>
+                    <td><input type="checkbox" name="check_selected_file" value="${file.id}"
+                               onchange="checkboxes('editAttachFile','deleteAttachFile')"></td>
                     <td>
                         <a href="<c:url value="controller?command=editFile">
                             <c:param name="file_id" value="${file.id}"/>

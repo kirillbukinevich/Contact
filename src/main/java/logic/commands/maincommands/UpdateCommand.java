@@ -20,13 +20,13 @@ public class UpdateCommand implements ActionCommand{
     public boolean chooseDialog(HttpServletRequest request){
         String command = request.getParameter("command");
         if(command.equals("update_phone") || command.equals("update_edit_phone")) {
-            request.setAttribute("popDialog", "myModal");
+            request.setAttribute("popDialog", "phoneModal");
             request.setAttribute("type_operation","New Phone");
         }else if(command.equals("update_attachment") || command.equals("update_edit_attachment")){
             request.setAttribute("popDialog", "attachModal");
             request.setAttribute("type_operation","New File");
         }else if(command.equals("update_photo")){
-            request.setAttribute("popDialog","myModal4");
+            request.setAttribute("popDialog","photoModal");
         }
         return true;
 

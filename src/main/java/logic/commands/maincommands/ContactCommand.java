@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ContactCommand implements ActionCommand {
-    private final byte RECORDSPERPAGE = 2;
+    private final byte RECORDSPERPAGE = 3;
     public ContactCommand() {
     }
 

@@ -1,9 +1,9 @@
 <!-- Trigger/Open The Modal -->
-<button class="btn btn-trans btn-trans-success" id="myBtn5" ><span class="glyphicon glyphicon-search" ></span>
+<button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span class="glyphicon glyphicon-search" ></span>
     Search</button>
 
 <!-- The Modal -->
-<div id="myModal5" class="modal">
+<div id="searchModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -61,13 +61,11 @@
 
 
                 </div>
-
-
                 <div class="modal-footer">
                     <button class="btn btn-info" name="command"
                             value="search">Search
                     </button>
-                    <button class="btn btn-info" id="close_button2">Close
+                    <button class="btn btn-info" id="close_searchModal">Close
                     </button>
 
                 </div>
@@ -77,30 +75,3 @@
     </div>
 
 </div>
-
-<script>
-    // Get the modal
-    var modal5 = document.getElementById('myModal5');
-
-    // Get the button that opens the modal
-    var btn5 = document.getElementById("myBtn5");
-
-    // Get the <span> element that closes the modal
-    var close_button5 = document.getElementById("close_button2");
-
-    close_button5.onclick = function () {
-        modal5.style.display = "none"
-        return false;
-    }
-    // When the user clicks the button, open the modal
-    btn5.onclick = function () {
-        modal5.style.display = "block";
-    }
-    span5.onclick = function () {
-        modal5.style.display = "none"
-        return false;
-    }
-    // When the user clicks on <span> (x), close the modal
-
-    // When the user clicks anywhere outside of the modal, close it
-</script>

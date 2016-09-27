@@ -11,7 +11,6 @@
 
 </head>
 <body>
-<img class="img-responsive" src="C:\Contact\src\main\webapp\web\image\birthday\birthday_men.jpg">
 <c:set var="template" value="${template}" scope="page"/>
 <div class="container">
     <h3 style="color: #f9ff3a">Contact Form</h3>
@@ -51,7 +50,3 @@
 
 </body>
 </html>
-<script type="text/javascript">
-
-
-</script>

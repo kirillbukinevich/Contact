@@ -24,27 +24,11 @@
                 <input type="submit" class="btn btn-info" name="command"
                        value="addFile"/>
 
-                <button class="btn btn-info" id="close_popAttach" >Close
+                <button class="btn btn-info" id="close_attachModal" >Close
                 </button>
 
             </div>
         </div>
 
     </div>
-    <script>
-        // Get the modal
-        var attachModal = document.getElementById('attachModal');
-
-
-
-        var close_button = document.getElementById("close_popAttach");
-        close_button.onclick = function () {
-            attachModal.style.display = "none"
-            return false;
-        }
-
-
-
-
-    </script>
 </form>

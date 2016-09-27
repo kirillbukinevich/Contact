@@ -7,7 +7,9 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/addedit.css"
       rel="stylesheet">
-
+<script src="${pageContext.request.contextPath}/web/scripts/validedit.js"></script>
+<script src="${pageContext.request.contextPath}/web/scripts/editScript.js"></script>
+<script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
 <html>
 <head>
     <title>Employees</title>
@@ -54,7 +56,8 @@
                                 <span class="glyphicon glyphicon-cog"></span>
                                 Edit
                             </button>
-                            <button form="edit_form" class="btn btn-info" name="command" value="deletePhone">
+                            <button form="edit_form" class="btn btn-info" id="deletePhone" name="command"
+                                    value="deletePhone" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
                                 Delete
                             </button>
@@ -81,8 +84,8 @@
                                 <span class="glyphicon glyphicon-cog"></span>
                                 Edit
                             </button>
-                            <button form="edit_form" class="btn btn-info" name="command"
-                                    value="deleteAttachFile">
+                            <button form="edit_form" class="btn btn-info" id="deleteAttachFile" name="command"
+                                    value="deleteAttachFile" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
                                 Delete
                             </button>
@@ -99,31 +102,7 @@
 <jsp:include page="edit/popPhone.jsp"/>
 <jsp:include page="edit/popPhoto.jsp"/>
 
-<script>
-    var popDialog = "${pageContext.request.getAttribute("popDialog")}";
-    if (popDialog === "myModal") {
-        modal.style.display = "block";
-    }
-    if (popDialog === "attachModal") {
-        attachModal.style.display = "block";
-    }
-    if (popDialog === "myModal4") {
-        modal4.style.display = "block";
-    }
-    function checkboxes(buttonId) {
-        var inputElems = document.getElementsByTagName("input"),
-                count = 0;
-        for (var i = 0; i < inputElems.length; i++) {
-            if (inputElems[i].type === "checkbox" && inputElems[i].checked === true) {
-                count++;
-            }
-        }
-        var editbuttonPhone = document.getElementById(buttonId);
-        if (count > 1 || count == 0) {
-            editbuttonPhone.disabled = true;
-
-        } else {
-            editbuttonPhone.disabled = false;
-        }
-    }
+<script >
+    var popDialogID = "${pageContext.request.getAttribute("popDialog")}";
+    popDialog(popDialogID);
 </script>
