@@ -29,7 +29,6 @@ public class SearchCommand implements ActionCommand{
             criteria.append(" " + parameterName.substring(5) + "=" + "'" + request.getParameter(parameterName) + "' ");
         }
       }
-      System.out.println(criteria);
       if(criteria.toString().equals("WHERE")){
           request.getSession().setAttribute("search_criteria"," ");
       }else {

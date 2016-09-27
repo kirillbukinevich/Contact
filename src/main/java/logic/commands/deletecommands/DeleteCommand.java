@@ -26,7 +26,6 @@ public class DeleteCommand implements ActionCommand {
 
     public void deleteEmployee(int ID) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        System.out.println(ID);
         employeeDAO.deleteEmployee(ID);
     }
 }

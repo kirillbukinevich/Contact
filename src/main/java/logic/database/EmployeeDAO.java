@@ -111,8 +111,6 @@ public class EmployeeDAO {
     }
 
     public boolean editEmployee(Employee employee) {
-        System.out.println(employee);
-        System.out.println("EmployeeID " + employee.getId());
         this.getPreparedStatement("UPDATE main_info SET first_name=?,last_name=?,patronymic=?," +
                 "date_of_birth=?,gender=?,nationality=?,family_status=?,web_site=?,email=?,work_place=? WHERE id=?");
         try {
@@ -214,7 +212,6 @@ public class EmployeeDAO {
                 this.noOfRecords = rs.getInt(1);
             }
 
-            System.out.println("records " + noOfRecords);
         } catch (SQLException var8) {
             LOGGER.error("can't get employee list ", var8);
         }

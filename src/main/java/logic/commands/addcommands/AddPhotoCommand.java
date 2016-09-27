@@ -47,7 +47,6 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
                 String resultFileName = filePath +
                         fileName.substring(fileName.lastIndexOf("\\") + 1);
                 File file = new File(resultFileName);
-                System.out.println("resultFileName: " + resultFileName);
                 try {
                     fi.write(file);
                 } catch (Exception e) {

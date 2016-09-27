@@ -33,7 +33,6 @@ public class UploadServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, java.io.IOException {
-        System.out.println("here");
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
         request.setAttribute("file_path",filePath);
@@ -48,7 +47,6 @@ public class UploadServlet extends HttpServlet {
         try {
             List<FileItem> fileItems = upload.parseRequest(request);
             request.setAttribute("file_item",fileItems);
-            System.out.println(fileItems);
 
             for (FileItem fi : fileItems) {
                 if (fi.isFormField()){
@@ -57,7 +55,6 @@ public class UploadServlet extends HttpServlet {
                         Controller controller = new Controller();
                         controller.processRequest(request,response);
                     }
-                    System.out.println(fi.getFieldName() + ":" + fi.getString());
                 }
             }
         } catch (FileUploadException e) {

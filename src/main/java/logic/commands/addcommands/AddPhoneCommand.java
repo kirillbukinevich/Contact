@@ -43,7 +43,6 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
     public ContactPhone checkEditPhone(HttpServletRequest request){
         ContactPhone editPhone =  (ContactPhone)request.getSession().getAttribute("edit_phone");
         request.getSession().setAttribute("edit_phone",null);
-        System.out.println("editPhone: " + editPhone);
         return editPhone;
     }
 

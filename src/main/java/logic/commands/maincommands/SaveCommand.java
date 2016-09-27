@@ -53,7 +53,6 @@ public class SaveCommand implements ActionCommand {
         employee.setPatronymic(request.getParameter("patronymic"));
 
         String[] date = request.getParameter("date_of_birth").split("\\-");
-        System.out.println(Arrays.toString(date));
         LocalDate localDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
         employee.setDateOfBirth(localDate);
 
