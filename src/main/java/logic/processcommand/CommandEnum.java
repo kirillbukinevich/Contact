@@ -10,7 +10,7 @@ import logic.commands.deletecommands.DeletePhoneCommand;
 import logic.commands.deletecommands.DeletePhotoCommand;
 import logic.commands.editcommands.EditAttachmentCommand;
 import logic.commands.editcommands.EditPhoneCommand;
-import logic.commands.emailcommand.ApplyTemplateEmailCommand;
+import logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
 import logic.commands.emailcommand.EmailCommand;
 import logic.commands.emailcommand.SendMailCommand;
 import logic.commands.maincommands.*;

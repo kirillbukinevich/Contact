@@ -1,16 +1,16 @@
 package logic.commands.emailcommand;
 
+import logic.commands.emailcommand.template.GenerateTemplates;
+import logic.commands.emailcommand.template.TempalteContent;
 import logic.commands.maincommands.ContactCommand;
 import logic.processcommand.ActionCommand;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -34,10 +34,10 @@ public class SendMailCommand implements ActionCommand {
         System.out.println(Arrays.toString(to));
         String subject = request.getParameter("theme");
         String body = request.getParameter("message");
-        sendFromGMail(from, pass, to, subject, body);
+        sendFromGMail(from, pass, to, subject, body,request);
         return true;
     }
-    private void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+    private void sendFromGMail(String from, String pass, String[] to, String subject, String body,HttpServletRequest request) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -60,7 +60,9 @@ public class SendMailCommand implements ActionCommand {
                 message.addRecipient(Message.RecipientType.TO, toAddress[i]);
             }
             message.setSubject(subject);
-            message.setText(body);
+            message.setContent(getTemplateContent(request));
+
+
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
@@ -72,5 +74,12 @@ public class SendMailCommand implements ActionCommand {
         catch (MessagingException me) {
             me.printStackTrace();
         }
+    }
+    public MimeMultipart getTemplateContent(HttpServletRequest request){
+        String templateType = request.getParameter("template_type");
+        System.out.println(request.getParameter("template_type"));
+        TempalteContent tempalteContent = new TempalteContent();
+        tempalteContent.chooseTemplateType(templateType);
+        return tempalteContent.getContent();
     }
 }
