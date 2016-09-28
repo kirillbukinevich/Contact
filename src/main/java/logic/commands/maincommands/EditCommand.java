@@ -1,10 +1,9 @@
-
 package logic.commands.maincommands;
 
-import logic.processcommand.ActionCommand;
+import logic.configuration.ConfigurationManager;
 import logic.database.EmployeeDAO;
 import logic.entity.*;
-import logic.configuration.ConfigurationManager;
+import logic.processcommand.ActionCommand;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
@@ -19,7 +18,7 @@ public class EditCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
 
         Employee employee = getEmployeeOnId(request);
-        setEmployeeToSession(request,employee);
+        setEmployeeToSession(request, employee);
         String page = "";
         if (this.fillAllParameters(request)) {
             startEditContact();
@@ -28,14 +27,15 @@ public class EditCommand implements ActionCommand {
 
         return page;
     }
-    public Employee getEmployeeOnId(HttpServletRequest request){
+
+    public Employee getEmployeeOnId(HttpServletRequest request) {
         Employee employee = new Employee();
         String employee_id = request.getParameter("employee_id");
         final int ID;
-        if(employee_id==null){
+        if (employee_id == null) {
             String[] selectedEmpl = request.getParameterValues("check_selected");
             ID = Integer.parseInt(selectedEmpl[0]);
-        }else {
+        } else {
             ID = Integer.parseInt(employee_id);
         }
         employee.setId(ID);
@@ -66,13 +66,11 @@ public class EditCommand implements ActionCommand {
         Employee employee = getEmployeeFromSession(request);
         this.fillEmployeeParameters(request, employee);
         this.fillAddressParameters(request, employee.getAddress());
-        this.fillPhoneParameters(request,employee.getPhoneList());
-        this.fillAttachmentParameters(request,employee.getAttachmentList());
-        this.fillPhotoParameter(request,employee);
+        this.fillPhoneParameters(request, employee.getPhoneList());
+        this.fillAttachmentParameters(request, employee.getAttachmentList());
+        this.fillPhotoParameter(request, employee);
         return true;
     }
-
-
 
 
     public boolean fillEmployeeParameters(HttpServletRequest request, Employee employee) {
@@ -106,54 +104,67 @@ public class EditCommand implements ActionCommand {
     }
 
     public boolean fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
-        for (Attachment attachment : attachmentList){
+        for (Attachment attachment : attachmentList) {
             System.out.print(attachment.isSaved() + " ");
         }
-        System.out.println("attachmentList: " + attachmentList );
+        System.out.println("attachmentList: " + attachmentList);
         String filePath = ConfigurationManager.getProperty("path.saveFile");
-        request.setAttribute("file_path",filePath);
+        request.setAttribute("file_path", filePath);
         request.setAttribute("attachList", attachmentList);
         return true;
     }
-    public boolean fillPhotoParameter(HttpServletRequest request, Employee employee){
+
+    public boolean fillPhotoParameter(HttpServletRequest request, Employee employee) {
         Photo photo = employee.getPhoto();
-        String photoResult;
-        if(photo.getPhotoName()==null){
-            photoResult =  ConfigurationManager.getProperty("path.defaultPhoto");
-        }else {
-            photoResult = ConfigurationManager.getProperty("path.saveFile") + photo.getPhotoName();
-        }
-        request.setAttribute("photo",getPhotoForJSP(request,photoResult));
+        request.setAttribute("photo", getPhotoForJSP(request, photo));
         return true;
     }
 
-    public String getPhotoForJSP(HttpServletRequest request,String photo){
-        String resultFileName = photo;
-
+    public String getPhotoForJSP(HttpServletRequest request, Photo photo) {
+        String resultFileName;
+        byte[] data;
+        byte[] encodeBase64;
+        FileInputStream fileInputStream = null;
         try {
-            File file = new File(resultFileName);
-            System.out.println("ABSOL: " + file.getAbsolutePath());
-            FileInputStream fileInputStream = new FileInputStream(file);
-            byte[] data = IOUtils.toByteArray(fileInputStream);
-            byte[] encodeBase64 = Base64.encodeBase64(data);
+            if (photo.getBytes() == null) {
+                if(!photo.isExistInDB() || photo.isDeleted()) {
+                    resultFileName = ConfigurationManager.getProperty("path.defaultPhoto");
+                }else{
+                    resultFileName = ConfigurationManager.getProperty("path.saveFile") +
+                            photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
+                }
+                    File file = new File(resultFileName);
+                fileInputStream = new FileInputStream(file);
+                data = IOUtils.toByteArray(fileInputStream);
+                encodeBase64 = Base64.encodeBase64(data);
+            } else {
+                encodeBase64 = Base64.encodeBase64(photo.getBytes());
+            }
+
             return new String(encodeBase64, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if(fileInputStream!=null) {
+                    fileInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return resultFileName;
+        return "default";
     }
 
 
-    public Employee getEmployeeFromSession(HttpServletRequest request){
-        Employee employee = (Employee)request.getSession().getAttribute("employee");
+    public Employee getEmployeeFromSession(HttpServletRequest request) {
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
         return employee;
     }
-    public void setEmployeeToSession(HttpServletRequest request,Employee employee){
-        request.getSession().setAttribute("employee",employee);
-    }
 
+    public void setEmployeeToSession(HttpServletRequest request, Employee employee) {
+        request.getSession().setAttribute("employee", employee);
+    }
 
 
 }

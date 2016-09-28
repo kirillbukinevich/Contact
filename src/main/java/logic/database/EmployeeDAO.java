@@ -100,7 +100,11 @@ public class EmployeeDAO {
         final int EMPLOYEEID = photo.getEmployeeID();
         this.preparedStatement = this.getPreparedStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
-            this.preparedStatement.setString(1, photo.getPhotoName());
+            if (photo.isDeleted()) {
+                this.preparedStatement.setString(1, null);
+            } else {
+                this.preparedStatement.setString(1, photo.getPhotoName());
+            }
             this.preparedStatement.setInt(2, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             LOGGER.info("update photo to BD");
@@ -345,7 +349,11 @@ public class EmployeeDAO {
             this.stmt = connection2.createStatement();
             ResultSet e = this.stmt.executeQuery(query);
             while (e.next()) {
-                photo.setPhotoName(e.getString(1));
+                String photoName = e.getString(1);
+                if (photoName != null) {
+                    photo.setPhotoName(photoName);
+                    photo.setExistInDB(true);
+                }
                 photo.setEmployeeID(e.getInt(2));
             }
         } catch (SQLException var5) {

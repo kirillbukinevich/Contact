@@ -43,15 +43,18 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
             if (!fi.isFormField()) {
                 String fileName = fi.getName();
                 photo.setPhotoName(fileName);
-                String filePath = (String)request.getAttribute("file_path");
-                String resultFileName = filePath +
-                        fileName.substring(fileName.lastIndexOf("\\") + 1);
-                File file = new File(resultFileName);
-                try {
-                    fi.write(file);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                photo.setBytes(fi.get());
+                photo.setDeleted(false);
+                photo.setExistInDB(false);
+//                String filePath = (String)request.getAttribute("file_path");
+//                String resultFileName = filePath +
+//                        fileName.substring(fileName.lastIndexOf("\\") + 1);
+//                File file = new File(resultFileName);
+//                try {
+//                    fi.write(file);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         }
         return photo;

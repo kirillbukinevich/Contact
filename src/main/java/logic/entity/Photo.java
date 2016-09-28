@@ -7,6 +7,25 @@ public class Photo {
     private int id;
     private int employeeID;
     private String photoName;
+    private byte[] bytes;
+    private boolean existInDB = false;
+    private boolean deleted = false;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isExistInDB() {
+        return existInDB;
+    }
+
+    public void setExistInDB(boolean existInDB) {
+        this.existInDB = existInDB;
+    }
 
     public int getId() {
         return id;
@@ -30,5 +49,13 @@ public class Photo {
 
     public void setPhotoName(String photoName) {
         this.photoName = photoName;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
 }
