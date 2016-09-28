@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <!-- Trigger/Open The Modal -->
 <form name="loginForm" method="POST" action="upload" enctype="multipart/form-data" id="myForm">
 
@@ -7,8 +9,6 @@
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">X</span>
-
                 <h2>${type_operation}</h2>
             </div>
             <div class="modal-body">
@@ -21,10 +21,10 @@
 
             </div>
             <div class="modal-footer">
-                <input type="submit" class="btn btn-info" name="command"
-                       value="addFile"/>
+                <button class="btn btn-info" name="command"
+                       value="addFile">Сохранить</button>
 
-                <button class="btn btn-info" id="close_attachModal" >Close
+                <button class="btn btn-info" id="close_attachModal" >Отменить
                 </button>
 
             </div>

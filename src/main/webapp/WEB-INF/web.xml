@@ -16,4 +16,15 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
+
+    <filter>
+        <description>Force the request character encoding to UTF-8</description>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>web.CharacterEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 </web-app>

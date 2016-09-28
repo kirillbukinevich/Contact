@@ -13,7 +13,7 @@
 <body>
 <c:set var="template" value="${template}" scope="page"/>
 <div class="container">
-    <h3 style="color: #f9ff3a">Contact Form</h3>
+    <h3 style="color: #f9ff3a">Отправить email</h3>
 
     <form id="emailForm" method="POST" action="controller">
         <fieldset>
@@ -24,15 +24,15 @@
                    value="${template.subject}">
         </fieldset>
         <fieldset>
-            <label>Choose template
+            <label>Выберите шаблон
                 <select class="select-style" name="template_type" id="template_type">
                     <OPTION selected>
-                    <OPTION ${template_type == 'birthday_man' ? 'selected' : ''}> birthday_man
-                    <OPTION ${template_type == 'birthday_woman' ? 'selected' : ''}> birthday_woman
+                    <OPTION ${template_type == 'birthday_man' ? 'selected' : ''}>С Днём рождения мужчинам
+                    <OPTION ${template_type == 'birthday_woman' ? 'selected' : ''}>С Днём рождения женщинам
                     <%--<OPTION ${template_type == 'email' ? 'selected' : ''}> email--%>
                 </SELECT><br><br>
             </label>
-            <button class="btn btn-success" name="command" value="ApplyTemplateEmailCommand">apply</button>
+            <button class="btn btn-success" name="command" value="ApplyTemplateEmailCommand">Применить</button>
         </fieldset>
         <fieldset>
             <textarea class="form-control" name="message" placeholder="Enter the message"
@@ -42,7 +42,7 @@
             ${template.includePage}
         </fieldset>
         <fieldset>
-            <button class="btn btn-success" name="command" value="sendemail">Send</button>
+            <button class="btn btn-success" name="command" value="sendemail">Отправить</button>
         </fieldset>
     </FORM>
 </div>

@@ -60,7 +60,6 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
                 }
 
                 fileName = getSaveName(employee, fileName);
-                System.out.println("FileName: "  + fileName);
                 attachment.setFileName(fileName);
                 attachment.setAttachment(fi.get());
             } else {

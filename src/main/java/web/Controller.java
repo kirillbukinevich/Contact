@@ -5,13 +5,11 @@
 
 package web;
 
+import logic.configuration.LogConfiguration;
 import logic.processcommand.ActionCommand;
 import logic.processcommand.ActionFactory;
-import logic.configuration.ConfigurationManager;
-import logic.configuration.LogConfiguration;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,9 +34,8 @@ public class Controller extends HttpServlet {
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String page = null;
-        response.setContentType("text/html");
         ActionFactory client = new ActionFactory();
-
+        response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
         LogConfiguration.LOGGER.info("start execute command");
         page = command.execute(request);

@@ -22,9 +22,10 @@ public class ContactCommand implements ActionCommand {
 
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,searchCriteria);
         int noOfRecords = dao.getNoOfRecords();
+        System.out.println("contactrecords:" + noOfRecords);
         int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDSPERPAGE);
 
-        System.out.println("contactrecords:" + noOfRecords);
+
         System.out.println("page " + page + " record " + noOfRecords + " pages " + noOfPages);
         request.setAttribute("employeeList", employeesList);
         request.setAttribute("noOfPages", Integer.valueOf(noOfPages));

@@ -1,53 +1,56 @@
-<p class="contact"><label >Name</label></p>
-<input type="text" class="form-control" name="first_name" id = "first_name"  placeholder="Enter your name"
-       value="${first_name}" pattern="^[A-Za-z]+(-)?([A-Za-z]+)$"  required>
-<input type="text" class="form-control" name="patronymic"  value="${patronymic}"
-       placeholder="Enter your patronymic" pattern="^[A-Za-z]+(-)?([A-Za-z]+)$" required >
-<input type="text" class="form-control" name="last_name"  value="${last_name}"
-       placeholder="Enter your last name" pattern="^[A-Za-z]+(-)?([A-Za-z]+)$" required >
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
-<label>Birthday</label>
+<p class="contact"><label >Ф.И.О.</label></p>
+<input type="text" class="form-control" name="first_name" id = "first_name"  placeholder="Введите ваше имя"
+       value="${first_name}" pattern="^[^$.|?*+()]+$"  required>
+<input type="text" class="form-control" name="patronymic"  value="${patronymic}"
+       placeholder="Введите ваше отчество" pattern="^[^$.|?*+()]+$" required >
+<input type="text" class="form-control" name="last_name"  value="${last_name}"
+       placeholder="Введите вашу фамилию" pattern="^[^$.|?*+()]+$" required >
+
+<label>Дата рождения</label>
 <input type="date" class="form-control" name="date_of_birth" value="${date_of_birth}"
        placeholder="Your birthday yyyy-mm-dd" required>
 
-<label>i am</label>
+<label>Выберите пол</label>
 <select class="select-style" name="gender">
     <OPTION selected>
-    <OPTION ${gender == 'male' ? 'selected' : ''}> male
-    <OPTION ${gender == 'female' ? 'selected' : ''}> female
+    <OPTION ${gender == 'женский' ? 'selected' : ''}> женский
+    <OPTION ${gender == 'мужской' ? 'selected' : ''}> мужской
 </SELECT><br><br>
 
-<label>Nationality</label>
+<label>Национальность</label>
 <input type="text" class="form-control" name="nationality" value="${nationality}"
        placeholder="Nationality">
 
-<label>Family Status</label>
-<select class="select-style" name="family_status" id="family_status" required>
+<label>Семейный статус</label>
+<select class="select-style" name="family_status" id="family_status">
     <OPTION selected>
-    <OPTION ${family_status == 'married' ? 'selected' : ' '}> married
-    <OPTION ${family_status == 'free' ? 'selected' : ' '}> free
+    <OPTION ${family_status == 'брак' ? 'selected' : ' '}> брак
+    <OPTION ${family_status == 'свободен' ? 'selected' : ' '}> свободен
 </SELECT><br><br>
 
-<label>Web site</label>
-<input type="url" class="form-control" name="web_site" id = "web_site" value="${web_site}" placeholder="Web Site" required>
+<label>Веб сайт</label>
+<input type="url" class="form-control" name="web_site" id = "web_site" value="${web_site}" placeholder="Веб сайт">
 <label>Email</label>
-<input type="email" class="form-control" name="email" id = "email" value="${email}" placeholder="Email" required>
-<label>Work place</label>
+<input type="email" class="form-control" name="email" id = "email" value="${email}" placeholder="email" required>
+<label>Место работы</label>
 <input type="text" class="form-control" name="work_place" value="${work_place}"
-       placeholder="Work place" required>
+       placeholder="Место работы">
 
-<p><label>Address</label></p>
+<p><label>Адрес</label></p>
 <input type="text" class="form-control" name="country" id="country" value="${country}"
-       placeholder="country" pattern="^[A-Za-z]+(-)?[A-Za-z]+$" required>
+       placeholder="страна" pattern="^[^$.|?*+()]+$">
 <input type="text" class="form-control" name="city" id="city" value="${city}"
-       placeholder="city" pattern="^[A-Za-z]+(-)?[A-Za-z]+$" required>
+       placeholder="город" pattern="^[^$.|?*+()]+$">
 <input type="text" class="form-control" name="street" id="street" value="${street}"
-       placeholder="street" pattern="^[A-Za-z]+(-)?[A-Za-z]+$" required>
+       placeholder="улица" pattern="^[^$.|?*+()]+$">
 <input type="number" class="form-control" name="house" id="house" value="${house}"
-       placeholder="home" min="1" max="999"  required>
+       placeholder="дом" min="1" max="999" >
 <input type="number" class="form-control" name="flat" id="flat" value="${flat}"
-       placeholder="flat" min="1" max="9999" required>
+       placeholder="квартира" min="1" max="9999">
 <input type="number" class="form-control" name="index" id="index" value="${index}"
-       placeholder="index" min="100000" max="999999" required>
+       placeholder="индекс" min="100000" max="999999">
 
 

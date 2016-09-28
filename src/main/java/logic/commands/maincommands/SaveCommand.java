@@ -46,7 +46,7 @@ public class SaveCommand implements ActionCommand {
         Employee employee = getEmployeeFromSession(request);
         updateEmployee(request, employee);
         saveAttchment(employee);
-        if(!employee.getPhoto().isExistInDB()) {
+        if(!employee.getPhoto().isExistInDB() && employee.getPhoto().getPhotoName()!=null) {
             savePhoto(employee.getPhoto());
         }
         if(employee.getPhoto().isDeleted()){

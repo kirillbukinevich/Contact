@@ -12,7 +12,7 @@
 <script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
 <html>
 <head>
-    <title>Employees</title>
+    <title>Редактируем</title>
 
 </head>
 <body>
@@ -30,7 +30,7 @@
                 <div class="form">
 
                     <jsp:include page="edit/main_table.jsp"/>
-                    <jsp:include page="edit/popSaveSuccess.html"/>
+                    <jsp:include page="edit/popSaveSuccess.jsp"/>
 
                 </div>
             </div>
@@ -49,17 +49,17 @@
                             <%--handling edit remove and new operations--%>
                             <button form="edit_form" class="btn btn-info" id="myBtn" name="command"
                                     value="update_phone"><span class="glyphicon glyphicon-plus"></span>
-                                New
+                                Добавить
                             </button>
                             <button form="edit_form" class="btn btn-info" id="editPhone" name="command"
                                     value="update_edit_phone" disabled="true">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Edit
+                                Редактировать
                             </button>
                             <button form="edit_form" class="btn btn-info" id="deletePhone" name="command"
                                     value="deletePhone" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
-                                Delete
+                                Удалить
                             </button>
 
                         </div>
@@ -77,17 +77,17 @@
                         <div class="btn-group-vertical">
                             <button form="edit_form" class="btn btn-info" id="myBtn2" name="command"
                                     value="update_attachment"><span class="glyphicon glyphicon-plus"></span>
-                                New
+                                Добавить
                             </button>
                             <button form="edit_form" class="btn btn-info" name="command" id="editAttachFile"
                                     value="update_edit_attachment" disabled='true'>
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Edit
+                                Редактировать
                             </button>
                             <button form="edit_form" class="btn btn-info" id="deleteAttachFile" name="command"
                                     value="deleteAttachFile" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
-                                Delete
+                                Удалить
                             </button>
                         </div>
                     </div>

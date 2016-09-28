@@ -29,9 +29,7 @@ public class SendMailCommand implements ActionCommand {
         String from = Admin.USER_NAME;
         String pass = Admin.PASSWORD;
         String emails = request.getParameter("list_mail");
-        System.out.println(emails);
         String[] to = emails.split(" ");
-        System.out.println(Arrays.toString(to));
         String subject = request.getParameter("theme");
         String body = request.getParameter("message");
         sendFromGMail(from, pass, to, subject, body,request);
@@ -77,7 +75,6 @@ public class SendMailCommand implements ActionCommand {
     }
     public MimeMultipart getTemplateContent(HttpServletRequest request){
         String templateType = request.getParameter("template_type");
-        System.out.println(request.getParameter("template_type"));
         TempalteContent tempalteContent = new TempalteContent();
         tempalteContent.chooseTemplateType(templateType);
         return tempalteContent.getContent();

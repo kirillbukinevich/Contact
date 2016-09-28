@@ -1,12 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <table class="table table-bordered">
 
             <thead>
             <tr>
                 <th></th>
-                <th>number</th>
-                <th>home/mobile</th>
-                <th>comment</th>
+                <th>номер</th>
+                <th>домашний/мобильный</th>
+                <th>комментарий</th>
             </tr>
             </thead>
             <tbody>

@@ -1,6 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <!-- Trigger/Open The Modal -->
 <button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span class="glyphicon glyphicon-search" ></span>
-    Search</button>
+    Найти</button>
 
 <!-- The Modal -->
 <div id="searchModal" class="modal">
@@ -10,51 +12,51 @@
         <div class="form">
             <form name="loginForm" method="post" action="controller">
                 <div class="modal-header">
-                    <h2>Search</h2>
+                    <h2>Найти</h2>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="find_last_name">last name</label>
+                        <label for="find_last_name">Фамилия</label>
                         <input type="text" class="form-control" name="find_last_name" id="find_last_name">
-                        <label>first name</label>
-                        <input type="text" class="form-control" name="find_first_name">
-                        <label>patronymic</label>
-                        <input type="text" class="form-control" name="find_patronymic">
+                        <label for="find_first_name">Имя</label>
+                        <input type="text" class="form-control" name="find_first_name" id="find_first_name">
+                        <label for="find_patronymic">Отчество</label>
+                        <input type="text" class="form-control" name="find_patronymic" id="find_patronymic">
                         <label>date</label>
                         <select class="selectpicker" name="find_date_direction">
                             <OPTION selected>
-                            <OPTION> since
-                            <OPTION> until
+                            <OPTION> с
+                            <OPTION> до
                         </SELECT>
                         <input type="date" name="find_date_of_birth">
 
-                        <P>Choose your gender:
+                        <P>Выберите пол:
                             <select class="selectpicker" name="find_sex">
-                                <OPTION> male
-                                <OPTION> female
+                                <OPTION> мужчина
+                                <OPTION> женщина
                                 <OPTION selected>
                             </SELECT>
 
-                            <label>nationality</label>
-                            <input type="text" class="form-control" name="find_nationality">
+                            <label for="find_nationality">гражданство</label>
+                            <input type="text" class="form-control" name="find_nationality" id="find_nationality">
 
                             <select class="selectpicker" name="find_family_status">
-                                <OPTION> married
-                                <OPTION> free
+                                <OPTION> брак
+                                <OPTION> свободен
                                 <OPTION selected>
                             </SELECT>
-                            <label>country</label>
+                            <label>страна</label>
                             <input type="text" class="form-control" name="find_country">
-                            <label>city</label>
+                            <label>город</label>
                             <input type="text" class="form-control" name="find_city">
-                            <label>street</label>
+                            <label>улица</label>
                             <input type="text" class="form-control" name="find_street">
-                            <label>house</label>
+                            <label>дом</label>
                             <input type="text" class="form-control" name="find_house">
-                            <label>flat</label>
+                            <label>квартира</label>
                             <input type="text" class="form-control" name="find_flat">
-                            <label>index</label>
+                            <label>индекс</label>
                             <input type="text" class="form-control" name="find_index">
 
                     </div>
@@ -63,9 +65,9 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info" name="command"
-                            value="search">Search
+                            value="search">Поиск
                     </button>
-                    <button class="btn btn-info" id="close_searchModal">Close
+                    <button class="btn btn-info" id="close_searchModal">Закрыть
                     </button>
 
                 </div>

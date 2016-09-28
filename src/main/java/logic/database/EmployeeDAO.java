@@ -12,7 +12,6 @@ import static logic.configuration.LogConfiguration.LOGGER;
 
 public class EmployeeDAO {
     private static Connection connection = ConnectionFactory.getConnection();
-    private static Connection connection2 = ConnectionFactory.getConnection();
     private ArrayList phoneList = new ArrayList();
     private ArrayList attachmentList = new ArrayList();
     private Statement stmt;
@@ -31,7 +30,6 @@ public class EmployeeDAO {
             LOGGER.error("can't start edit contact ", e);
         }
     }
-
 
     public boolean saveContact() {
         try {
@@ -61,8 +59,16 @@ public class EmployeeDAO {
 
     }
 
+    public void updatePrepareStatement(String sqlQuery) {
+        try {
+            this.preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException var3) {
+            var3.printStackTrace();
+        }
+    }
+
     public boolean addPhone(ContactPhone phone, final int EMPLOYEEID) {
-        this.preparedStatement = this.getPreparedStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
+        updatePrepareStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
                 "VALUES(?,?,?,?,?," + EMPLOYEEID + ")");
         try {
             this.preparedStatement.setString(1, phone.getCodeCountry());
@@ -75,13 +81,21 @@ public class EmployeeDAO {
             phone.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
             LOGGER.error("can't add phone to BD ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
 
     public boolean addAttachment(Attachment attachment) {
         final int EMPLOYEEID = attachment.getEmployeeID();
-        this.preparedStatement = this.getPreparedStatement("INSERT INTO attachments(file_name,date_of_load,comment,employee_id) " +
+        updatePrepareStatement("INSERT INTO attachments(file_name,date_of_load,comment,employee_id) " +
                 "VALUES(?,?,?," + EMPLOYEEID + ")");
         try {
             this.preparedStatement.setString(1, attachment.getFileName());
@@ -92,13 +106,21 @@ public class EmployeeDAO {
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
             LOGGER.error("can't add attachment to BD ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
 
     public boolean updatePhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
-        this.preparedStatement = this.getPreparedStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
+        updatePrepareStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
             if (photo.isDeleted()) {
                 this.preparedStatement.setString(1, null);
@@ -110,14 +132,23 @@ public class EmployeeDAO {
             LOGGER.info("update photo to BD");
         } catch (SQLException e) {
             LOGGER.error("can't update photo to BD ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
 
     public boolean editEmployee(Employee employee) {
-        this.getPreparedStatement("UPDATE main_info SET first_name=?,last_name=?,patronymic=?," +
+        this.updatePrepareStatement("UPDATE main_info SET first_name=?,last_name=?,patronymic=?," +
                 "date_of_birth=?,gender=?,nationality=?,family_status=?,web_site=?,email=?,work_place=? WHERE id=?");
         try {
+            System.out.println(employee.getFirstName()+" "+employee.getLastName()+" "+employee.getPatronymic());
             this.preparedStatement.setString(1, employee.getFirstName());
             this.preparedStatement.setString(2, employee.getLastName());
             this.preparedStatement.setString(3, employee.getPatronymic());
@@ -134,12 +165,20 @@ public class EmployeeDAO {
             this.editAddress(employee.getAddress(), employee.getId());
         } catch (SQLException e) {
             LOGGER.info("can't update employee to BD ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
 
     public boolean editAddress(Address address, final int EMPLOYEEID) {
-        this.preparedStatement = this.getPreparedStatement("UPDATE address SET country=?,city=?,street=?,house=?," +
+        updatePrepareStatement("UPDATE address SET country=?,city=?,street=?,house=?," +
                 "flat=?,index_address=? WHERE employee_id=? ");
         try {
             this.preparedStatement.setString(1, address.getCountryName());
@@ -153,45 +192,59 @@ public class EmployeeDAO {
             LOGGER.info("update address to BD");
         } catch (SQLException e) {
             LOGGER.error("can't update address to BD ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return true;
-    }
-
-    public PreparedStatement getPreparedStatement(String sqlQuery) {
-        try {
-            this.preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-        } catch (SQLException var3) {
-            var3.printStackTrace();
-        }
-
-        return this.preparedStatement;
     }
 
     public List<String> getBirthdayList() {
         LinkedList<String> birthdayList = new LinkedList<>();
         try {
-            String query = "SELECT first_name,patronymic,last_name FROM main_info WHERE date_of_birth=" + LocalDate.now();
-            Statement statement = connection2.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            String query = "SELECT first_name,patronymic,last_name FROM main_info " +
+                    "WHERE MONTH(date_of_birth) = MONTH(NOW()) AND DAY(date_of_birth) = DAY(NOW())";
+            stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery(query);
             while (resultSet.next()) {
                 birthdayList.add(resultSet.getString(1) + " " +
-                        resultSet.getString(2 + " " + resultSet.getString(3)));
+                        resultSet.getString(2) + " " + resultSet.getString(3));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("can't get birthdayList: " + e.getMessage());
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return birthdayList;
     }
 
-    public List<Employee> getEmployeesList(int offset, int noOfRecords, String criteria) {
-        String query = "select SQL_CALC_FOUND_ROWS * from main_info JOIN address ON main_info.id = address.employee_id "
-                + criteria + " limit " + offset + ", " + noOfRecords;
+    public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria) {
+        String query = "select SQL_CALC_FOUND_ROWS * from main_info "
+                + criteria + " limit " + offset + ", " + recordsPerPage;
 
         ArrayList list = new ArrayList();
 
         try {
             Statement e = connection.createStatement();
             ResultSet rs = e.executeQuery(query);
+            rs = e.executeQuery("SELECT FOUND_ROWS()");
+            if (rs.next()) {
+                this.noOfRecords = rs.getInt(1);
+                System.out.println("FOUND_ROWS: " + noOfRecords);
+            }
+            rs = e.executeQuery(query);
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setId(rs.getInt("id"));
@@ -211,10 +264,7 @@ public class EmployeeDAO {
                 list.add(employee);
             }
 
-            rs = e.executeQuery("SELECT FOUND_ROWS()");
-            if (rs.next()) {
-                this.noOfRecords = rs.getInt(1);
-            }
+
 
         } catch (SQLException var8) {
             LOGGER.error("can't get employee list ", var8);
@@ -227,7 +277,7 @@ public class EmployeeDAO {
         String query = "SELECT email FROM main_info WHERE id = ?";
         String email = new String();
         try {
-            this.preparedStatement = getPreparedStatement(query);
+            updatePrepareStatement(query);
             preparedStatement.setInt(1, ID);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -239,11 +289,11 @@ public class EmployeeDAO {
     }
 
     public ArrayList<ContactPhone> getPhoneList(int ID) {
-        String query = "select * from phone JOIN main_info ON main_info.id = phone.employee_id WHERE phone.employee_id=" + ID;
-
+        String query = "SELECT * FROM phone WHERE phone.employee_id=?";
         try {
-            this.stmt = connection2.createStatement();
-            ResultSet e = this.stmt.executeQuery(query);
+            updatePrepareStatement(query);
+            preparedStatement.setInt(1,ID);
+            ResultSet e = this.preparedStatement.executeQuery();
 
             while (e.next()) {
                 ContactPhone contactPhone = new ContactPhone();
@@ -264,16 +314,17 @@ public class EmployeeDAO {
     }
 
     public int getNoOfRecords() {
+
         return this.noOfRecords;
     }
 
     public Employee getEmployeeOnId(int ID) {
-        String query = "select * from main_info WHERE main_info.id=" + ID;
+        String query = "select * from main_info WHERE main_info.id=?";
+        updatePrepareStatement(query);
         Employee employee = null;
-
         try {
-            this.stmt = connection.createStatement();
-            ResultSet e = this.stmt.executeQuery(query);
+            preparedStatement.setInt(1,ID);
+            ResultSet e = preparedStatement.executeQuery();
             if (e.next()) {
                 employee = new Employee();
                 employee.setId(e.getInt("id"));
@@ -302,12 +353,12 @@ public class EmployeeDAO {
 
     public int getNewEmployeeID() {
         try {
-            this.preparedStatement = this.getPreparedStatement("INSERT INTO main_info (id) VALUES (NULL)");
+            this.updatePrepareStatement("INSERT INTO main_info (id) VALUES (NULL)");
             this.preparedStatement.executeUpdate();
             final int EMPLOYEEID = retriveId(preparedStatement);
-            this.preparedStatement = this.getPreparedStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
+            this.updatePrepareStatement("INSERT INTO address (employee_id) VALUES (LAST_INSERT_ID())");
             this.preparedStatement.executeUpdate();
-            this.preparedStatement = this.getPreparedStatement("INSERT INTO photo (employee_id) VALUES (?)");
+            this.updatePrepareStatement("INSERT INTO photo (employee_id) VALUES (?)");
             this.preparedStatement.setInt(1, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             return EMPLOYEEID;
@@ -315,15 +366,23 @@ public class EmployeeDAO {
 
         } catch (SQLException e) {
             LOGGER.error("can't get new employee id ", e);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
 
     public ArrayList<Attachment> getAttachmentList(int ID) {
-        String query = "select * from attachments JOIN main_info ON main_info.id = attachments.employee_id WHERE attachments.employee_id=" + ID;
+        String query = "select * from attachments WHERE employee_id  = " + ID;
 
         try {
-            this.stmt = connection2.createStatement();
+            this.stmt = connection.createStatement();
             ResultSet e = this.stmt.executeQuery(query);
 
             while (e.next()) {
@@ -343,11 +402,13 @@ public class EmployeeDAO {
     }
 
     public Photo getPhoto(final int ID) {
-        String query = "select photo.photo_name photo,employee_id from photo JOIN main_info ON main_info.id = photo.employee_id WHERE photo.employee_id=" + ID;
+        String query = "select photo_name,employee_id from photo  WHERE photo.employee_id=?";
+        updatePrepareStatement(query);
+
         Photo photo = new Photo();
         try {
-            this.stmt = connection2.createStatement();
-            ResultSet e = this.stmt.executeQuery(query);
+            preparedStatement.setInt(1,ID);
+            ResultSet e = preparedStatement.executeQuery();
             while (e.next()) {
                 String photoName = e.getString(1);
                 if (photoName != null) {
@@ -358,16 +419,24 @@ public class EmployeeDAO {
             }
         } catch (SQLException var5) {
             LOGGER.error("can't get photo ", var5);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return photo;
     }
 
     public Address retriveAddress(int ID) {
-        String query = "select * from address JOIN main_info ON main_info.id = address.employee_id WHERE address.employee_id=" + ID;
+        String query = "select * from address WHERE address.employee_id=" + ID;
         Address address = null;
 
         try {
-            this.stmt = connection2.createStatement();
+            this.stmt = connection.createStatement();
             ResultSet e = this.stmt.executeQuery(query);
 
             while (e.next()) {
@@ -396,7 +465,6 @@ public class EmployeeDAO {
         return last_inserted_id;
     }
 
-
     public boolean deletePhone(final int PHONEID) {
         String deleteSQL = "DELETE FROM phone WHERE phone.id = ?";
 
@@ -406,6 +474,14 @@ public class EmployeeDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
             LOGGER.error("can't delete phone ", var5);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return true;
@@ -420,6 +496,14 @@ public class EmployeeDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
             LOGGER.error("can't delete attachment ", var5);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return true;
@@ -470,11 +554,18 @@ public class EmployeeDAO {
             deletePhoto(ID);
         } catch (SQLException var5) {
             LOGGER.error("can't delete employee ", var5);
+        }finally {
+            try {
+                if(preparedStatement!=null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return true;
     }
-
 
     public void closeConnect() {
         try {
@@ -490,6 +581,4 @@ public class EmployeeDAO {
         }
 
     }
-
-
 }

@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>Employees</title>
+    <title>Сотрудники</title>
 </head>
 <body class="back-color">
 <div class="container-fluid">
@@ -22,16 +22,16 @@
                 <div class="col-xs-4">
                     <div class="btn-group">
                         <button form="contact_form" class="btn btn-trans btn-trans-success " name="command" value="new">
-                            New
+                            Новый
                         </button>
 
                         <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="edit"
-                                id="editbutton" disabled=true>Edit
+                                id="editbutton" disabled=true>Редактировать
                         </button>
 
                         <button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton" name="command"
                                 value="delete" disabled="true"><span class="glyphicon glyphicon-remove" ></span>
-                            Delete
+                            Удалить
                         </button>
 
                         <%--<button class="btn btn-info " name="command" value="find">Find</button>--%>
@@ -39,7 +39,7 @@
 
                         <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="email"
                                 id="sendmailbutton" disabled = "true"><span class="glyphicon glyphicon-envelope" ></span>
-                            Send email
+                            Отправить email
                         </button>
                     </div>
                 </div>
@@ -61,10 +61,10 @@
                             <thead>
                             <tr>
                                 <th width="5%"></th>
-                                <th>Name</th>
-                                <th>Date of birth</th>
-                                <th>Address</th>
-                                <th>Work company</th>
+                                <th>Имя</th>
+                                <th>Дата рождения</th>
+                                <th>Адрес</th>
+                                <th>Компания</th>
                             </tr>
                             </thead>
                         </table>
@@ -81,7 +81,7 @@
                                     <a href="<c:url value="controller?command=edit">
                             <c:param name="employee_id" value="${employee.id}"/>
                         </c:url>"
-                                       class="btn btn-link" >${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
+                                       class="btn btn-link">${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
                                 </td>
                                 <td>${employee.dateOfBirth}</td>
                                 <td>${employee.address}</td>
@@ -121,12 +121,13 @@
                     <%--For displaying Previous link except for the 1st page --%>
                     <c:if test="${currentPage != 1}">
                         <td><a href="controller?command=contact&page=${currentPage - 1}"
-                               class="btn btn-trans btn-trans-success">Previous</a>
+                               class="btn btn-trans btn-trans-success">Предыдущая</a>
                         </td>
                     </c:if>
                     <%--For displaying Next link --%>
                     <c:if test="${currentPage lt noOfPages}">
-                        <td><a href="controller?command=contact&page=${currentPage + 1}" class="btn btn-trans btn-trans-success">Next</a>
+                        <td><a href="controller?command=contact&page=${currentPage + 1}"
+                               class="btn btn-trans btn-trans-success">Следующая</a>
                         </td>
                     </c:if>
                 </div>
@@ -138,7 +139,7 @@
     </div>
     <div class="row">
         <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; position: absolute;bottom: 2%; left: 30%;">
-            Only Happy Employees!</h2>
+            Только счастливые сотрудники!</h2>
     </div>
 </div>
 </body>
