@@ -5,11 +5,20 @@
 
 package logic.commands.deletecommands;
 
+import logic.configuration.ConfigurationManager;
 import logic.processcommand.ActionCommand;
 import logic.commands.maincommands.ContactCommand;
 import logic.database.EmployeeDAO;
+import org.apache.commons.io.FileUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static logic.configuration.LogConfiguration.LOGGER;
 
 public class DeleteCommand implements ActionCommand {
 
@@ -24,8 +33,20 @@ public class DeleteCommand implements ActionCommand {
         return page;
     }
 
-    public void deleteEmployee(int ID) {
+    public boolean deleteEmployee(final int ID) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         employeeDAO.deleteEmployee(ID);
+        deleteAttachmentDirectory(ID);
+        return true;
+    }
+    public boolean deleteAttachmentDirectory(final int ID){
+        String path = ConfigurationManager.getProperty("path.saveFile") + ID;
+        try {
+            FileUtils.deleteDirectory(new File(path));
+
+        } catch (IOException e) {
+            LOGGER.error("can't delete directory from server " + e);
+        }
+        return true;
     }
 }

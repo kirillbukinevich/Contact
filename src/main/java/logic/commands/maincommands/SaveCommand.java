@@ -5,14 +5,22 @@
 
 package logic.commands.maincommands;
 
+import logic.configuration.ConfigurationManager;
 import logic.entity.Address;
+import logic.entity.Attachment;
 import logic.processcommand.ActionCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Employee;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
+
+import static logic.configuration.LogConfiguration.LOGGER;
 
 public class SaveCommand implements ActionCommand {
     public SaveCommand() {
@@ -36,12 +44,42 @@ public class SaveCommand implements ActionCommand {
         Employee employee = getEmployeeFromSession(request);
 //        if(isNewEmployee(request)){
             updateEmployee(request,employee);
+            saveAttchment(employee);
 //            employeeDAO.addEmployee(employee);
 //        }else {
             employeeDAO.editEmployee(employee);
 //        }
         employeeDAO.saveContact();
 
+        return true;
+    }
+    public boolean saveAttchment(Employee employee){
+        ArrayList<Attachment> attachments = employee.getAttachmentList();
+        String filePath = ConfigurationManager.getProperty("path.saveFile") + employee.getId() + "/";
+        for (Attachment attachment : attachments){
+            if(attachment.isDeleted()){
+                String resultFileName = filePath +
+                        attachment.getFileName();
+                Path path = Paths.get(resultFileName);
+                try {
+                    Files.delete(path);
+                } catch (IOException e) {
+                    LOGGER.error("can't delete file from server " + e);
+                }
+            }
+            if(!attachment.isSaved()) {
+                String resultFileName = filePath +
+                        attachment.getFileName();
+                System.out.println("RESULTFileName: " + resultFileName);
+                try {
+                    Path path = Paths.get(resultFileName);
+                    System.out.println("Path: " + path.toString());
+                    Files.write(path,attachment.getAttachment());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return true;
     }
 

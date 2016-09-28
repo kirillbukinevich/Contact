@@ -41,7 +41,8 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         attachment.setEmployeeID(EMPLOYEEID);
         attachment.setComment((String) request.getAttribute("comment"));
         attachment.setLoadDate(LocalDateTime.now());
-        processAttachmentFile(request,employee, attachment);
+        attachment.setSaved(false);
+        processAttachmentFile(request, employee, attachment);
         return attachment;
     }
 
@@ -61,20 +62,7 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
                 fileName = getSaveName(employee, fileName);
                 System.out.println("FileName: "  + fileName);
                 attachment.setFileName(fileName);
-
-
-                String resultFileName = filePath +
-                        fileName.substring(fileName.lastIndexOf("\\") + 1);
-                System.out.println("RESULTFileName: " + resultFileName);
-                File file = new File(resultFileName);
-
-                System.out.println("resultFileName: " + resultFileName);
-                try {
-                    fi.write(file);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                attachment.setAttachment(fi.get());
             } else {
                 request.setAttribute(fi.getFieldName(), fi.getString());
             }

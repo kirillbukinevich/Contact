@@ -50,7 +50,6 @@ public class Controller extends HttpServlet {
 
         } else {
             page = "/web/jsp/error.jsp";
-            request.getSession().setAttribute("nullPage", "null");
             response.sendRedirect(request.getContextPath() + page);
         }
 

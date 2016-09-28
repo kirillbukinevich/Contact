@@ -81,7 +81,7 @@
                                     <a href="<c:url value="controller?command=edit">
                             <c:param name="employee_id" value="${employee.id}"/>
                         </c:url>"
-                                       class="btn btn-link">${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
+                                       class="btn btn-link" >${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
                                 </td>
                                 <td>${employee.dateOfBirth}</td>
                                 <td>${employee.address}</td>

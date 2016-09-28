@@ -1,10 +1,10 @@
 package logic.commands.deletecommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.processcommand.ActionCommand;
 import logic.database.EmployeeDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
+import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +34,8 @@ public class DeleteAttachmentCommand extends UpdateCommand implements ActionComm
                 removeFile = attachment;
             }
         }
-        employee.getAttachmentList().remove(removeFile);
+        removeFile.setDeleted(true);
+        removeFile.setSaved(true);
         deleteAttachmentFromDB(ATTACHMENTID);
         return true;
     }
@@ -49,5 +50,6 @@ public class DeleteAttachmentCommand extends UpdateCommand implements ActionComm
         Employee employee = (Employee)request.getSession().getAttribute("employee");
         return employee;
     }
+
 
 }

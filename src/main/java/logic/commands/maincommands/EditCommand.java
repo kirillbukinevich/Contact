@@ -106,7 +106,12 @@ public class EditCommand implements ActionCommand {
     }
 
     public boolean fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
+        for (Attachment attachment : attachmentList){
+            System.out.print(attachment.isSaved() + " ");
+        }
         System.out.println("attachmentList: " + attachmentList );
+        String filePath = ConfigurationManager.getProperty("path.saveFile");
+        request.setAttribute("file_path",filePath);
         request.setAttribute("attachList", attachmentList);
         return true;
     }

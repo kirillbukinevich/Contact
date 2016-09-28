@@ -5,7 +5,6 @@
 
 package logic.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Attachment {
@@ -14,6 +13,27 @@ public class Attachment {
     private String fileName;
     private LocalDateTime loadDate;
     private String comment;
+    private boolean saved = true;
+    private boolean deleted = false;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
+    public byte[] getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(byte[] attachment) {
+        this.attachment = attachment;
+    }
+
+    private byte[] attachment;
 
     public Attachment() {
     }
@@ -56,5 +76,13 @@ public class Attachment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }
