@@ -5,18 +5,19 @@
 
 package logic.commands.deletecommands;
 
-import logic.configuration.ConfigurationManager;
-import logic.processcommand.ActionCommand;
 import logic.commands.maincommands.ContactCommand;
+import logic.configuration.ConfigurationManager;
+import logic.database.AttachmentDAO;
 import logic.database.EmployeeDAO;
+import logic.database.PhoneDAO;
+import logic.database.PhotoDAO;
+import logic.processcommand.ActionCommand;
 import org.apache.commons.io.FileUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.SQLException;
 
 import static logic.configuration.LogConfiguration.LOGGER;
 
@@ -36,10 +37,19 @@ public class DeleteCommand implements ActionCommand {
     public boolean deleteEmployee(final int ID) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         employeeDAO.deleteEmployee(ID);
+        try {
+            new AttachmentDAO().deleteAllAttachments(ID);
+            new PhoneDAO().deleteAllContactPhone(ID);
+            new PhotoDAO().deletePhoto(ID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         deleteAttachmentDirectory(ID);
         return true;
     }
-    public boolean deleteAttachmentDirectory(final int ID){
+
+    public boolean deleteAttachmentDirectory(final int ID) {
         String path = ConfigurationManager.getProperty("path.saveFile") + ID;
         try {
             FileUtils.deleteDirectory(new File(path));

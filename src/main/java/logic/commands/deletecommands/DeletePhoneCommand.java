@@ -1,10 +1,10 @@
 package logic.commands.deletecommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.processcommand.ActionCommand;
-import logic.database.EmployeeDAO;
+import logic.database.PhoneDAO;
 import logic.entity.ContactPhone;
 import logic.entity.Employee;
+import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -41,8 +41,8 @@ public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
 
 
     public boolean deletePhoneFromDB(final int PHONEID){
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.deletePhone(PHONEID);
+        PhoneDAO phoneDAO = new PhoneDAO();
+        phoneDAO.deletePhone(PHONEID);
         return true;
     }
 

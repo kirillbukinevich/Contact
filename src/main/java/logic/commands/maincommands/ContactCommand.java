@@ -1,13 +1,12 @@
 package logic.commands.maincommands;
 
-import logic.processcommand.ActionCommand;
 import logic.database.EmployeeDAO;
+import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ContactCommand implements ActionCommand {
-    private final byte RECORDSPERPAGE = 3;
     public ContactCommand() {
     }
 
@@ -20,6 +19,7 @@ public class ContactCommand implements ActionCommand {
         EmployeeDAO dao = new EmployeeDAO();
         dao.rollBack();
 
+        byte RECORDSPERPAGE = 3;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,searchCriteria);
         int noOfRecords = dao.getNoOfRecords();
         System.out.println("contactrecords:" + noOfRecords);

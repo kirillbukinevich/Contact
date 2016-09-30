@@ -32,9 +32,9 @@
                         <input type="date" name="find_date_of_birth">
 
                         <P>Выберите пол:
-                            <select class="selectpicker" name="find_sex">
-                                <OPTION> мужчина
-                                <OPTION> женщина
+                            <select class="selectpicker" name="find_gender">
+                                <OPTION> мужской
+                                <OPTION> женский
                                 <OPTION selected>
                             </SELECT>
 

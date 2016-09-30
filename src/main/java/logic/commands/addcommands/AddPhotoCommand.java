@@ -1,14 +1,13 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.processcommand.ActionCommand;
-import logic.database.EmployeeDAO;
+import logic.database.PhotoDAO;
 import logic.entity.Employee;
 import logic.entity.Photo;
+import logic.processcommand.ActionCommand;
 import org.apache.commons.fileupload.FileItem;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -61,8 +60,8 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
     }
 
     public boolean addPhotoToBD(Photo photo){
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.updatePhoto(photo);
+        PhotoDAO photoDAO = new PhotoDAO();
+        photoDAO.updatePhoto(photo);
         return true;
     }
     public Employee getEmployeeFromSession(HttpServletRequest request){

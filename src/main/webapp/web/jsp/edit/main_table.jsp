@@ -46,11 +46,11 @@
        placeholder="город" pattern="^[^$.|?*+()]+$">
 <input type="text" class="form-control" name="street" id="street" value="${street}"
        placeholder="улица" pattern="^[^$.|?*+()]+$">
-<input type="number" class="form-control" name="house" id="house" value="${house}"
-       placeholder="дом" min="1" max="999" >
-<input type="number" class="form-control" name="flat" id="flat" value="${flat}"
-       placeholder="квартира" min="1" max="9999">
-<input type="number" class="form-control" name="index" id="index" value="${index}"
-       placeholder="индекс" min="100000" max="999999">
+<input type="text" class="form-control" name="house" id="house" value="${house}"
+       placeholder="дом" pattern="^[1-9]{1}[0-9]{0,2}$" >
+<input type="text" class="form-control" name="flat" id="flat" value="${flat}"
+       placeholder="квартира" pattern="^[1-9]{1}[0-9]{0,2}$">
+<input type="text" class="form-control" name="index" id="index" value="${index}"
+       placeholder="индекс" pattern="^[0-9]{6}$">
 
 

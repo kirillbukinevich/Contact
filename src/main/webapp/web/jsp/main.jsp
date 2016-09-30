@@ -19,7 +19,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-xs-4">
+                <div class="col-xs-6">
                     <div class="btn-group">
                         <button form="contact_form" class="btn btn-trans btn-trans-success " name="command" value="new">
                             Новый
@@ -43,7 +43,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-xs-5"></div>
+                <div class="col-xs-3"></div>
                 <div class="col-xs-3">
 
                 </div>

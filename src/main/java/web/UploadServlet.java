@@ -18,7 +18,6 @@ import java.util.List;
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 
-    private boolean isMultipart;
     private String filePath;
     private long maxFileSize = 50000 * 1024;
     private int maxMemSize = 14 * 1024;
@@ -33,7 +32,7 @@ public class UploadServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, java.io.IOException {
-        isMultipart = ServletFileUpload.isMultipartContent(request);
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
         request.setAttribute("file_path",filePath);
         if (!isMultipart) {

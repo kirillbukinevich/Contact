@@ -15,7 +15,6 @@ import static logic.configuration.LogConfiguration.LOGGER;
 
 public class ConnectionFactory {
     private static Connection con;
-    private static DataSource dataSource;
 
     private ConnectionFactory() {
     }
@@ -23,7 +22,7 @@ public class ConnectionFactory {
     public static synchronized Connection getConnection() {
             try {
                 Context ctx = new InitialContext();
-                dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeesDS");
+                DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeesDS");
                 con = dataSource.getConnection();
             } catch (NamingException e) {
                 LOGGER.error(e);

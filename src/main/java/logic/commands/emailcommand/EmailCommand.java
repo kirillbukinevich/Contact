@@ -1,13 +1,9 @@
 package logic.commands.emailcommand;
 
-import logic.commands.maincommands.ContactCommand;
 import logic.database.EmployeeDAO;
-import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by aefrd on 16.09.2016.

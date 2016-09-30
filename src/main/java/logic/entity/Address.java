@@ -5,10 +5,9 @@ public class Address {
     private String countryName;
     private String cityName;
     private String streetName;
-    private int houseNumber;
-    private int flatNumber;
-    private int index;
-    private int employeeId;
+    private Integer houseNumber;
+    private Integer flatNumber;
+    private Integer index;
 
     public Address() {
     }
@@ -45,39 +44,49 @@ public class Address {
         this.streetName = streetName;
     }
 
-    public int getHouseNumber() {
+    public Integer getHouseNumber() {
         return this.houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
 
-    public int getFlatNumber() {
+    public Integer getFlatNumber() {
         return this.flatNumber;
     }
 
-    public void setFlatNumber(int flatNumber) {
+    public void setFlatNumber(Integer flatNumber) {
         this.flatNumber = flatNumber;
     }
 
-    public int getIndex() {
+    public Integer getIndex() {
         return this.index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(Integer index) {
         this.index = index;
     }
 
-    public int getEmployeeId() {
-        return this.employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public String toString() {
-        return "countryName=\'" + this.countryName + '\'' + ", streetName=\'" + this.streetName + '\'' + ", houseNumber=" + this.houseNumber + ", flatNumber=" + this.flatNumber + '}';
+        StringBuilder result = new StringBuilder();
+        if(countryName!=null){
+            result.append(countryName);
+        }
+        if(cityName!=null){
+            result.append(" г.").append(cityName);
+        }
+        if(streetName!=null){
+            result.append(" ул.").append(streetName);
+        }
+        if(houseNumber!=null){
+            result.append(" д.").append(houseNumber);
+        }
+        if(flatNumber!=null){
+            result.append(" кв.").append(flatNumber);
+        }
+
+        return result.toString();
     }
 }

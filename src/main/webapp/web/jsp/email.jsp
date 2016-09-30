@@ -27,8 +27,8 @@
             <label>Выберите шаблон
                 <select class="select-style" name="template_type" id="template_type">
                     <OPTION selected>
-                    <OPTION ${template_type == 'birthday_man' ? 'selected' : ''}>С Днём рождения мужчинам
-                    <OPTION ${template_type == 'birthday_woman' ? 'selected' : ''}>С Днём рождения женщинам
+                    <OPTION ${template_type == 'С Днём рождения мужчинам' ? 'selected' : ''}>С Днём рождения мужчинам
+                    <OPTION ${template_type == 'С Днём рождения женщинам' ? 'selected' : ''}>С Днём рождения женщинам
                     <%--<OPTION ${template_type == 'email' ? 'selected' : ''}> email--%>
                 </SELECT><br><br>
             </label>

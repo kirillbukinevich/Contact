@@ -1,7 +1,7 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.EmployeeDAO;
+import logic.database.AttachmentDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
@@ -70,14 +70,14 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
     }
 
     public boolean addAttachmentToBD(Attachment attachment,Employee employee,HttpServletRequest request) {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        AttachmentDAO attachmentDAO = new AttachmentDAO();
         ArrayList<Attachment> attachmentList = employee.getAttachmentList();
         Attachment editAttachment = checkEditAttachment(request);
         if(editAttachment!=null) {
             attachmentList.remove(editAttachment);
-            employeeDAO.deleteAttachment(editAttachment.getId());
+            attachmentDAO.deleteAttachment(editAttachment.getId());
         }
-        employeeDAO.addAttachment(attachment);
+        attachmentDAO.addAttachment(attachment);
         return true;
     }
     public Attachment checkEditAttachment(HttpServletRequest request){

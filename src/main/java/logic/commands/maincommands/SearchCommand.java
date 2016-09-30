@@ -29,6 +29,7 @@ public class SearchCommand implements ActionCommand{
             criteria.append(" " + parameterName.substring(5) + "=" + "'" + request.getParameter(parameterName) + "' ");
         }
       }
+      System.out.println(criteria);
       if(criteria.toString().equals("WHERE")){
           request.getSession().setAttribute("search_criteria"," ");
       }else {
@@ -38,11 +39,7 @@ public class SearchCommand implements ActionCommand{
       return true;
   }
     public boolean isCriteria(String tempCriteria){
-        if(!tempCriteria.isEmpty()){
-            return true;
-        }else {
-            return false;
-        }
+        return !tempCriteria.isEmpty();
     }
     public StringBuffer processDateCriteria(HttpServletRequest request, ArrayList<String> paramList, StringBuffer criteria){
         String date = request.getParameter("find_date_of_birth");

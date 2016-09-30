@@ -1,7 +1,7 @@
 package logic.commands.deletecommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.EmployeeDAO;
+import logic.database.AttachmentDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
@@ -42,8 +42,8 @@ public class DeleteAttachmentCommand extends UpdateCommand implements ActionComm
 
 
     public boolean deleteAttachmentFromDB(final int ATTACHMENTID){
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.deleteAttachment(ATTACHMENTID);
+        AttachmentDAO attachmentDAO = new AttachmentDAO();
+        attachmentDAO.deleteAttachment(ATTACHMENTID);
         return true;
     }
     public Employee getEmployeeFromSession(HttpServletRequest request){

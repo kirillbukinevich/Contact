@@ -42,7 +42,7 @@ public class SaveCommand implements ActionCommand {
 
 
     public synchronized boolean saveContact(HttpServletRequest request) {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDAO contactDAO = new EmployeeDAO();
         Employee employee = getEmployeeFromSession(request);
         updateEmployee(request, employee);
         saveAttchment(employee);
@@ -54,9 +54,9 @@ public class SaveCommand implements ActionCommand {
         }
 
 
-        employeeDAO.editEmployee(employee);
+        contactDAO.editEmployee(employee);
 
-        employeeDAO.saveContact();
+        contactDAO.saveContact();
 
         return true;
     }
@@ -157,12 +157,7 @@ public class SaveCommand implements ActionCommand {
 
     public boolean isNewEmployee(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
-        if (employee == null) {
-            return true;
-        } else {
-
-            return false;
-        }
+        return employee == null;
     }
 
     public Employee getEmployeeFromSession(HttpServletRequest request) {

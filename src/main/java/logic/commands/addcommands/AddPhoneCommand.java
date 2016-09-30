@@ -1,10 +1,10 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.processcommand.ActionCommand;
-import logic.database.EmployeeDAO;
+import logic.database.PhoneDAO;
 import logic.entity.ContactPhone;
 import logic.entity.Employee;
+import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -27,15 +27,15 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
         final int EMPLOYEEID =  employee.getId();
         ContactPhone phone = getPhone(request);
 
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.addPhone(phone, EMPLOYEEID);
+        PhoneDAO phoneDAO = new PhoneDAO();
+        phoneDAO.addPhone(phone, EMPLOYEEID);
 
         ArrayList<ContactPhone> phoneList =  employee.getPhoneList();
         ContactPhone editPhone = checkEditPhone(request);
         if(editPhone!=null) {
             phoneList.remove(editPhone);
-            employeeDAO = new EmployeeDAO();
-            employeeDAO.deletePhone(editPhone.getId());
+            phoneDAO = new PhoneDAO();
+            phoneDAO.deletePhone(editPhone.getId());
         }
         employee.getPhoneList().add(phone);
 

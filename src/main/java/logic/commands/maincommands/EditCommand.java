@@ -1,7 +1,7 @@
 package logic.commands.maincommands;
 
 import logic.configuration.ConfigurationManager;
-import logic.database.EmployeeDAO;
+import logic.database.*;
 import logic.entity.*;
 import logic.processcommand.ActionCommand;
 import org.apache.commons.codec.binary.Base64;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditCommand implements ActionCommand {
@@ -39,8 +39,16 @@ public class EditCommand implements ActionCommand {
             ID = Integer.parseInt(employee_id);
         }
         employee.setId(ID);
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employee = employeeDAO.getEmployeeOnId(employee.getId());
+        EmployeeDAO contactDAO = new EmployeeDAO();
+        employee = contactDAO.getEmployeeOnId(employee.getId());
+        AttachmentDAO attachmentDAO = new AttachmentDAO();
+        employee.setAttachmentList((ArrayList) attachmentDAO.getAttachmentList(employee.getId()));
+        PhoneDAO phoneDAO = new PhoneDAO();
+        employee.setPhoneList((ArrayList) phoneDAO.getPhoneList(employee.getId()));
+        PhotoDAO photoDAO = new PhotoDAO();
+        Photo photo = photoDAO.getPhoto(employee.getId());
+        employee.setPhoto(photo);
+
         return employee;
     }
 
@@ -58,8 +66,8 @@ public class EditCommand implements ActionCommand {
 //    }
 
     public void startEditContact() {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.startEditContact();
+        AbstractDAO abstractDAO = new EmployeeDAO();
+        abstractDAO.startEditContact();
     }
 
     public boolean fillAllParameters(HttpServletRequest request) {
@@ -127,13 +135,13 @@ public class EditCommand implements ActionCommand {
         FileInputStream fileInputStream = null;
         try {
             if (photo.getBytes() == null) {
-                if(!photo.isExistInDB() || photo.isDeleted()) {
+                if (!photo.isExistInDB() || photo.isDeleted()) {
                     resultFileName = ConfigurationManager.getProperty("path.defaultPhoto");
-                }else{
+                } else {
                     resultFileName = ConfigurationManager.getProperty("path.saveFile") +
                             photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
                 }
-                    File file = new File(resultFileName);
+                File file = new File(resultFileName);
                 fileInputStream = new FileInputStream(file);
                 data = IOUtils.toByteArray(fileInputStream);
                 encodeBase64 = Base64.encodeBase64(data);
@@ -144,9 +152,9 @@ public class EditCommand implements ActionCommand {
             return new String(encodeBase64, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if(fileInputStream!=null) {
+                if (fileInputStream != null) {
                     fileInputStream.close();
                 }
             } catch (IOException e) {
