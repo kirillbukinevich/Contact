@@ -21,10 +21,10 @@ public class UpdateCommand implements ActionCommand{
         String command = request.getParameter("command");
         if(command.equals("update_phone") || command.equals("update_edit_phone")) {
             request.setAttribute("popDialog", "phoneModal");
-            request.setAttribute("type_operation","New Phone");
+            request.setAttribute("type_operation","New_Phone");
         }else if(command.equals("update_attachment") || command.equals("update_edit_attachment")){
             request.setAttribute("popDialog", "attachModal");
-            request.setAttribute("type_operation","New File");
+            request.setAttribute("type_operation","New_File");
         }else if(command.equals("update_photo")){
             request.setAttribute("popDialog","photoModal");
         }

@@ -45,7 +45,7 @@ public class Address {
     }
 
     public Integer getHouseNumber() {
-        return this.houseNumber;
+        return this.houseNumber==0 ? null:houseNumber;
     }
 
     public void setHouseNumber(Integer houseNumber) {
@@ -53,7 +53,7 @@ public class Address {
     }
 
     public Integer getFlatNumber() {
-        return this.flatNumber;
+        return this.flatNumber==0 ? null:flatNumber;
     }
 
     public void setFlatNumber(Integer flatNumber) {
@@ -61,7 +61,7 @@ public class Address {
     }
 
     public Integer getIndex() {
-        return this.index;
+        return this.index==0 ? null:index;
     }
 
     public void setIndex(Integer index) {
@@ -89,4 +89,5 @@ public class Address {
 
         return result.toString();
     }
+
 }

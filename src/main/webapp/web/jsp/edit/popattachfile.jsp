@@ -9,7 +9,7 @@
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
-                <h2>${type_operation}</h2>
+                <h2>${type_operation} :${file_name}</h2>
             </div>
             <div class="modal-body">
 
@@ -22,7 +22,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-info" name="command"
-                       value="addFile">Сохранить</button>
+                       value="${type_operation}">Сохранить</button>
 
                 <button class="btn btn-info" id="close_attachModal" >Отменить
                 </button>

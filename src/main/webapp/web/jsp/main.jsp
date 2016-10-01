@@ -29,8 +29,9 @@
                                 id="editbutton" disabled=true>Редактировать
                         </button>
 
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton" name="command"
-                                value="delete" disabled="true"><span class="glyphicon glyphicon-remove" ></span>
+                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton"
+                                name="command"
+                                value="delete" disabled="true"><span class="glyphicon glyphicon-remove"></span>
                             Удалить
                         </button>
 
@@ -38,7 +39,7 @@
                         <jsp:include page="search.jsp"/>
 
                         <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="email"
-                                id="sendmailbutton" disabled = "true"><span class="glyphicon glyphicon-envelope" ></span>
+                                id="sendmailbutton" disabled="true"><span class="glyphicon glyphicon-envelope"></span>
                             Отправить email
                         </button>
                     </div>
@@ -75,7 +76,7 @@
                             <c:forEach var="employee" items="${employeeList}" varStatus="status">
                             <tr>
                                 <td width="5%"><input type="checkbox" name="check_selected" value="${employee.id}"
-                                           onchange="checkboxes(),checkboxesForMail()">
+                                                      onchange="checkboxes(),checkboxesForMail()">
                                 </td>
                                 <td>
                                     <a href="<c:url value="controller?command=edit">
@@ -107,9 +108,12 @@
                                             </td>
                                         </c:when>
                                         <c:otherwise>
-                                            <td><a href="controller?command=contact&page=${i}"
-                                                   class="btn btn-trans btn-trans-success">${i}</a>
-                                            </td>
+                                            <c:if test="${(currentPage-5<=i and currentPage>=i)  or
+                                                           currentPage+5>=i and currentPage<=i}">
+                                                <td><a href="controller?command=contact&page=${i}"
+                                                       class="btn btn-trans btn-trans-success">${i}</a>
+                                                </td>
+                                            </c:if>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>

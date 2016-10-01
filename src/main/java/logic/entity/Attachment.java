@@ -6,6 +6,7 @@
 package logic.entity;
 
 import java.time.LocalDateTime;
+import static logic.configuration.LogConfiguration.LOGGER;
 
 public class Attachment {
     private int id;
@@ -84,5 +85,28 @@ public class Attachment {
 
     public void setSaved(boolean saved) {
         this.saved = saved;
+    }
+
+    @Override
+    public Attachment clone(){
+        try {
+            return (Attachment)super.clone();
+        } catch (CloneNotSupportedException e) {
+            LOGGER.error("can't clon attachment: " + e);
+        }
+        return new Attachment();
+    }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "id=" + id +
+                ", employeeID=" + employeeID +
+                ", fileName='" + fileName + '\'' +
+                ", loadDate=" + loadDate +
+                ", comment='" + comment + '\'' +
+                ", saved=" + saved +
+                ", deleted=" + deleted +
+                '}';
     }
 }

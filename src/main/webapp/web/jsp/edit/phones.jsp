@@ -17,7 +17,7 @@
                     <td><input type="checkbox" name="check_selected_phone" value="${phone.id}"
                                onchange="checkboxes('editPhone','deletePhone')"></td>
                     <td>
-                        <a href="<c:url value="controller?command=editPhone">
+                        <a href=" <c:url value="controller?command=update_edit_phone">
                             <c:param name="phone_id" value="${phone.id}"/>
                         </c:url>"
                            class="btn btn-link">${phone.codeCountry}${phone.codeOperator}${phone.number}</a>

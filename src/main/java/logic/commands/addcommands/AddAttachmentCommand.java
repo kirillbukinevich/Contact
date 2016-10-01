@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by aefrd on 12.09.2016.
- */
 public class AddAttachmentCommand extends UpdateCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
@@ -30,10 +27,9 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
     public void addFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = getFile(request, employee);
 
-        addAttachmentToBD(attachment,employee,request);
+        addAttachmentToBD(attachment);
         employee.getAttachmentList().add(attachment);
     }
-
 
     public Attachment getFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = new Attachment();
@@ -51,7 +47,6 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         String filePath  = request.getAttribute("file_path").toString();
         for (FileItem fi : fileItems) {
             if (!fi.isFormField()) {
-//                    attachment.setFileByte(fi.get());
                 String fileName = fi.getName();
                 filePath += attachment.getEmployeeID() + "/";
                 File uploadDir = new File(filePath);
@@ -69,25 +64,10 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         return true;
     }
 
-    public boolean addAttachmentToBD(Attachment attachment,Employee employee,HttpServletRequest request) {
+    public boolean addAttachmentToBD(Attachment attachment) {
         AttachmentDAO attachmentDAO = new AttachmentDAO();
-        ArrayList<Attachment> attachmentList = employee.getAttachmentList();
-        Attachment editAttachment = checkEditAttachment(request);
-        if(editAttachment!=null) {
-            attachmentList.remove(editAttachment);
-            attachmentDAO.deleteAttachment(editAttachment.getId());
-        }
         attachmentDAO.addAttachment(attachment);
         return true;
-    }
-    public Attachment checkEditAttachment(HttpServletRequest request){
-        Attachment editAttachment =  (Attachment)request.getSession().getAttribute("edit_attachment");
-        request.getSession().setAttribute("edit_attachment",null);
-        return editAttachment;
-    }
-    public Employee getEmployeeFromSession(HttpServletRequest request) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        return employee;
     }
     public String getSaveName(Employee employee, String originalFileName){
         String extension =  FilenameUtils.getExtension(originalFileName);
@@ -103,5 +83,4 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         }
         return fileName;
     }
-
 }

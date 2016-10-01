@@ -8,6 +8,8 @@ import logic.commands.deletecommands.DeleteAttachmentCommand;
 import logic.commands.deletecommands.DeleteCommand;
 import logic.commands.deletecommands.DeletePhoneCommand;
 import logic.commands.deletecommands.DeletePhotoCommand;
+import logic.commands.editcommands.ChooseEditAttachmentCommand;
+import logic.commands.editcommands.ChooseEditPhoneCommand;
 import logic.commands.editcommands.EditAttachmentCommand;
 import logic.commands.editcommands.EditPhoneCommand;
 import logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
@@ -16,12 +18,12 @@ import logic.commands.emailcommand.SendMailCommand;
 import logic.commands.maincommands.*;
 
 public enum CommandEnum {
-    ADDPHONE {
+    NEW_PHONE {
         {
             this.command = new AddPhoneCommand();
         }
     },
-    ADDFILE {
+    NEW_FILE {
         {
             this.command = new AddAttachmentCommand();
         }
@@ -66,6 +68,16 @@ public enum CommandEnum {
             this.command = new EditCommand();
         }
     },
+    EDIT_PHONE{
+        {
+            this.command = new EditPhoneCommand();
+        }
+    },
+    EDIT_FILE{
+        {
+            this.command = new EditAttachmentCommand();
+        }
+    },
     EMPTY {
         {
             this.command = new EmptyCommand();
@@ -108,12 +120,12 @@ public enum CommandEnum {
     },
     UPDATE_EDIT_PHONE{
         {
-            this.command = new EditPhoneCommand();
+            this.command = new ChooseEditPhoneCommand();
         }
     },
     UPDATE_EDIT_ATTACHMENT{
         {
-            this.command = new EditAttachmentCommand();
+            this.command = new ChooseEditAttachmentCommand();
         }
     },
     UPDATE_PHOTO{
@@ -123,9 +135,6 @@ public enum CommandEnum {
     };
 
     ActionCommand command;
-
-    private CommandEnum() {
-    }
 
     public ActionCommand getCurrentCommand() {
         return this.command;
