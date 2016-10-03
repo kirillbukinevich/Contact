@@ -5,10 +5,10 @@
     Найти</button>
 
 <!-- The Modal -->
-<div id="searchModal" class="modal">
+<div id="searchModal" class="modal" >
 
     <!-- Modal content -->
-    <div class="modal-content">
+    <div class="modal-content" style="width: 470px;">
         <div class="form">
             <form name="loginForm" method="post" action="controller">
                 <div class="modal-header">

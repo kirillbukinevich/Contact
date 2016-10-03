@@ -46,10 +46,10 @@ public class SaveCommand implements ActionCommand {
         Employee employee = getEmployeeFromSession(request);
         updateEmployee(request, employee);
         saveAttchment(employee);
-        if(!employee.getPhoto().isExistInDB() && employee.getPhoto().getPhotoName()!=null) {
+        if (!employee.getPhoto().isExistInDB() && employee.getPhoto().getPhotoName() != null) {
             savePhoto(employee.getPhoto());
         }
-        if(employee.getPhoto().isDeleted()){
+        if (employee.getPhoto().isDeleted()) {
             deletePhotoFromDisk(employee.getPhoto());
         }
 
@@ -109,7 +109,8 @@ public class SaveCommand implements ActionCommand {
 
         return true;
     }
-    public boolean deletePhotoFromDisk(Photo photo){
+
+    public boolean deletePhotoFromDisk(Photo photo) {
         String resultFileName = ConfigurationManager.getProperty("path.saveFile") +
                 photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
         Path path = Paths.get(resultFileName);
@@ -145,13 +146,15 @@ public class SaveCommand implements ActionCommand {
 
     public Address getAddress(HttpServletRequest request) {
         Address address = new Address();
-        address.setCountryName(request.getParameter("country"));
-        address.setCityName(request.getParameter("city"));
-        address.setStreetName(request.getParameter("street"));
-        address.setHouseNumber(Integer.parseInt(request.getParameter("house")));
-        address.setFlatNumber(Integer.parseInt(request.getParameter("flat")));
-        address.setIndex(Integer.parseInt(request.getParameter("index")));
-
+        address.setCountryName(request.getParameter("country").isEmpty() ? null : (request.getParameter("country")));
+        address.setCityName(request.getParameter("city").isEmpty() ? null : request.getParameter("city"));
+        address.setStreetName(request.getParameter("street").isEmpty() ? null : request.getParameter("street"));
+            address.setHouseNumber(request.getParameter("house").isEmpty() ?
+                     0 : Integer.valueOf((request.getParameter("house"))));
+            address.setFlatNumber(request.getParameter("flat").isEmpty() ?
+                    0 : Integer.valueOf((request.getParameter("flat"))));
+            address.setIndex(request.getParameter("house").isEmpty() ?
+                    0 : Integer.valueOf((request.getParameter("index"))));
         return address;
     }
 

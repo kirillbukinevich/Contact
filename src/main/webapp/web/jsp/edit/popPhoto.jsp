@@ -15,7 +15,7 @@
                     <!-- write here-->
                     <div class="input-group">
                         <label class="btn btn-default btn-file">
-                            <input type="file" id="myFile" name="photo_name" style="display: block;">
+                            <input type="file" id="myFile" name="photo_name" style="display: block;" required>
                         </label>
                         <label for="fileName"></label><input type="text" class="form-control" id="fileName">
                     </div>

@@ -52,19 +52,6 @@ public class EditCommand implements ActionCommand {
         return employee;
     }
 
-//    public String[] getAllImageNames(ArrayList<Attachment> attachments) {
-//        for (Attachment attachment : attachments) {
-//            File file = new File(attachment.getFilePath());
-//
-//        }
-//        File[] files = file.listFiles();
-//        String[] nameOfPictures = new String[files.length];
-//        for (int i = 0; i < nameOfPictures.length; i++) {
-//            nameOfPictures[i] = files[i].getName();
-//        }
-//        return nameOfPictures;
-//    }
-
     public void startEditContact() {
         AbstractDAO abstractDAO = new EmployeeDAO();
         abstractDAO.startEditContact();
@@ -99,6 +86,8 @@ public class EditCommand implements ActionCommand {
     public boolean fillAddressParameters(HttpServletRequest request, Address address) {
         request.setAttribute("country", address.getCountryName());
         request.setAttribute("city", address.getCityName());
+        System.out.println("HERESTREETFill: " + address.getStreetName());
+
         request.setAttribute("street", address.getStreetName());
         request.setAttribute("house", address.getHouseNumber());
         request.setAttribute("flat", address.getFlatNumber());

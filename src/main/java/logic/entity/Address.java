@@ -80,10 +80,10 @@ public class Address {
         if(streetName!=null){
             result.append(" ул.").append(streetName);
         }
-        if(houseNumber!=null){
+        if(houseNumber!=0){
             result.append(" д.").append(houseNumber);
         }
-        if(flatNumber!=null){
+        if(flatNumber!=0){
             result.append(" кв.").append(flatNumber);
         }
 

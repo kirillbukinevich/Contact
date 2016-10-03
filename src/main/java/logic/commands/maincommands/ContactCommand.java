@@ -19,7 +19,7 @@ public class ContactCommand implements ActionCommand {
         EmployeeDAO dao = new EmployeeDAO();
         dao.rollBack();
 
-        byte RECORDSPERPAGE = 1;
+        byte RECORDSPERPAGE = 15;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,searchCriteria);
         int noOfRecords = dao.getNoOfRecords();
         System.out.println("contactrecords:" + noOfRecords);

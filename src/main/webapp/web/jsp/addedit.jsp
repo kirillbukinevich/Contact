@@ -19,7 +19,7 @@
 <form name="edit_form" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-1 col-sm-1">
                 <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
                     <img class="img-responsive" src="data:image/png;base64, <c:out value='${photo}'/>"/>
                 </button>

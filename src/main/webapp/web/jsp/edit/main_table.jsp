@@ -14,7 +14,7 @@
        placeholder="Your birthday yyyy-mm-dd" required>
 
 <label>Выберите пол</label>
-<select class="select-style" name="gender">
+<select class="select-style" name="gender" required>
     <OPTION selected>
     <OPTION ${gender == 'женский' ? 'selected' : ''}> женский
     <OPTION ${gender == 'мужской' ? 'selected' : ''}> мужской

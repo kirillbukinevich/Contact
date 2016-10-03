@@ -30,7 +30,7 @@ public class ConfigurationManager {
     }
 
     public static String getProperty(String key) {
-        return config.getProperty(key);
+        return System.getProperty("catalina.base") + "/webapps/" +config.getProperty(key);
     }
 
 

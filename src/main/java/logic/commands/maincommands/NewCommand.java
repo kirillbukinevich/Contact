@@ -8,6 +8,7 @@ package logic.commands.maincommands;
 import logic.database.AbstractDAO;
 import logic.database.EmployeeDAO;
 import logic.entity.Employee;
+import logic.entity.Photo;
 import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class NewCommand implements ActionCommand {
         final int ID = contactDAO.getNewEmployeeID();
         Employee employee = new Employee();
         employee.setId(ID);
+        Photo photo = new Photo();
+        photo.setEmployeeID(ID);
+        employee.setPhoto(photo);
         return employee;
     }
 

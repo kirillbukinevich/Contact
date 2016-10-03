@@ -33,10 +33,10 @@ public class EmployeeDAO extends AbstractDAO {
             this.preparedStatement.setString(11, address.getCountryName());
             this.preparedStatement.setString(12, address.getCityName());
             this.preparedStatement.setString(13, address.getStreetName());
-            this.preparedStatement.setInt(14, address.getHouseNumber());
-            this.preparedStatement.setInt(15, address.getFlatNumber());
-            this.preparedStatement.setInt(16, address.getIndex());
-            this.preparedStatement.setInt(17, employee.getId());
+            this.preparedStatement.setObject(14, address.getHouseNumber());
+            this.preparedStatement.setObject(15, address.getFlatNumber());
+            this.preparedStatement.setObject(16, address.getIndex());
+            this.preparedStatement.setObject(17, employee.getId());
             this.preparedStatement.executeUpdate();
             LOGGER.info("update employee to BD");
 //            this.editAddress(employee.getAddress(), employee.getId());
@@ -233,4 +233,6 @@ public class EmployeeDAO extends AbstractDAO {
     public int getNoOfRecords() {
         return this.noOfRecords;
     }
+
+
 }
