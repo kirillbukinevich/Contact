@@ -52,13 +52,13 @@
             </div>
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body" style="height: 90%">
 
             <%--employee table--%>
             <form method="POST" action="controller" id="contact_form">
-                <div class="row">
+                <div class="row" style="height: 77%">
                     <div class="tbl-header">
-                        <table cellpadding="0" cellspacing="0" border="0">
+                        <table>
                             <thead>
                             <tr>
                                 <th width="5%"></th>
@@ -71,7 +71,7 @@
                         </table>
                     </div>
                     <div class="tbl-content">
-                        <table cellpadding="0" cellspacing="0" border="0">
+                        <table>
                             <tbody>
                             <c:forEach var="employee" items="${employeeList}" varStatus="status">
                             <tr>
@@ -96,7 +96,7 @@
 
                 <%--For displaying Page numbers.
                 The when condition does not display a link for the current page--%>
-                <div class="row">
+                <div class="row" >
                     <div class="pager">
                         <table border="1" cellpadding="5" cellspacing="5">
                             <tr>
@@ -140,10 +140,10 @@
 
         </div>
 
-    </div>
-    <div class="row">
-        <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; position: absolute;bottom: 2%; left: 30%;">
-            Только счастливые сотрудники!</h2>
+        <div class="panel-footer">
+            <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif;">
+                Только счастливые сотрудники!</h2>
+        </div>
     </div>
 </div>
 </body>

@@ -19,7 +19,7 @@ public class ContactCommand implements ActionCommand {
         EmployeeDAO dao = new EmployeeDAO();
         dao.rollBack();
 
-        byte RECORDSPERPAGE = 15;
+        byte RECORDSPERPAGE = 9;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,searchCriteria);
         int noOfRecords = dao.getNoOfRecords();
         System.out.println("contactrecords:" + noOfRecords);
@@ -35,7 +35,6 @@ public class ContactCommand implements ActionCommand {
     }
     public String getSearchCriteria(HttpServletRequest request){
         Object searchCriteria = request.getSession().getAttribute("search_criteria");
-//        request.getSession().setAttribute("search_criteria",null);
         if(searchCriteria==null){
             searchCriteria = new String(" ");
         }
