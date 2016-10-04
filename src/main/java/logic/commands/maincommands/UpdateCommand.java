@@ -65,15 +65,18 @@ public class UpdateCommand implements ActionCommand{
 
     public Address updateAddress(HttpServletRequest request) {
         Address address = new Address();
-        address.setCountryName(request.getParameter("country").isEmpty() ? null : (request.getParameter("country")));
-        address.setCityName(request.getParameter("city").isEmpty() ? null : request.getParameter("city"));
-        address.setStreetName(request.getParameter("street").isEmpty() ? null : request.getParameter("street"));
-        address.setHouseNumber(request.getParameter("house").isEmpty() ?
-                0 : Integer.valueOf((request.getParameter("house"))));
-        address.setFlatNumber(request.getParameter("flat").isEmpty() ?
-                0 : Integer.valueOf((request.getParameter("flat"))));
-        address.setIndex(request.getParameter("house").isEmpty() ?
-                0 : Integer.valueOf((request.getParameter("index"))));
+        address.setCountryName(request.getParameter("country")==null || request.getParameter("country").isEmpty()
+                ? null : (request.getParameter("country")));
+        address.setCityName(request.getParameter("city")==null || request.getParameter("city").isEmpty()
+                ? null : request.getParameter("city"));
+        address.setStreetName(request.getParameter("city")==null || request.getParameter("street").isEmpty()
+                ? null : request.getParameter("street"));
+        address.setHouseNumber(request.getParameter("house")==null || request.getParameter("house").isEmpty()
+                ? 0 : Integer.valueOf((request.getParameter("house"))));
+        address.setFlatNumber(request.getParameter("flat")==null || request.getParameter("flat").isEmpty()
+                ? 0 : Integer.valueOf((request.getParameter("flat"))));
+        address.setIndex(request.getParameter("house")==null || request.getParameter("house").isEmpty()
+                ? 0 : Integer.valueOf((request.getParameter("index"))));
         return address;
     }
 
