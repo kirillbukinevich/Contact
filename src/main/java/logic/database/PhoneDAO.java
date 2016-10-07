@@ -113,16 +113,4 @@ public class PhoneDAO extends AbstractDAO{
 
         return true;
     }
-
-    public boolean deleteAllContactPhone(final int EMPLOYEEID) throws SQLException {
-        String deleteSQL = "DELETE FROM phone WHERE phone.employee_id = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-        preparedStatement.setInt(1, EMPLOYEEID);
-        preparedStatement.executeUpdate();
-
-        return true;
-
-    }
-
 }

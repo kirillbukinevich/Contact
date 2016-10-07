@@ -5,12 +5,21 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/email.css"
       rel="stylesheet">
+<link href="${pageContext.request.contextPath}/web/css/btntrans.css"
+      rel="stylesheet">
+
 <html>
 <head>
     <title>Email</title>
 
 </head>
 <body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="controller?command=contact" class="btn btn-trans btn-trans-success">На главную
+        </a>
+    </div>
+</div>
 <c:set var="template" value="${template}" scope="page"/>
 <div class="container">
     <h3 style="color: #f9ff3a">Отправить email</h3>
@@ -25,7 +34,7 @@
         </fieldset>
         <fieldset>
             <label>Выберите шаблон
-                <select class="select-style" name="template_type" id="template_type">
+                <select class="select-style" name="template_type" id="template_type" onchange="this.form.submit()">
                     <OPTION selected>
                     <OPTION ${template_type == 'С Днём рождения мужчинам' ? 'selected' : ''}>С Днём рождения мужчинам
                     <OPTION ${template_type == 'С Днём рождения женщинам' ? 'selected' : ''}>С Днём рождения женщинам

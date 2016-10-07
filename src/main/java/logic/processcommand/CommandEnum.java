@@ -8,10 +8,7 @@ import logic.commands.deletecommands.DeleteAttachmentCommand;
 import logic.commands.deletecommands.DeleteCommand;
 import logic.commands.deletecommands.DeletePhoneCommand;
 import logic.commands.deletecommands.DeletePhotoCommand;
-import logic.commands.editcommands.ChooseEditAttachmentCommand;
-import logic.commands.editcommands.ChooseEditPhoneCommand;
-import logic.commands.editcommands.EditAttachmentCommand;
-import logic.commands.editcommands.EditPhoneCommand;
+import logic.commands.editcommands.*;
 import logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
 import logic.commands.emailcommand.EmailCommand;
 import logic.commands.emailcommand.SendMailCommand;
@@ -36,6 +33,10 @@ public enum CommandEnum {
     CONTACT {
         {
             this.command = new ContactCommand();
+        }
+    },CANCEL_EDIT{
+        {
+            this.command = new CancelEdit();
         }
     },
     DELETE {

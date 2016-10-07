@@ -104,15 +104,4 @@ public class AttachmentDAO extends AbstractDAO {
         return true;
     }
 
-    public boolean deleteAllAttachments(final int EMPLOYEEID) throws SQLException {
-        String deleteSQL = "DELETE FROM attachments WHERE attachments.employee_id = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-        preparedStatement.setInt(1, EMPLOYEEID);
-        preparedStatement.executeUpdate();
-
-        return true;
-    }
-
-
 }

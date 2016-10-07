@@ -5,15 +5,16 @@ import logic.processcommand.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * Created by aefrd on 13.09.2016.
  */
 public class SearchCommand implements ActionCommand{
-    StringBuffer criteria = new StringBuffer("WHERE");
     public String execute(HttpServletRequest request) {
         search(request);
         ContactCommand contactCommand = new ContactCommand();
+        request.setAttribute("search_bar","show");
         return contactCommand.execute(request);
     }
     public void search(HttpServletRequest request){
@@ -22,27 +23,31 @@ public class SearchCommand implements ActionCommand{
     }
   public boolean defineSearchParameters(HttpServletRequest request){
       ArrayList<String> parameterList = Collections.list(request.getParameterNames());
+      HashMap<String,String> searchCriteriasMap = new HashMap<>();
       parameterList.remove("command");
-      criteria = processDateCriteria(request,parameterList,criteria);
+
+      StringBuilder criteriaDate = processDateCriteria(request,parameterList);
+      StringBuilder criteriaInfo = new StringBuilder();
+      criteriaInfo.append(criteriaDate);
+
       for(String parameterName : parameterList){
         if(isCriteria(request.getParameter(parameterName))){
-            criteria.append(" " + parameterName.substring(5) + "=" + "'" + request.getParameter(parameterName) + "' ");
+            searchCriteriasMap.put(parameterName.substring(5),request.getParameter(parameterName));
+            criteriaInfo.append(parameterName.substring(5) + ": " + request.getParameter(parameterName));
         }
       }
-      System.out.println(criteria);
-      if(criteria.toString().equals("WHERE")){
-          request.getSession().setAttribute("search_criteria"," ");
-      }else {
-          request.getSession().setAttribute("search_criteria",criteria);
-          criteria = new StringBuffer("WHERE");
-      }
+      System.out.println(criteriaDate);
+      request.setAttribute("search_info","результаты поиска: " + criteriaInfo);
+      request.getSession().setAttribute("search_criteria",searchCriteriasMap);
+      request.getSession().setAttribute("search_date_criteria",criteriaDate.toString());
       return true;
   }
     public boolean isCriteria(String tempCriteria){
         return !tempCriteria.isEmpty();
     }
-    public StringBuffer processDateCriteria(HttpServletRequest request, ArrayList<String> paramList, StringBuffer criteria){
+    public StringBuilder processDateCriteria(HttpServletRequest request, ArrayList<String> paramList){
         String date = request.getParameter("find_date_of_birth");
+        StringBuilder criteria = new StringBuilder();
         if(!date.isEmpty()){
             String direct = request.getParameter("find_date_direction");
             if(direct.equals("с")){

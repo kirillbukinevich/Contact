@@ -16,6 +16,7 @@
                 <div class="form-group">
                     <!-- write here-->
                     <input type="file" class="btn-file" name="file_name" value="${file_name}" required>
+                    <label>Комментарий</label>
                     <input type="text" class="form-control" name="comment" value="${comment_file}">
                 </div>
 

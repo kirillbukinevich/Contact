@@ -17,14 +17,16 @@ public class Attachment {
     private boolean saved = true;
     private boolean deleted = false;
 
+    private byte[] attachment;
+
     public boolean isDeleted() {
         return deleted;
     }
 
+
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-
 
     public byte[] getAttachment() {
         return attachment;
@@ -33,8 +35,6 @@ public class Attachment {
     public void setAttachment(byte[] attachment) {
         this.attachment = attachment;
     }
-
-    private byte[] attachment;
 
     public Attachment() {
     }
@@ -63,8 +63,8 @@ public class Attachment {
         this.fileName = fileName;
     }
 
-    public LocalDateTime getLoadDate() {
-        return this.loadDate;
+    public String getLoadDate() {
+        return this.loadDate.toString().replace('T',' ');
     }
 
     public void setLoadDate(LocalDateTime loadDate) {

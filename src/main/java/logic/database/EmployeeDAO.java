@@ -3,10 +3,11 @@ package logic.database;
 import logic.entity.Address;
 import logic.entity.Employee;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 import static logic.configuration.LogConfiguration.LOGGER;
 
@@ -80,21 +81,32 @@ public class EmployeeDAO extends AbstractDAO {
         return birthdayList;
     }
 
-    public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria) {
+    public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, HashMap<String, String> searchCriteriasMap) {
         String query = "select SQL_CALC_FOUND_ROWS * from main_info "
                 + criteria + " limit " + offset + ", " + recordsPerPage;
 
         ArrayList<Employee> list = new ArrayList<>();
 
         try {
-            Statement e = connection.createStatement();
-            ResultSet rs = e.executeQuery(query);
-            rs = e.executeQuery("SELECT FOUND_ROWS()");
+            updatePrepareStatement(query);
+            if (searchCriteriasMap != null) {
+                Iterator<String> iterator = searchCriteriasMap.values().iterator();
+                for (int i = 0; i < searchCriteriasMap.size(); i++) {
+                    String s = iterator.next();
+                    preparedStatement.setObject(i + 1, s);
+                    System.out.println(i+1 + " ");
+
+                }
+            }
+            System.out.println(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery("SELECT FOUND_ROWS()");
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
                 System.out.println("FOUND_ROWS: " + noOfRecords);
             }
-            rs = e.executeQuery(query);
+
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setId(rs.getInt("id"));
@@ -113,7 +125,7 @@ public class EmployeeDAO extends AbstractDAO {
                 address.setCountryName(rs.getString("country"));
                 address.setCityName(rs.getString("city"));
                 address.setStreetName(rs.getString("street"));
-                address.setHouseNumber(rs.getInt("house"));
+                address.setHouseNumber(rs.getString("house"));
                 address.setFlatNumber(rs.getInt("flat"));
                 address.setIndex(rs.getInt("index_address"));
                 employee.setAddress(address);
@@ -169,7 +181,7 @@ public class EmployeeDAO extends AbstractDAO {
                 address.setCountryName(e.getString("country"));
                 address.setCityName(e.getString("city"));
                 address.setStreetName(e.getString("street"));
-                address.setHouseNumber(e.getInt("house"));
+                address.setHouseNumber(e.getString("house"));
                 address.setFlatNumber(e.getInt("flat"));
                 address.setIndex(e.getInt("index_address"));
                 employee.setAddress(address);
@@ -213,9 +225,6 @@ public class EmployeeDAO extends AbstractDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
             preparedStatement.setInt(1, ID);
             preparedStatement.executeUpdate();
-//            deleteAllAttachments(ID);
-//            deleteAllContactPhone(ID);
-//            deletePhoto(ID);
         } catch (SQLException var5) {
             LOGGER.error("can't delete employee ", var5);
         } finally {
@@ -230,6 +239,7 @@ public class EmployeeDAO extends AbstractDAO {
 
         return true;
     }
+
     public int getNoOfRecords() {
         return this.noOfRecords;
     }

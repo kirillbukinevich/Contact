@@ -39,17 +39,6 @@ public class PhotoDAO extends AbstractDAO {
         return photo;
     }
 
-    public boolean deletePhoto(final int ID) throws SQLException {
-        String deleteSQL = "DELETE FROM photo WHERE photo.employee_id = ?";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-        preparedStatement.setInt(1, ID);
-        preparedStatement.executeUpdate();
-
-        return true;
-
-    }
-
     public boolean updatePhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
         updatePrepareStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");

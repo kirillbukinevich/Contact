@@ -1,63 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- Trigger/Open The Modal -->
-<button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span class="glyphicon glyphicon-search" ></span>
-    Найти</button>
+<button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span
+        class="glyphicon glyphicon-search"></span>
+    Найти
+</button>
 
 <!-- The Modal -->
-<div id="searchModal" class="modal" >
+<div id="searchModal" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content" style="width: 470px;">
+    <div class="modal-content" style="width: 440px;">
         <div class="form">
-            <form name="loginForm" method="post" action="controller">
-                <div class="modal-header">
-                    <h2>Найти</h2>
-                </div>
-
+            <div class="modal-header">
+                <h3>Найти</h3>
+            </div>
+            <form method="post" action="controller">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="find_last_name">Фамилия</label>
+                        <br>
+
+                        <p><label for="find_last_name">Фамилия</label></p>
                         <input type="text" class="form-control" name="find_last_name" id="find_last_name">
-                        <label for="find_first_name">Имя</label>
+
+                        <p><label for="find_first_name">Имя</label></p>
                         <input type="text" class="form-control" name="find_first_name" id="find_first_name">
-                        <label for="find_patronymic">Отчество</label>
+
+                        <p><label for="find_patronymic">Отчество</label></p>
                         <input type="text" class="form-control" name="find_patronymic" id="find_patronymic">
-                        <label>date</label>
+                        <label>Выберите дату</label>
                         <select class="selectpicker" name="find_date_direction">
                             <OPTION selected>
                             <OPTION> с
                             <OPTION> до
                         </SELECT>
                         <input type="date" name="find_date_of_birth">
+                        <br/>
 
-                        <P>Выберите пол:
-                            <select class="selectpicker" name="find_gender">
-                                <OPTION> мужской
-                                <OPTION> женский
-                                <OPTION selected>
-                            </SELECT>
+                        <label>Выберите пол:</label>
+                        <select class="selectpicker" name="find_gender">
+                            <OPTION> мужской
+                            <OPTION> женский
+                            <OPTION selected>
+                        </SELECT>
+                        <br/>
 
-                            <label for="find_nationality">гражданство</label>
-                            <input type="text" class="form-control" name="find_nationality" id="find_nationality">
+                        <p><label for="find_nationality">гражданство</label></p>
+                        <input type="text" class="form-control" name="find_nationality" id="find_nationality">
 
-                            <select class="selectpicker" name="find_family_status">
-                                <OPTION> брак
-                                <OPTION> свободен
-                                <OPTION selected>
-                            </SELECT>
-                            <label>страна</label>
-                            <input type="text" class="form-control" name="find_country">
-                            <label>город</label>
-                            <input type="text" class="form-control" name="find_city">
-                            <label>улица</label>
-                            <input type="text" class="form-control" name="find_street">
-                            <label>дом</label>
-                            <input type="text" class="form-control" name="find_house">
-                            <label>квартира</label>
-                            <input type="text" class="form-control" name="find_flat">
-                            <label>индекс</label>
-                            <input type="text" class="form-control" name="find_index">
+                        <label>Семейный статус:</label>
+                        <select class="selectpicker" name="find_family_status">
+                            <OPTION> брак
+                            <OPTION> свободен
+                            <OPTION selected>
+                        </SELECT>
+                        <br/>
+
+                        <p><label>страна</label></p>
+                        <input type="text" class="form-control" name="find_country">
+
+                        <p><label>город</label></p>
+                        <input type="text" class="form-control" name="find_city">
+
+                        <p><label>улица</label></p>
+                        <input type="text" class="form-control" name="find_street">
+
+                        <p><label>дом</label></p>
+                        <input type="text" class="form-control" name="find_house">
+
+                        <p><label>квартира</label></p>
+                        <input type="text" class="form-control" name="find_flat">
+
+                        <p><label>индекс</label></p>
+                        <input type="text" class="form-control" name="find_index">
 
                     </div>
 
@@ -71,7 +86,6 @@
                     </button>
 
                 </div>
-
             </form>
         </div>
     </div>

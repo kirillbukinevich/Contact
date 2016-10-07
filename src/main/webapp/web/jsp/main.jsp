@@ -7,6 +7,8 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/style.css"
       rel="stylesheet">
+<link href="${pageContext.request.contextPath}/web/css/btntrans.css"
+      rel="stylesheet">
 <script src="${pageContext.request.contextPath}/web/scripts/mainScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
 
@@ -21,11 +23,13 @@
             <div class="row">
                 <div class="col-xs-6">
                     <div class="btn-group">
-                        <button form="contact_form" class="btn btn-trans btn-trans-success " name="command" value="new">
+                        <button form="contact_form" class="btn btn-trans btn-trans-success " name="command"
+                                value="new">
                             Новый
                         </button>
 
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="edit"
+                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
+                                value="edit"
                                 id="editbutton" disabled=true>Редактировать
                         </button>
 
@@ -38,8 +42,10 @@
                         <%--<button class="btn btn-info " name="command" value="find">Find</button>--%>
                         <jsp:include page="search.jsp"/>
 
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command" value="email"
-                                id="sendmailbutton" disabled="true"><span class="glyphicon glyphicon-envelope"></span>
+                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
+                                value="email"
+                                id="sendmailbutton" disabled="true"><span
+                                class="glyphicon glyphicon-envelope"></span>
                             Отправить email
                         </button>
                     </div>
@@ -50,12 +56,23 @@
                 </div>
 
             </div>
+            <div id="search_bar" style="display: ${search_bar == "show" ? 'block':'none'}">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p style="color: #f9ff3a">${search_info}</p>
+                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="close_searchModal"
+                                name="command" value="contact">Сбросить
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="panel-body" style="height: 90%">
-
-            <%--employee table--%>
             <form method="POST" action="controller" id="contact_form">
+
+                <%--employee table--%>
+
                 <div class="row" style="height: 77%">
                     <div class="tbl-header">
                         <table>
@@ -96,7 +113,7 @@
 
                 <%--For displaying Page numbers.
                 The when condition does not display a link for the current page--%>
-                <div class="row" >
+                <div class="row">
                     <div class="pager">
                         <table border="1" cellpadding="5" cellspacing="5">
                             <tr>
@@ -136,15 +153,15 @@
                     </c:if>
                 </div>
             </form>
-
-
         </div>
 
         <div class="panel-footer">
-            <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif;">
+            <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; padding-left: 30%">
                 Только счастливые сотрудники!</h2>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

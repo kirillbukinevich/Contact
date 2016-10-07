@@ -13,8 +13,7 @@ import java.util.ArrayList;
  */
 public class ChooseEditPhoneCommand extends UpdateCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
-//        String page = super.execute(request);
-        super.chooseDialog(request);
+        String page = super.execute(request);
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
         System.out.println(selectedPhone);
         if(selectedPhone==null) {
@@ -25,7 +24,7 @@ public class ChooseEditPhoneCommand extends UpdateCommand implements ActionComma
             }
         }
         super.fillAllParameters(request);
-        return "/web/jsp/addedit.jsp";
+        return page;
     }
 
     public boolean editPhone(HttpServletRequest request,final int PHONEID) {

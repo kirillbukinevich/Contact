@@ -5,7 +5,7 @@ public class Address {
     private String countryName;
     private String cityName;
     private String streetName;
-    private Integer houseNumber;
+    private String houseNumber;
     private Integer flatNumber;
     private Integer index;
 
@@ -44,11 +44,11 @@ public class Address {
         this.streetName = streetName;
     }
 
-    public Integer getHouseNumber() {
-        return this.houseNumber==0 ? null:houseNumber;
+    public String getHouseNumber() {
+        return this.houseNumber;
     }
 
-    public void setHouseNumber(Integer houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -80,7 +80,7 @@ public class Address {
         if(streetName!=null){
             result.append(" ул.").append(streetName);
         }
-        if(houseNumber!=0){
+        if(houseNumber!=null){
             result.append(" д.").append(houseNumber);
         }
         if(flatNumber!=0){

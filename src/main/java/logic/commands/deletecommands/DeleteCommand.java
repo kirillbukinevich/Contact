@@ -37,14 +37,6 @@ public class DeleteCommand implements ActionCommand {
     public boolean deleteEmployee(final int ID) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         employeeDAO.deleteEmployee(ID);
-        try {
-            new AttachmentDAO().deleteAllAttachments(ID);
-            new PhoneDAO().deleteAllContactPhone(ID);
-            new PhotoDAO().deletePhoto(ID);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         deleteAttachmentDirectory(ID);
         return true;
     }

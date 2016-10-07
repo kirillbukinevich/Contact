@@ -51,7 +51,7 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
                 filePath += attachment.getEmployeeID() + "/";
                 File uploadDir = new File(filePath);
                 if(!uploadDir.exists()){
-                    uploadDir.mkdir();
+                    uploadDir.mkdirs();
                 }
 
                 fileName = getSaveName(employee, fileName);

@@ -26,45 +26,7 @@ input[type=text]:hover {
     background-position:center;
 
 }
-.btn-trans {
-    background:none;
-    box-shadow:none;
-}
 
-.btn-trans-default {
-    border: 2px solid #999999;
-    color:#999999;
-}
-.btn-trans-primary {
-    border: 2px solid #0044CC;
-    color:#0044CC;
-}
-.btn-trans-success {
-    border: 2px solid #f9ff3a;
-    color: #f9ff3a;
-}
-
-.btn-trans-info {
-    border: 2px solid #0088CC;
-    color:#0088CC;
-}
-.btn-trans-warning {
-    border: 2px solid #F89406;
-    color:#F89406;
-}
-.btn-trans-danger {
-    border: 2px solid #BD362F;
-    color:#BD362F;
-}
-.btn-trans-success:active:focus {
-    color: #ffffff;
-    background-color: #f9ff3a;
-    border-color: #000000;
-}
-.btn-trans-success:hover {
-    box-shadow: none;
-    background-color: #f9ff3a;
-}
 
 table{
     width:100%;
@@ -118,7 +80,7 @@ td{
 }
 
 .form{
-    background:#f1f1f1; width:470px; margin:0 auto; padding-left:50px; padding-top:20px;
+    background:#f1f1f1; width:440px; margin:0 auto; padding-left:10px; padding-right:10px; padding-top:20px;
 }
 .form fieldset{border:0px; padding:0px; margin:0px;}
 .form p.contact { font-size: 12px; margin:0px 0px 10px 0;line-height: 14px; font-family:Arial, Helvetica;}
@@ -159,4 +121,49 @@ td{
 .form input.buttom:hover	{ background-color: #2a78f6; }
 
 
+.filter-col{
+    color: #f9ff3a;
+    padding-left:10px;
+    padding-right:10px;
+}
+input {
+    background-color: rgba(0,0,0,0.1);
+    color: #f9ff3a;
+    border: none;
+}
+.form-control-search-bar {
+    display: block;
+    width: 8%;
+    height: 19px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #ffff66;
+    background-color: rgba(207, 207, 208, 0);
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-group-search-bar {
+    display: -webkit-box;
+    margin-bottom: 0;
+    margin-top: 1%;
+    vertical-align: middle;
+}
+.select-search-bar {
+    border: 1px solid #fff;
+    background-color: transparent;
+}
 
+.select-search-bar option{
+    background-color: transparent !important;
+    border: 1px solid #e4e4e4;
+    color: #f9ff3a;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}

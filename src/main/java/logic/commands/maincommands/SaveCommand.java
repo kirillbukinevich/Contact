@@ -150,7 +150,7 @@ public class SaveCommand implements ActionCommand {
         address.setCityName(request.getParameter("city").isEmpty() ? null : request.getParameter("city"));
         address.setStreetName(request.getParameter("street").isEmpty() ? null : request.getParameter("street"));
             address.setHouseNumber(request.getParameter("house").isEmpty() ?
-                     0 : Integer.valueOf((request.getParameter("house"))));
+                     null : (request.getParameter("house")));
             address.setFlatNumber(request.getParameter("flat").isEmpty() ?
                     0 : Integer.valueOf((request.getParameter("flat"))));
             address.setIndex(request.getParameter("house").isEmpty() ?

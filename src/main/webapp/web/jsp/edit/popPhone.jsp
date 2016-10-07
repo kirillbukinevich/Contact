@@ -21,13 +21,13 @@
 
                     <label for="phone_number">Введите телефонный номер</label>
                     <input type="number" class="form-control" name="phone_number" value="${phone_number}" id="phone_number" min="1000000" max="9999999" required>
-
+                    <label>Выберите тип телефона</label>
                     <select class="selectpicker" name="phone_type">
                         <OPTION selected>
                         <OPTION ${phone_type == 'домашний' ? 'selected' : ' '}> домашний
                         <OPTION ${phone_type == 'мобильный' ? 'selected' : ' '}> мобильный
                     </SELECT>
-
+                    <br>
                     <label>Комментарий</label>
                     <input type="text" class="form-control" name="comment" value="${comment_phone}">
 

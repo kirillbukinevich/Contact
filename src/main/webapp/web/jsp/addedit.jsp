@@ -7,6 +7,9 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/addedit.css"
       rel="stylesheet">
+<link href="${pageContext.request.contextPath}/web/css/btntrans.css"
+      rel="stylesheet">
+
 <script src="${pageContext.request.contextPath}/web/scripts/validedit.js"></script>
 <script src="${pageContext.request.contextPath}/web/scripts/editScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
@@ -16,83 +19,51 @@
 
 </head>
 <body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="controller?command=contact" class="btn btn-trans btn-trans-success">На главную
+        </a>
+    </div>
+</div>
 <form name="edit_form" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1 col-sm-1">
+            <div class="col-md-1">
                 <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
                     <img class="img-responsive" src="data:image/png;base64, <c:out value='${photo}'/>"/>
                 </button>
             </div>
             <div class="col-md-5">
-
-
                 <div class="form">
-
-                    <jsp:include page="edit/main_table.jsp"/>
+                    <jsp:include page="edit/main_form.jsp"/>
                     <jsp:include page="edit/popSaveSuccess.jsp"/>
-
+                    <button class="btn btn-info" id="cancel_edit" name="command"
+                            value="cancel_edit">Cancel
+                    </button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="row">
                     <%--show contact phone--%>
                     <div class="col-sm-11">
-
-<%----%>
-                        <table class="table table-bordered">
-
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>номер</th>
-                                <th>домашний/мобильный</th>
-                                <th>комментарий</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="phone" items="${phoneList}" varStatus="status">
-                                <tr>
-                                    <td><input type="checkbox" name="check_selected_phone" value="${phone.id}"
-                                               onchange="checkboxes('editPhone','deletePhone')"></td>
-                                    <td>
-                                        <a href=" <c:url value="controller?command=update_edit_phone">
-                            <c:param name="phone_id" value="${phone.id}"/>
-                        </c:url>"
-                                           class="btn btn-link">${phone.codeCountry}${phone.codeOperator}${phone.number}</a>
-                                    </td>
-                                    <td>${phone.type}</td>
-                                    <td>${phone.comment}</td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-
-                        </table>
-<%----%>
+                         <jsp:include page="edit/phones.jsp"/>
                     </div>
-
-                    <div class="col-sm-1">
+                        <div class="col-sm-1">
                         <div class="btn-group-vertical">
-
                             <%--handling edit remove and new operations--%>
-                            <button form="edit_form" class="btn btn-info" id="myBtn" name="command"
+                            <button class="btn btn-info" id="myBtn" name="command"
                                     value="update_phone"><span class="glyphicon glyphicon-plus"></span>
-                                Добавить
                             </button>
-                            <button form="edit_form" class="btn btn-info" id="editPhone" name="command"
+                            <button class="btn btn-info" id="editPhone" name="command"
                                     value="update_edit_phone" disabled="true">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Редактировать
                             </button>
-                            <button form="edit_form" class="btn btn-info" id="deletePhone" name="command"
+                            <button class="btn btn-info" id="deletePhone" name="command"
                                     value="deletePhone" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
-                                Удалить
                             </button>
-
                         </div>
-
-                    </div>
+                        </div>
                 </div>
 
                 <%--show attach files--%>
@@ -103,19 +74,19 @@
                     <div class="col-sm-1">
 
                         <div class="btn-group-vertical">
-                            <button form="edit_form" class="btn btn-info" id="myBtn2" name="command"
+                            <button class="btn btn-info" id="myBtn2" name="command"
                                     value="update_attachment"><span class="glyphicon glyphicon-plus"></span>
-                                Добавить
+
                             </button>
-                            <button form="edit_form" class="btn btn-info" name="command" id="editAttachFile"
+                            <button class="btn btn-info" name="command" id="editAttachFile"
                                     value="update_edit_attachment" disabled='true'>
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Редактировать
+
                             </button>
-                            <button form="edit_form" class="btn btn-info" id="deleteAttachFile" name="command"
+                            <button class="btn btn-info" id="deleteAttachFile" name="command"
                                     value="deleteAttachFile" disabled="true">
                                 <span class="glyphicon glyphicon-remove"></span>
-                                Удалить
+
                             </button>
                         </div>
                     </div>
@@ -126,11 +97,11 @@
 </form>
 </body>
 </html>
-<jsp:include page="edit/popattachfile.jsp"/>
 <jsp:include page="edit/popPhone.jsp"/>
+<jsp:include page="edit/popattachfile.jsp"/>
 <jsp:include page="edit/popPhoto.jsp"/>
 
-<script >
+<script>
     var popDialogID = "${pageContext.request.getAttribute("popDialog")}";
     popDialog(popDialogID);
 </script>

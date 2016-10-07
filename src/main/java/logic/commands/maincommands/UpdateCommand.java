@@ -72,7 +72,7 @@ public class UpdateCommand implements ActionCommand{
         address.setStreetName(request.getParameter("city")==null || request.getParameter("street").isEmpty()
                 ? null : request.getParameter("street"));
         address.setHouseNumber(request.getParameter("house")==null || request.getParameter("house").isEmpty()
-                ? 0 : Integer.valueOf((request.getParameter("house"))));
+                ? null : (request.getParameter("house")));
         address.setFlatNumber(request.getParameter("flat")==null || request.getParameter("flat").isEmpty()
                 ? 0 : Integer.valueOf((request.getParameter("flat"))));
         address.setIndex(request.getParameter("house")==null || request.getParameter("house").isEmpty()

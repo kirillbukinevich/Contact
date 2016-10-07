@@ -1,17 +1,17 @@
 package logic.commands.emailcommand;
 
-import logic.commands.emailcommand.template.GenerateTemplates;
 import logic.commands.emailcommand.template.TempalteContent;
 import logic.commands.maincommands.ContactCommand;
 import logic.processcommand.ActionCommand;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -57,8 +57,13 @@ public class SendMailCommand implements ActionCommand {
             for( int i = 0; i < toAddress.length; i++) {
                 message.addRecipient(Message.RecipientType.TO, toAddress[i]);
             }
+
             message.setSubject(subject);
-            message.setContent(getTemplateContent(request));
+            message.setText(body);
+            MimeMultipart mimeMultipart = getTemplateContent(request);
+            if(mimeMultipart!=null) {
+                message.setContent(mimeMultipart);
+            }
 
 
             Transport transport = session.getTransport("smtp");
@@ -75,8 +80,12 @@ public class SendMailCommand implements ActionCommand {
     }
     public MimeMultipart getTemplateContent(HttpServletRequest request){
         String templateType = request.getParameter("template_type");
-        TempalteContent tempalteContent = new TempalteContent();
-        tempalteContent.chooseTemplateType(templateType);
-        return tempalteContent.getContent();
+        if(!templateType.isEmpty()) {
+            TempalteContent tempalteContent = new TempalteContent();
+            tempalteContent.chooseTemplateType(templateType);
+            return tempalteContent.getContent();
+        }else {
+            return null;
+        }
     }
 }

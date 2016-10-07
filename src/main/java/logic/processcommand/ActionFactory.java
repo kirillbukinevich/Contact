@@ -20,7 +20,6 @@ public class ActionFactory {
         if(action==null){
             action = (String)request.getAttribute("command");
         }
-        LogConfiguration.LOGGER.info("command: " + action);
         System.out.println("command: " + action);
         if (action != null && !action.isEmpty()) {
             try {

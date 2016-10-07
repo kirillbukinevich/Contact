@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package web;
+package web.controller;
 
 import logic.configuration.LogConfiguration;
 import logic.processcommand.ActionCommand;
@@ -31,14 +31,14 @@ public class Controller extends HttpServlet {
         this.processRequest(req, resp);
     }
 
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = null;
         ActionFactory client = new ActionFactory();
         response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
-        LogConfiguration.LOGGER.info("start execute command");
+        LogConfiguration.LOGGER.info("start : " + request.getParameter("command") + " command");
         page = command.execute(request);
-        LogConfiguration.LOGGER.info("finish execute command");
+        LogConfiguration.LOGGER.info("finish : " + request.getParameter("command") + " command");
 
         if (page != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);

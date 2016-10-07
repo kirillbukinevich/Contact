@@ -4,6 +4,8 @@ import logic.database.EmployeeDAO;
 import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class ContactCommand implements ActionCommand {
@@ -20,7 +22,8 @@ public class ContactCommand implements ActionCommand {
         dao.rollBack();
 
         byte RECORDSPERPAGE = 9;
-        List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,searchCriteria);
+        List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
+                searchCriteria,(HashMap)request.getSession().getAttribute("search_criteria"));
         int noOfRecords = dao.getNoOfRecords();
         System.out.println("contactrecords:" + noOfRecords);
         int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDSPERPAGE);
@@ -34,10 +37,31 @@ public class ContactCommand implements ActionCommand {
         return pageForward;
     }
     public String getSearchCriteria(HttpServletRequest request){
-        Object searchCriteria = request.getSession().getAttribute("search_criteria");
-        if(searchCriteria==null){
-            searchCriteria = new String(" ");
+        HashMap<String,String> searchCriteria = (HashMap)request.getSession().getAttribute("search_criteria");
+        StringBuilder criteria = new StringBuilder("WHERE ");
+        String searchDateCriteria = (String)request.getSession().getAttribute("search_date_criteria");
+        if(!(searchDateCriteria==null || searchDateCriteria.isEmpty())){
+            criteria.append(searchDateCriteria);
+            if(!(searchCriteria==null ||  searchCriteria.isEmpty())){
+                criteria.append(" AND ");
+            }
         }
-        return searchCriteria.toString();
+        if(!(searchCriteria==null ||  searchCriteria.isEmpty())){
+            Iterator<String> iterator = searchCriteria.keySet().iterator();
+            while (iterator.hasNext()){
+                criteria.append(iterator.next()).append("=? ");
+                if(iterator.hasNext()){
+                    criteria.append("AND ");
+                }
+            }
+        }
+        System.out.println("CRITERIA: " + criteria);
+        request.getSession().setAttribute("search_criteria",null);
+        request.getSession().setAttribute("search_date_criteria",null);
+        if(criteria.toString().equals("WHERE ")){
+            return "";
+        }else {
+            return criteria.toString();
+        }
     }
 }
