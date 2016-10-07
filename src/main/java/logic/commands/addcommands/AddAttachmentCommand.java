@@ -1,6 +1,7 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
+import logic.configuration.ConfigurationManager;
 import logic.database.AttachmentDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
@@ -15,13 +16,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static logic.configuration.ConfigurationManager.*;
+
 public class AddAttachmentCommand extends UpdateCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
         addFile(request, employee);
         super.fillAllParameters(request);
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
     public void addFile(HttpServletRequest request, Employee employee) {

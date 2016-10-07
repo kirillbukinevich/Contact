@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 01.10.2016.
  */
@@ -23,8 +25,7 @@ public class EditAttachmentCommand extends UpdateCommand implements ActionComman
         Employee employee = getEmployeeFromSession(request);
         updateFile(request, employee);
         super.fillAllParameters(request);
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
     public void updateFile(HttpServletRequest request, Employee employee) {

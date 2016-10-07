@@ -10,6 +10,8 @@ import org.apache.commons.fileupload.FileItem;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 13.09.2016.
  */
@@ -18,8 +20,7 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
         Employee employee = getEmployeeFromSession(request);
         savePhoto(request,employee);
         super.fillAllParameters(request);
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
     public boolean savePhoto(HttpServletRequest request,Employee employee) {
         Photo photo = getPhoto(request,employee);

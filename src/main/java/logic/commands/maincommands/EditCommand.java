@@ -14,18 +14,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 public class EditCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
 
         Employee employee = getEmployeeOnId(request);
         setEmployeeToSession(request, employee);
-        String page = "";
-        if (this.fillAllParameters(request)) {
-            startEditContact();
-            page = "/web/jsp/addedit.jsp";
-        }
-
-        return page;
+        fillAllParameters(request);
+        startEditContact();
+        return getProperty("path.page.edit");
     }
 
     public Employee getEmployeeOnId(HttpServletRequest request) {
@@ -105,7 +103,7 @@ public class EditCommand implements ActionCommand {
             System.out.print(attachment.isSaved() + " ");
         }
         System.out.println("attachmentList: " + attachmentList);
-        String filePath = ConfigurationManager.getProperty("path.saveFile");
+        String filePath = ConfigurationManager.getPathProperty("path.saveFile");
         request.setAttribute("file_path", filePath);
         request.setAttribute("attachList", attachmentList);
         return true;
@@ -125,9 +123,9 @@ public class EditCommand implements ActionCommand {
         try {
             if (photo.getBytes() == null) {
                 if (!photo.isExistInDB() || photo.isDeleted()) {
-                    resultFileName = ConfigurationManager.getProperty("path.defaultPhoto");
+                    resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
                 } else {
-                    resultFileName = ConfigurationManager.getProperty("path.saveFile") +
+                    resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                             photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
                 }
                 File file = new File(resultFileName);

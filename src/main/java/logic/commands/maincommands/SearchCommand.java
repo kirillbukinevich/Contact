@@ -33,7 +33,7 @@ public class SearchCommand implements ActionCommand{
       for(String parameterName : parameterList){
         if(isCriteria(request.getParameter(parameterName))){
             searchCriteriasMap.put(parameterName.substring(5),request.getParameter(parameterName));
-            criteriaInfo.append(parameterName.substring(5) + ": " + request.getParameter(parameterName));
+            criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
         }
       }
       System.out.println(criteriaDate);
@@ -51,13 +51,13 @@ public class SearchCommand implements ActionCommand{
         if(!date.isEmpty()){
             String direct = request.getParameter("find_date_direction");
             if(direct.equals("с")){
-                criteria.append(" date_of_birth >" + "'" + date + "' ");
+                criteria.append(" date_of_birth >" + "'").append(date).append("' ");
             }
             if(direct.equals("до")){
-                criteria.append(" date_of_birth <" + "'" + date + "' ");
+                criteria.append(" date_of_birth <" + "'").append(date).append("' ");
             }
             if(direct.isEmpty()){
-                criteria.append(" date_of_birth =" + "'" + date + "' ");
+                criteria.append(" date_of_birth =" + "'").append(date).append("' ");
             }
             paramList.remove("find_date_of_birth");
         }

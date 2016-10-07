@@ -25,7 +25,7 @@ public class UploadServlet extends HttpServlet {
     private File file;
 
     public void init() {
-            filePath = ConfigurationManager.getProperty("path.saveFile");
+            filePath = ConfigurationManager.getPathProperty("path.saveFile");
         System.out.println(filePath + "IIIIIIIII");
     }
 

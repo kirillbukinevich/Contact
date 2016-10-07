@@ -8,6 +8,8 @@ import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 10.09.2016.
  */
@@ -17,8 +19,8 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
         addPhone(request,employee);
         super.fillAllParameters(request);
 
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
+
     }
 
 

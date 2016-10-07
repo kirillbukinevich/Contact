@@ -5,6 +5,8 @@ import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 04.10.2016.
  */
@@ -13,6 +15,6 @@ public class CancelEdit implements ActionCommand{
     public String execute(HttpServletRequest request) {
         EditCommand editCommand = new EditCommand();
         editCommand.fillAllParameters(request);
-        return "/web/jsp/addedit.jsp";
+        return getProperty("path.page.edit");
     }
 }

@@ -8,6 +8,8 @@ import logic.processcommand.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 14.09.2016.
  */
@@ -15,7 +17,7 @@ public class UpdateCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
         update(request);
         chooseDialog(request);
-        return "/web/jsp/addedit.jsp";
+        return getProperty("path.page.edit");
     }
     public boolean chooseDialog(HttpServletRequest request){
         String command = request.getParameter("command");

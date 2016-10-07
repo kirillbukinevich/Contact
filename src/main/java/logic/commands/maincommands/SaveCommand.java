@@ -36,8 +36,7 @@ public class SaveCommand implements ActionCommand {
             e.printStackTrace();
         }
         ContactCommand contactCommand = new ContactCommand();
-        String page = contactCommand.execute(request);
-        return page;
+        return contactCommand.execute(request);
     }
 
 
@@ -63,7 +62,7 @@ public class SaveCommand implements ActionCommand {
 
     public boolean saveAttchment(Employee employee) {
         ArrayList<Attachment> attachments = employee.getAttachmentList();
-        String filePath = ConfigurationManager.getProperty("path.saveFile") + employee.getId() + "/";
+        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + employee.getId() + "/";
         for (Attachment attachment : attachments) {
             if (attachment.isDeleted()) {
                 String resultFileName = filePath +
@@ -92,7 +91,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     public boolean savePhoto(Photo photo) {
-        String resultFileName = ConfigurationManager.getProperty("path.saveFile") + photo.getEmployeeID() + "/photo/";
+        String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") + photo.getEmployeeID() + "/photo/";
         File uploadDir = new File(resultFileName);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
@@ -111,7 +110,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     public boolean deletePhotoFromDisk(Photo photo) {
-        String resultFileName = ConfigurationManager.getProperty("path.saveFile") +
+        String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                 photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
         Path path = Paths.get(resultFileName);
         try {

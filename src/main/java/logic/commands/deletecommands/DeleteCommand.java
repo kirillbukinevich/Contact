@@ -7,17 +7,13 @@ package logic.commands.deletecommands;
 
 import logic.commands.maincommands.ContactCommand;
 import logic.configuration.ConfigurationManager;
-import logic.database.AttachmentDAO;
 import logic.database.EmployeeDAO;
-import logic.database.PhoneDAO;
-import logic.database.PhotoDAO;
 import logic.processcommand.ActionCommand;
 import org.apache.commons.io.FileUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static logic.configuration.LogConfiguration.LOGGER;
 
@@ -30,8 +26,7 @@ public class DeleteCommand implements ActionCommand {
             this.deleteEmployee(Integer.parseInt(aSelectedEmpl));
         }
         ContactCommand contactCommand = new ContactCommand();
-        String page = contactCommand.execute(request);
-        return page;
+        return contactCommand.execute(request);
     }
 
     public boolean deleteEmployee(final int ID) {

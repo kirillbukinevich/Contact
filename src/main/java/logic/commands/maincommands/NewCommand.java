@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 public class NewCommand implements ActionCommand {
     public NewCommand() {
     }
@@ -29,8 +31,7 @@ public class NewCommand implements ActionCommand {
         setEmployeeToSession(request, employee);
         request.setAttribute("photo", getPhotoForJSP(request, employee.getPhoto()));
 
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
     public void startCreateContact() {
@@ -60,7 +61,7 @@ public class NewCommand implements ActionCommand {
         byte[] encodeBase64;
         FileInputStream fileInputStream = null;
         try {
-            resultFileName = ConfigurationManager.getProperty("path.defaultPhoto");
+            resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
             File file = new File(resultFileName);
             fileInputStream = new FileInputStream(file);
             data = IOUtils.toByteArray(fileInputStream);

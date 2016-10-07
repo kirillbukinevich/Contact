@@ -12,7 +12,8 @@ import java.util.Properties;
  */
 public class ConfigurationManager {
     private static Properties config;
-    // класс извлекает информацию из файла config.properties
+    public static Properties mailProperties;
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ config.properties
 
     private ConfigurationManager() {
     }
@@ -22,6 +23,9 @@ public class ConfigurationManager {
             InputStream inputStream = request.getResourceAsStream("/WEB-INF/classes/config.properties");
             config = new Properties();
             config.load(inputStream);
+            inputStream = request.getResourceAsStream("/WEB-INF/classes/mail.properties");
+            mailProperties = new Properties();
+            mailProperties.load(inputStream);
             LogConfiguration.LOGGER.debug("config resources loaded");
         } catch (IOException e) {
             LogConfiguration.LOGGER.error("can't config resources");
@@ -29,9 +33,10 @@ public class ConfigurationManager {
         return true;
     }
 
-    public static String getProperty(String key) {
-        return System.getProperty("catalina.base") + "/webapps/" +config.getProperty(key);
+    public static String getPathProperty(String key) {
+        return System.getProperty("catalina.base") + "\\webapps\\" +config.getProperty(key);
     }
-
-
+    public static String getProperty(String key) {
+        return config.getProperty(key);
+    }
 }

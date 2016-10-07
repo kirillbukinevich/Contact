@@ -1,5 +1,6 @@
 package logic.commands.maincommands;
 
+import logic.configuration.ConfigurationManager;
 import logic.database.EmployeeDAO;
 import logic.processcommand.ActionCommand;
 
@@ -33,8 +34,7 @@ public class ContactCommand implements ActionCommand {
         request.setAttribute("employeeList", employeesList);
         request.setAttribute("noOfPages", Integer.valueOf(noOfPages));
         request.setAttribute("currentPage", Integer.valueOf(page));
-        String pageForward = "/web/jsp/main.jsp";
-        return pageForward;
+        return ConfigurationManager.getProperty("path.page.main");
     }
     public String getSearchCriteria(HttpServletRequest request){
         HashMap<String,String> searchCriteria = (HashMap)request.getSession().getAttribute("search_criteria");

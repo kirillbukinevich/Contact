@@ -8,13 +8,14 @@ import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 public class DeletePhotoCommand extends UpdateCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
 
         deletePhoto(request);
         super.fillAllParameters(request);
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
 

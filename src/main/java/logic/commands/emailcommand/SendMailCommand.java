@@ -2,6 +2,7 @@ package logic.commands.emailcommand;
 
 import logic.commands.emailcommand.template.TempalteContent;
 import logic.commands.maincommands.ContactCommand;
+import logic.configuration.ConfigurationManager;
 import logic.processcommand.ActionCommand;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,8 +27,8 @@ public class SendMailCommand implements ActionCommand {
     }
 
     private boolean sendMessage(HttpServletRequest request) {
-        String from = Admin.USER_NAME;
-        String pass = Admin.PASSWORD;
+        String from = ConfigurationManager.getProperty("admin.username");
+        String pass = ConfigurationManager.getProperty("admin.password");
         String emails = request.getParameter("list_mail");
         String[] to = emails.split(" ");
         String subject = request.getParameter("theme");
@@ -36,15 +37,7 @@ public class SendMailCommand implements ActionCommand {
         return true;
     }
     private void sendFromGMail(String from, String pass, String[] to, String subject, String body,HttpServletRequest request) {
-        Properties props = System.getProperties();
-        String host = "smtp.gmail.com";
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", from);
-        props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-
+        Properties props = ConfigurationManager.mailProperties;;
         Session session = Session.getDefaultInstance(props);
         MimeMessage message = new MimeMessage(session);
 
@@ -67,7 +60,8 @@ public class SendMailCommand implements ActionCommand {
 
 
             Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
+            transport.connect(ConfigurationManager.getProperty("host"), ConfigurationManager.getProperty("admin.username"),
+                    ConfigurationManager.getProperty("admin.password"));
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         }

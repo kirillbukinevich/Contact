@@ -8,6 +8,8 @@ import logic.entity.Employee;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 01.10.2016.
  */
@@ -16,8 +18,7 @@ public class EditPhoneCommand extends UpdateCommand{
         updatePhone(request);
         super.fillAllParameters(request);
 
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
 

@@ -22,7 +22,7 @@ public class DownloadFileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         // reads input file from an absolute path
-        String filePath = ConfigurationManager.getProperty("path.saveFile") + request.getParameter("file_path");
+        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + request.getParameter("file_path");
         System.out.println(filePath);
         File downloadFile = new File(filePath);
         FileInputStream inStream = new FileInputStream(downloadFile);

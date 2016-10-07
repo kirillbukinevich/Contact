@@ -9,6 +9,8 @@ import logic.processcommand.ActionCommand;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static logic.configuration.ConfigurationManager.getProperty;
+
 /**
  * Created by aefrd on 10.09.2016.
  */
@@ -20,8 +22,7 @@ public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
         }
         super.fillAllParameters(request);
 
-        String page = "/web/jsp/addedit.jsp";
-        return page;
+        return getProperty("path.page.edit");
     }
 
 

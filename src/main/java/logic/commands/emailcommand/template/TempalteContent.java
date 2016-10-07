@@ -17,7 +17,7 @@ public class TempalteContent {
     private MimeBodyPart imagePart = new MimeBodyPart();
     private MimeBodyPart textPart = new MimeBodyPart();
     private MimeMultipart content = new MimeMultipart("related");
-    private String path = ConfigurationManager.getProperty("path.image");
+    private String path = ConfigurationManager.getPathProperty("path.image");
 
     private boolean generateTemplateBirthdayManForSend() throws MessagingException, IOException {
         attachImage = path + "birthday/birthday_men.jpg";

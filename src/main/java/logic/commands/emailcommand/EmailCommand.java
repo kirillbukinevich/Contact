@@ -1,5 +1,6 @@
 package logic.commands.emailcommand;
 
+import logic.configuration.ConfigurationManager;
 import logic.database.EmployeeDAO;
 import logic.processcommand.ActionCommand;
 
@@ -12,8 +13,7 @@ public class EmailCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String[] selectedEmployee = request.getParameterValues("check_selected");
         request.setAttribute("lst_mail", getEmailsFromBD(selectedEmployee));
-        String page = "/web/jsp/email.jsp";
-        return page;
+        return ConfigurationManager.getProperty("path.page.email");
     }
     public StringBuilder getEmailsFromBD(String[] selectedEmployee){
         StringBuilder emails = new StringBuilder();
