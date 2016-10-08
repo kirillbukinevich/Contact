@@ -15,11 +15,10 @@
 /* Modal Content */
 .modal-content {
     position: relative;
-    background-color: #fefefe;
+    background-color: rgba(6, 6, 6, 0.4);;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
-    width: 80%;
+    width: 60%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -67,7 +66,7 @@
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #88b8ee;
+    background-color: rgba(12, 12, 12, 0.36);
     color: white;
 }
 
@@ -77,6 +76,14 @@
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #88b8ee;
+    background-color: rgba(12, 12, 12, 0.36);
     color: white;
+}
+.form .form-phone{
+    margin-right: 8%;
+    padding-bottom: 3%;
+    line-height: 30px;
+}
+.label-select{
+    margin-top: 0;
 }

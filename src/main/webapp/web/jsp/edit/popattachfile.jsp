@@ -4,7 +4,7 @@
 <form name="loginForm" method="POST" action="upload" enctype="multipart/form-data" id="myForm">
 
     <!-- The Modal -->
-    <div id="attachModal" class="modal">
+    <div id="attachModal" class="modal attach-img">
 
         <!-- Modal content -->
         <div class="modal-content">
@@ -12,20 +12,22 @@
                 <h2>${type_operation} :${file_name}</h2>
             </div>
             <div class="modal-body">
+                <div class="form">
+                    <div class="form-phone">
+                        <!-- write here-->
+                        <input type="file" class="btn-file" name="file_name" value="${file_name}" required>
+                        <label>Комментарий</label>
+                        <input type="text" class="form-control" name="comment" value="${comment_file}">
+                    </div>
 
-                <div class="form-group">
-                    <!-- write here-->
-                    <input type="file" class="btn-file" name="file_name" value="${file_name}" required>
-                    <label>Комментарий</label>
-                    <input type="text" class="form-control" name="comment" value="${comment_file}">
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button class="btn btn-info" name="command"
-                       value="${type_operation}">Сохранить</button>
+                        value="${type_operation}">Сохранить
+                </button>
 
-                <button class="btn btn-info" id="close_attachModal" >Отменить
+                <button class="btn btn-info" id="close_attachModal">Отменить
                 </button>
 
             </div>

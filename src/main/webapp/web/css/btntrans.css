@@ -12,8 +12,7 @@
     color:#0044CC;
 }
 .btn-trans-success {
-    border: 2px solid #f9ff3a;
-    color: #f9ff3a;
+    color: #3affaf;
 }
 
 .btn-trans-info {
@@ -30,10 +29,10 @@
 }
 .btn-trans-success:active:focus {
     color: #ffffff;
-    background-color: #f9ff3a;
-    border-color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #39d6af;
 }
 .btn-trans-success:hover {
     box-shadow: none;
-    background-color: #f9ff3a;
+    background-color: rgba(255, 255, 255, 0.58);
 }

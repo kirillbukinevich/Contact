@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table class="table table-bordered">
+<table class="table table-responsive">
     <thead>
     <tr>
         <th></th>

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- Trigger/Open The Modal -->
-<button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span
+<li><button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span
         class="glyphicon glyphicon-search"></span>
     Найти
-</button>
+</button></li>
 
 <!-- The Modal -->
-<div id="searchModal" class="modal">
+<div id="searchModal" class="modal search-img">
 
     <!-- Modal content -->
     <div class="modal-content" style="width: 440px;">
@@ -79,10 +79,10 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" name="command"
+                    <button class="btn btn-trans btn-trans-success" name="command"
                             value="search">Поиск
                     </button>
-                    <button class="btn btn-info" id="close_searchModal">Закрыть
+                    <button class="btn btn-trans btn-trans-success" id="close_searchModal">Закрыть
                     </button>
 
                 </div>

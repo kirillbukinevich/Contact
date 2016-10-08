@@ -7,7 +7,11 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/style.css"
       rel="stylesheet">
+<link href="${pageContext.request.contextPath}/web/css/navbar.css"
+      rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/btntrans.css"
+      rel="stylesheet">
+<link href="${pageContext.request.contextPath}/web/css/popBackgroundImage.css"
       rel="stylesheet">
 <script src="${pageContext.request.contextPath}/web/scripts/mainScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
@@ -16,46 +20,39 @@
 <head>
     <title>Сотрудники</title>
 </head>
-<body class="back-color">
+<body class="back-img">
 <div class="container-fluid">
-    <div class="panel panel-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="btn-group">
+                    <li><button form="contact_form" class="btn btn-trans btn-trans-success " name="command"
+                            value="new">
+                        Новый
+                    </button></li>
+
+                    <li><button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
+                            value="edit"
+                            id="editbutton" disabled=true>Редактировать
+                    </button></li>
+
+                    <li><button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton"
+                            name="command"
+                            value="delete" disabled="true"><span class="glyphicon glyphicon-remove"></span>
+                        Удалить
+                    </button></li>
+
+                    <%--<button class="btn btn-info " name="command" value="find">Find</button>--%>
+                    <jsp:include page="search.jsp"/>
+
+                    <li><button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
+                            value="email"
+                            id="sendmailbutton" disabled="true"><span
+                            class="glyphicon glyphicon-envelope"></span>
+                        Отправить email
+                    </button></li>
+                </div>
+        </nav>
+    <div class="panel">
         <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="btn-group">
-                        <button form="contact_form" class="btn btn-trans btn-trans-success " name="command"
-                                value="new">
-                            Новый
-                        </button>
-
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
-                                value="edit"
-                                id="editbutton" disabled=true>Редактировать
-                        </button>
-
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="deletebutton"
-                                name="command"
-                                value="delete" disabled="true"><span class="glyphicon glyphicon-remove"></span>
-                            Удалить
-                        </button>
-
-                        <%--<button class="btn btn-info " name="command" value="find">Find</button>--%>
-                        <jsp:include page="search.jsp"/>
-
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" name="command"
-                                value="email"
-                                id="sendmailbutton" disabled="true"><span
-                                class="glyphicon glyphicon-envelope"></span>
-                            Отправить email
-                        </button>
-                    </div>
-                </div>
-                <div class="col-xs-3"></div>
-                <div class="col-xs-3">
-
-                </div>
-
-            </div>
             <div id="search_bar" style="display: ${search_bar == "show" ? 'block':'none'}">
                 <div class="row">
                     <div class="col-xs-6">
@@ -67,50 +64,44 @@
                 </div>
             </div>
         </div>
-
-        <div class="panel-body" style="height: 90%">
+    <div class="panel-body">
             <form method="POST" action="controller" id="contact_form">
 
                 <%--employee table--%>
 
-                <div class="row" style="height: 77%">
-                    <div class="tbl-header">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th width="5%"></th>
-                                <th>Имя</th>
-                                <th>Дата рождения</th>
-                                <th>Адрес</th>
-                                <th>Компания</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="tbl-content">
-                        <table>
-                            <tbody>
-                            <c:forEach var="employee" items="${employeeList}" varStatus="status">
-                            <tr>
-                                <td width="5%"><input type="checkbox" name="check_selected" value="${employee.id}"
-                                                      onchange="checkboxes(),checkboxesForMail()">
-                                </td>
-                                <td>
-                                    <a href="<c:url value="controller?command=edit">
+                <div class="row table-responsive" style="height: 77%">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th width="5%"></th>
+                            <th>Имя</th>
+                            <th>Дата рождения</th>
+                            <th>Адрес</th>
+                            <th>Компания</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="employee" items="${employeeList}" varStatus="status">
+                        <tr>
+                            <td width="5%"><input type="checkbox" name="check_selected" value="${employee.id}"
+                                                  onchange="checkboxes(),checkboxesForMail()">
+                            </td>
+                            <td>
+                                <a href="<c:url value="controller?command=edit">
                             <c:param name="employee_id" value="${employee.id}"/>
                         </c:url>"
-                                       class="btn btn-link">${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
-                                </td>
-                                <td>${employee.dateOfBirth}</td>
-                                <td>${employee.address}</td>
-                                <td>${employee.workPlace}</td>
-                            </tr>
-                            </c:forEach>
-                        </table>
-                    </div>
+                                   class="btn btn-link">${employee.firstName} ${employee.lastName} ${employee.patronymic}</a>
+                            </td>
+                            <td>${employee.dateOfBirth}</td>
+                            <td>${employee.address}</td>
+                            <td>${employee.workPlace}</td>
+                        </tr>
+                        </c:forEach>
+                    </table>
                 </div>
+    </div>
                 <%----%>
-
+    <div class="panel-footer">
                 <%--For displaying Page numbers.
                 The when condition does not display a link for the current page--%>
                 <div class="row">
@@ -155,12 +146,9 @@
             </form>
         </div>
 
-        <div class="panel-footer">
-            <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; padding-left: 30%">
+            <h2 style="color: #fffdfb; font-size: 1.8em; font-family: Monaco,serif; text-align: center;">
                 Только счастливые сотрудники!</h2>
-        </div>
     </div>
-
 </div>
 
 </body>
