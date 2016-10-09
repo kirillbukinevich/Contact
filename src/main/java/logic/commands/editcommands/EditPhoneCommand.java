@@ -1,9 +1,7 @@
 package logic.commands.editcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.PhoneDAO;
 import logic.entity.ContactPhone;
-import logic.entity.Employee;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 01.10.2016.
  */
-public class EditPhoneCommand extends UpdateCommand{
+public class EditPhoneCommand extends UpdateCommand {
     public String execute(HttpServletRequest request) {
         updatePhone(request);
         super.fillAllParameters(request);
@@ -23,22 +21,28 @@ public class EditPhoneCommand extends UpdateCommand{
 
 
     public void updatePhone(HttpServletRequest request) {
-        ContactPhone editPhone = checkEditPhone(request);
+        ContactPhone editPhone = getEditPhone(request);
+        ContactPhone newPhone = null;
+        if (editPhone.isSaved()) {
+            editPhone.setIsUpdated(true);
+            newPhone = editPhone.clone();
+            newPhone.setIsSaved(false);
+            editPhone.setIsDeleted(true);
+        } else {
+            newPhone = editPhone;
+        }
 
-        ArrayList<ContactPhone> phoneList =  getEmployeeFromSession(request).getPhoneList();
-        phoneList.remove(editPhone);
-
-        ContactPhone phone = getPhoneFromJSP(request, editPhone);
-
-        PhoneDAO phoneDAO = new PhoneDAO();
-        phoneDAO.updatePhone(phone);
-
-        phoneList.add(phone);
-
+        ArrayList<ContactPhone> phoneList = getEmployeeFromSession(request).getPhoneList();
+        if (newPhone != editPhone) {
+            phoneList.add(getPhoneFromJSP(request, newPhone));
+        } else {
+            phoneList.set(phoneList.indexOf(editPhone), getPhoneFromJSP(request, newPhone));
+        }
     }
-    public ContactPhone checkEditPhone(HttpServletRequest request){
-        ContactPhone editPhone =  (ContactPhone)request.getSession().getAttribute("edit_phone");
-        request.getSession().setAttribute("edit_phone",null);
+
+    public ContactPhone getEditPhone(HttpServletRequest request) {
+        ContactPhone editPhone = (ContactPhone) request.getSession().getAttribute("edit_phone");
+        request.getSession().setAttribute("edit_phone", null);
         return editPhone;
     }
 

@@ -17,13 +17,14 @@ import static logic.configuration.LogConfiguration.LOGGER;
 public class PhoneDAO extends AbstractDAO{
     public boolean addPhone(ContactPhone phone, final int EMPLOYEEID) {
         updatePrepareStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
-                "VALUES(?,?,?,?,?," + EMPLOYEEID + ")");
+                "VALUES(?,?,?,?,?,?)");
         try {
             this.preparedStatement.setInt(1, phone.getCodeCountry());
             this.preparedStatement.setInt(2, phone.getCodeOperator());
             this.preparedStatement.setInt(3, phone.getNumber());
             this.preparedStatement.setString(4, phone.getType());
             this.preparedStatement.setString(5, phone.getComment());
+            this.preparedStatement.setInt(6, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             LOGGER.info("add phone to BD");
             phone.setId(retriveId(preparedStatement));
@@ -57,6 +58,7 @@ public class PhoneDAO extends AbstractDAO{
                 contactPhone.setNumber(e.getInt(5));
                 contactPhone.setType(e.getString(6));
                 contactPhone.setComment(e.getString(7));
+                contactPhone.setIsSaved(true);
                 phoneList.add(contactPhone);
             }
         } catch (SQLException var6) {
@@ -77,7 +79,7 @@ public class PhoneDAO extends AbstractDAO{
             preparedStatement.setString(5,phone.getComment());
             preparedStatement.setInt(6,phone.getId());
             preparedStatement.executeUpdate();
-
+            LOGGER.info("update phone to BD");
         } catch (SQLException e) {
             LOGGER.error("can't update phone to BD ", e);
         }finally {
@@ -99,6 +101,7 @@ public class PhoneDAO extends AbstractDAO{
             PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
+            LOGGER.info("delete phone to BD");
         } catch (SQLException var5) {
             LOGGER.error("can't delete phone ", var5);
         }finally {

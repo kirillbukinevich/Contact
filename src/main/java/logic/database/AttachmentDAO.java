@@ -73,6 +73,7 @@ public class AttachmentDAO extends AbstractDAO {
                 attachment.setFileName(e.getString(3));
                 attachment.setLoadDate(e.getTimestamp(4).toLocalDateTime());
                 attachment.setComment(e.getString(5));
+                attachment.setSaved(true);
                 attachmentList.add(attachment);
             }
         } catch (SQLException var6) {
@@ -82,12 +83,12 @@ public class AttachmentDAO extends AbstractDAO {
         return attachmentList;
     }
 
-    public boolean deleteAttachment(final int PHONEID) {
+    public boolean deleteAttachment(final int ATTACHMENTID) {
         String deleteSQL = "DELETE FROM attachments WHERE attachments.id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-            preparedStatement.setInt(1, PHONEID);
+            preparedStatement.setInt(1, ATTACHMENTID);
             preparedStatement.executeUpdate();
         } catch (SQLException var5) {
             LOGGER.error("can't delete attachment ", var5);

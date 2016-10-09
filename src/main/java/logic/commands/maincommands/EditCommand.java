@@ -94,14 +94,12 @@ public class EditCommand implements ActionCommand {
     }
 
     public boolean fillPhoneParameters(HttpServletRequest request, List<ContactPhone> phoneList) {
+        System.out.println(phoneList);
         request.setAttribute("phoneList", phoneList);
         return true;
     }
 
     public boolean fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
-        for (Attachment attachment : attachmentList) {
-            System.out.print(attachment.isSaved() + " ");
-        }
         System.out.println("attachmentList: " + attachmentList);
         String filePath = ConfigurationManager.getPathProperty("path.saveFile");
         request.setAttribute("file_path", filePath);

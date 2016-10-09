@@ -29,7 +29,6 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
     public void addFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = getFile(request, employee);
 
-        addAttachmentToBD(attachment);
         employee.getAttachmentList().add(attachment);
     }
 
@@ -39,7 +38,7 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         attachment.setEmployeeID(EMPLOYEEID);
         attachment.setComment((String) request.getAttribute("comment"));
         attachment.setLoadDate(LocalDateTime.now());
-        attachment.setSaved(false);
+        attachment.setId(attachment.hashCode());
         processAttachmentFile(request, employee, attachment);
         return attachment;
     }
@@ -66,11 +65,6 @@ public class AddAttachmentCommand extends UpdateCommand implements ActionCommand
         return true;
     }
 
-    public boolean addAttachmentToBD(Attachment attachment) {
-        AttachmentDAO attachmentDAO = new AttachmentDAO();
-        attachmentDAO.addAttachment(attachment);
-        return true;
-    }
     public String getSaveName(Employee employee, String originalFileName){
         String extension =  FilenameUtils.getExtension(originalFileName);
         String fileNameOutExtnsn = FilenameUtils.removeExtension(originalFileName);

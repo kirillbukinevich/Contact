@@ -12,20 +12,29 @@
     </tr>
     </thead>
     <tbody>
+    <input type="hidden" id="phone_id" name="phone_id" value="">
     <c:forEach var="phone" items="${phoneList}" varStatus="status">
-        <tr>
-            <td><input type="checkbox" name="check_selected_phone" value="${phone.id}"
-                       onchange="checkboxes('editPhone','deletePhone')"></td>
-            <td>
-                <button name = "command" value = "update_edit_phone" class="btn-link">
-                    <input type="hidden" name="phone_id" value="${phone.id}">
-                        ${phone.codeCountry}${phone.codeOperator}${phone.number}
-                </button>
-            </td>
-            <td>${phone.type}</td>
-            <td>${phone.comment}</td>
-        </tr>
+        <c:if test="${!phone.deleted}">
+            <tr>
+                <td><input type="checkbox" name="check_selected_phone" value="${phone.id}"
+                           onchange="checkboxes('editPhone','deletePhone')"></td>
+                <td>
+                    <button name="command" value="update_edit_phone" class="btn-link"
+                            onclick="checkIDPhone(${phone.id})">
+                            ${phone.codeCountry}${phone.codeOperator}${phone.number}
+                    </button>
+                </td>
+                <td>${phone.type}</td>
+                <td>${phone.comment}</td>
+            </tr>
+        </c:if>
     </c:forEach>
     </tbody>
 
 </table>
+<script>
+    function checkIDPhone(ID) {
+        var phoneID = document.getElementById("phone_id");
+            phoneID.value = ID;
+    }
+</script>

@@ -27,9 +27,10 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
     public void addPhone(HttpServletRequest request,Employee employee) {
         final int EMPLOYEEID =  employee.getId();
         ContactPhone phone = getPhone(request);
+        phone.setEmployeeID(EMPLOYEEID);
+//        PhoneDAO phoneDAO = new PhoneDAO();
+//        phoneDAO.addPhone(phone, EMPLOYEEID);
 
-        PhoneDAO phoneDAO = new PhoneDAO();
-        phoneDAO.addPhone(phone, EMPLOYEEID);
         employee.getPhoneList().add(phone);
 
     }
@@ -40,6 +41,7 @@ public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
         phone.setNumber(Integer.parseInt(request.getParameter("phone_number")));
         phone.setType(request.getParameter("phone_type"));
         phone.setComment(request.getParameter("comment"));
+        phone.setId(phone.hashCode());
 
         return phone;
     }

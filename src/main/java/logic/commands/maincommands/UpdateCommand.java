@@ -4,6 +4,7 @@ import logic.commands.maincommands.EditCommand;
 import logic.entity.Address;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -42,7 +43,7 @@ public class UpdateCommand implements ActionCommand{
     }
 
     public Employee updateEmployee(HttpServletRequest request, Employee employee) {
-
+        System.out.println("HERE: " + request.getParameter("first_name"));
 
         employee.setFirstName(request.getParameter("first_name"));
         employee.setLastName(request.getParameter("last_name"));
@@ -67,17 +68,17 @@ public class UpdateCommand implements ActionCommand{
 
     public Address updateAddress(HttpServletRequest request) {
         Address address = new Address();
-        address.setCountryName(request.getParameter("country")==null || request.getParameter("country").isEmpty()
+        address.setCountryName(StringUtils.isEmpty(request.getParameter("country"))
                 ? null : (request.getParameter("country")));
-        address.setCityName(request.getParameter("city")==null || request.getParameter("city").isEmpty()
+        address.setCityName(StringUtils.isEmpty(request.getParameter("city"))
                 ? null : request.getParameter("city"));
-        address.setStreetName(request.getParameter("city")==null || request.getParameter("street").isEmpty()
+        address.setStreetName(StringUtils.isEmpty(request.getParameter("street"))
                 ? null : request.getParameter("street"));
-        address.setHouseNumber(request.getParameter("house")==null || request.getParameter("house").isEmpty()
+        address.setHouseNumber(StringUtils.isEmpty(request.getParameter("house"))
                 ? null : (request.getParameter("house")));
-        address.setFlatNumber(request.getParameter("flat")==null || request.getParameter("flat").isEmpty()
+        address.setFlatNumber(StringUtils.isEmpty(request.getParameter("flat"))
                 ? 0 : Integer.valueOf((request.getParameter("flat"))));
-        address.setIndex(request.getParameter("house")==null || request.getParameter("house").isEmpty()
+        address.setIndex(StringUtils.isEmpty(request.getParameter("index"))
                 ? 0 : Integer.valueOf((request.getParameter("index"))));
         return address;
     }

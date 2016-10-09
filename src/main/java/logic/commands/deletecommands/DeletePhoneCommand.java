@@ -29,23 +29,17 @@ public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
     public boolean deletePhone(HttpServletRequest request,final int PHONEID) {
         Employee employee = getEmployeeFromSession(request);
         List<ContactPhone> phoneList = employee.getPhoneList();
-        ContactPhone removePhone = null;
         for(ContactPhone phone : phoneList){
             if(phone.getId()==PHONEID){
-                removePhone = phone;
+                phone.setIsDeleted(true);
+
             }
         }
-        employee.getPhoneList().remove(removePhone);
-        deletePhoneFromDB(PHONEID);
         return true;
     }
 
 
-    public boolean deletePhoneFromDB(final int PHONEID){
-        PhoneDAO phoneDAO = new PhoneDAO();
-        phoneDAO.deletePhone(PHONEID);
-        return true;
-    }
+
 
 
     public Employee getEmployeeFromSession(HttpServletRequest request){

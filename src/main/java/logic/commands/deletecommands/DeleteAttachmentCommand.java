@@ -36,7 +36,6 @@ public class DeleteAttachmentCommand extends UpdateCommand implements ActionComm
             }
         }
         removeFile.setDeleted(true);
-        removeFile.setSaved(true);
         deleteAttachmentFromDB(ATTACHMENTID);
         return true;
     }

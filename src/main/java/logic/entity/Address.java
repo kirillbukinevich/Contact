@@ -1,5 +1,7 @@
 package logic.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Address {
     private int id;
     private String countryName;
@@ -71,16 +73,16 @@ public class Address {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        if(countryName!=null){
+        if(StringUtils.isNotEmpty(countryName)){
             result.append(countryName);
         }
-        if(cityName!=null){
+        if(StringUtils.isNotEmpty(cityName)){
             result.append(" г.").append(cityName);
         }
-        if(streetName!=null){
+        if(StringUtils.isNotEmpty(streetName)){
             result.append(" ул.").append(streetName);
         }
-        if(houseNumber!=null){
+        if(StringUtils.isNotEmpty(houseNumber)){
             result.append(" д.").append(houseNumber);
         }
         if(flatNumber!=0){

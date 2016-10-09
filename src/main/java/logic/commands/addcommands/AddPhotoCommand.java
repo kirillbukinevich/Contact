@@ -24,7 +24,6 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
     }
     public boolean savePhoto(HttpServletRequest request,Employee employee) {
         Photo photo = getPhoto(request,employee);
-        addPhotoToBD(photo);
         employee.setPhoto(photo);
         return true;
     }
@@ -46,24 +45,9 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
                 photo.setBytes(fi.get());
                 photo.setDeleted(false);
                 photo.setExistInDB(false);
-//                String filePath = (String)request.getAttribute("file_path");
-//                String resultFileName = filePath +
-//                        fileName.substring(fileName.lastIndexOf("\\") + 1);
-//                File file = new File(resultFileName);
-//                try {
-//                    fi.write(file);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
             }
         }
         return photo;
-    }
-
-    public boolean addPhotoToBD(Photo photo){
-        PhotoDAO photoDAO = new PhotoDAO();
-        photoDAO.updatePhoto(photo);
-        return true;
     }
     public Employee getEmployeeFromSession(HttpServletRequest request){
         Employee employee = (Employee)request.getSession().getAttribute("employee");

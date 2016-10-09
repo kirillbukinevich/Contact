@@ -27,8 +27,10 @@ public class ChooseEditAttachmentCommand extends UpdateCommand implements Action
         Attachment editAttachment = null;
         for(Attachment attachment : attachmentList){
             if(attachment.getId()==ATTACHMENTID){
-                editAttachment = attachment;
-                break;
+                if(!attachment.isUpdated() || !attachment.isSaved()) {
+                    editAttachment = attachment;
+                    break;
+                }
             }
         }
         request.getSession().setAttribute("edit_attachment",editAttachment);
@@ -38,4 +40,5 @@ public class ChooseEditAttachmentCommand extends UpdateCommand implements Action
 
         return true;
     }
+
 }

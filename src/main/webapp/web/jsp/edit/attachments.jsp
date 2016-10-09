@@ -16,7 +16,8 @@
                            onchange="checkboxes('editAttachFile','deleteAttachFile')"></td>
                 <td>
                     <a href="<c:url value="download">
-                            <c:param name="file_path" value="${file.employeeID}/${file.fileName}"/>
+                            <c:param name="file_path" value="${file.employeeID}/${file.id}"/>
+                            <c:param name="file_name" value="${file.fileName}"/>
                         </c:url>"
                        class="btn btn-link" onclick="return ${file.saved}">${file.fileName}</a>
                 </td>

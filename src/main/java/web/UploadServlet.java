@@ -52,6 +52,7 @@ public class UploadServlet extends HttpServlet {
                 if (fi.isFormField()){
                     if(fi.getFieldName().equals("command")){
                         request.setAttribute("command",fi.getString());
+                        System.out.println(fi.getFieldName() + "---" + fi.getString());
                         Controller controller = new Controller();
                         controller.processRequest(request,response);
                     }

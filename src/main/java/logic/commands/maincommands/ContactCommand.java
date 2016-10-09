@@ -3,8 +3,12 @@ package logic.commands.maincommands;
 import logic.configuration.ConfigurationManager;
 import logic.database.EmployeeDAO;
 import logic.processcommand.ActionCommand;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,13 +44,13 @@ public class ContactCommand implements ActionCommand {
         HashMap<String,String> searchCriteria = (HashMap)request.getSession().getAttribute("search_criteria");
         StringBuilder criteria = new StringBuilder("WHERE ");
         String searchDateCriteria = (String)request.getSession().getAttribute("search_date_criteria");
-        if(!(searchDateCriteria==null || searchDateCriteria.isEmpty())){
+        if(StringUtils.isNotEmpty(searchDateCriteria)){
             criteria.append(searchDateCriteria);
-            if(!(searchCriteria==null ||  searchCriteria.isEmpty())){
+            if(MapUtils.isNotEmpty(searchCriteria)){
                 criteria.append(" AND ");
             }
         }
-        if(!(searchCriteria==null ||  searchCriteria.isEmpty())){
+        if(MapUtils.isNotEmpty(searchCriteria)){
             Iterator<String> iterator = searchCriteria.keySet().iterator();
             while (iterator.hasNext()){
                 criteria.append(iterator.next()).append("=? ");
@@ -58,7 +62,7 @@ public class ContactCommand implements ActionCommand {
         System.out.println("CRITERIA: " + criteria);
         request.getSession().setAttribute("search_criteria",null);
         request.getSession().setAttribute("search_date_criteria",null);
-        if(criteria.toString().equals("WHERE ")){
+        if(StringUtils.equals(criteria.toString(),"WHERE ")){
             return "";
         }else {
             return criteria.toString();
