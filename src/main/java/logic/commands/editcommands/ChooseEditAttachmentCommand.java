@@ -11,10 +11,11 @@ import java.util.ArrayList;
 /**
  * Created by aefrd on 21.09.2016.
  */
-public class ChooseEditAttachmentCommand extends UpdateCommand implements ActionCommand{
+public class ChooseEditAttachmentCommand implements ActionCommand{
+    private UpdateCommand updateCommand = new UpdateCommand();
     @Override
     public String execute(HttpServletRequest request) {
-        String page = super.execute(request);
+        String page = updateCommand.execute(request);
         String[] selectedAttachment = request.getParameterValues("check_selected_file");
         for (String aSelectedPhone : selectedAttachment) {
             this.editAttachment(request, Integer.parseInt(aSelectedPhone));
@@ -22,7 +23,7 @@ public class ChooseEditAttachmentCommand extends UpdateCommand implements Action
         return page;
     }
     public boolean editAttachment(HttpServletRequest request,final int ATTACHMENTID) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         ArrayList<Attachment> attachmentList = employee.getAttachmentList();
         Attachment editAttachment = null;
         for(Attachment attachment : attachmentList){

@@ -14,7 +14,6 @@ import java.io.IOException;
 import static logic.configuration.LogConfiguration.LOGGER;
 
 public class DeleteCommand implements ActionCommand {
-
     public String execute(HttpServletRequest request) {
         String[] selectedEmpl = request.getParameterValues("check_selected");
 

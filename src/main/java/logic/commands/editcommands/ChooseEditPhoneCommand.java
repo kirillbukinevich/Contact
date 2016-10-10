@@ -11,9 +11,10 @@ import java.util.ArrayList;
 /**
  * Created by aefrd on 17.09.2016.
  */
-public class ChooseEditPhoneCommand extends UpdateCommand implements ActionCommand{
+public class ChooseEditPhoneCommand implements ActionCommand{
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
-        String page = super.execute(request);
+        String page = updateCommand.execute(request);
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
         if(selectedPhone==null) {
             this.editPhone(request, Integer.parseInt(request.getParameter("phone_id")));
@@ -22,12 +23,12 @@ public class ChooseEditPhoneCommand extends UpdateCommand implements ActionComma
                 this.editPhone(request, Integer.parseInt(aSelectedPhone));
             }
         }
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return page;
     }
 
     public boolean editPhone(HttpServletRequest request,final int PHONEID) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         ArrayList<ContactPhone> phoneList = employee.getPhoneList();
         ContactPhone editPhone = null;
         for(ContactPhone phone : phoneList){

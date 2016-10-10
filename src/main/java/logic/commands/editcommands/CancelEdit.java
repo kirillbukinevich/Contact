@@ -20,22 +20,23 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 04.10.2016.
  */
-public class CancelEdit extends UpdateCommand implements ActionCommand{
+public class CancelEdit implements ActionCommand{
+    private UpdateCommand updateCommand = new UpdateCommand();
     @Override
     public String execute(HttpServletRequest request) {
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        Employee employee = employeeDAO.getEmployeeOnId(getEmployeeFromSession(request).getId());
+        Employee employee = employeeDAO.getEmployeeOnId(updateCommand.getEmployeeFromSession(request).getId());
         PhotoDAO photoDAO = new PhotoDAO();
-        employee.setPhoto(photoDAO.getPhoto(getEmployeeFromSession(request).getId()));
+        employee.setPhoto(photoDAO.getPhoto(updateCommand.getEmployeeFromSession(request).getId()));
         cancelAttcachments(request,employee);
         cancelContactPhone(request,employee);
-        setEmployeeToSession(request,employee);
+        updateCommand.setEmployeeToSession(request,employee);
         EditCommand editCommand = new EditCommand();
         editCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
     public boolean cancelAttcachments(HttpServletRequest request,Employee employee){
-        List<Attachment> attachments = getEmployeeFromSession(request).getAttachmentList();
+        List<Attachment> attachments = updateCommand.getEmployeeFromSession(request).getAttachmentList();
         if(CollectionUtils.isNotEmpty(attachments)) {
             Iterator<Attachment> attachmentIterator = attachments.listIterator();
             while (attachmentIterator.hasNext()) {
@@ -53,7 +54,7 @@ public class CancelEdit extends UpdateCommand implements ActionCommand{
         return true;
     }
     public boolean cancelContactPhone(HttpServletRequest request,Employee employee){
-        List<ContactPhone> phoneList = getEmployeeFromSession(request).getPhoneList();
+        List<ContactPhone> phoneList = updateCommand.getEmployeeFromSession(request).getPhoneList();
         Iterator<ContactPhone> phoneIterator = phoneList.listIterator();
         while (phoneIterator.hasNext()){
             ContactPhone phone = phoneIterator.next();

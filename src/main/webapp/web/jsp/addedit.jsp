@@ -30,7 +30,8 @@
     <div class="container-fluid">
         <div class="col-md-1">
             <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
-                <img class="img-responsive" src="data:image/png;base64, <c:out value='${photo}'/>"/>
+                <img src="data:image/png;base64, <c:out value='${photo}'/>"
+                     class="img-responsive"  />
             </button>
         </div>
         <div class="col-md-5">

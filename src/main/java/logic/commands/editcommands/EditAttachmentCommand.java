@@ -16,10 +16,11 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 01.10.2016.
  */
-public class EditAttachmentCommand extends UpdateCommand implements ActionCommand {
+public class EditAttachmentCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         updateFile(request);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
 
@@ -35,7 +36,7 @@ public class EditAttachmentCommand extends UpdateCommand implements ActionComman
             newAttachment = oldAttachment;
         }
 
-        ArrayList<Attachment> attachments = getEmployeeFromSession(request).getAttachmentList();
+        ArrayList<Attachment> attachments = updateCommand.getEmployeeFromSession(request).getAttachmentList();
         if (oldAttachment != newAttachment) {
             attachments.add(getFile(request, getFile(request,newAttachment)));
         } else {

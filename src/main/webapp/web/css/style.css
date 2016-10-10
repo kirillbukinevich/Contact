@@ -23,16 +23,6 @@ input[type=text]:hover {
 .panel{
     background-color: rgba(0, 0, 0, 0.55);
 }
-.panel-heading {
-    /*background: url("../image/header.jpeg");*/
-    background-repeat:no-repeat;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-    background-position:center;
-
-}
 
 /* demo styles */
 

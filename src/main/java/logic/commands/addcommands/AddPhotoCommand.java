@@ -14,11 +14,12 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 13.09.2016.
  */
-public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
+public class AddPhotoCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         savePhoto(request,employee);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
     public boolean savePhoto(HttpServletRequest request,Employee employee) {
@@ -48,11 +49,4 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
         }
         return photo;
     }
-    public Employee getEmployeeFromSession(HttpServletRequest request){
-        Employee employee = (Employee)request.getSession().getAttribute("employee");
-        return employee;
-    }
-
-
-
 }

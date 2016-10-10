@@ -12,11 +12,12 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 10.09.2016.
  */
-public class AddPhoneCommand extends UpdateCommand implements ActionCommand {
+public class AddPhoneCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         addPhone(request, employee);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
 

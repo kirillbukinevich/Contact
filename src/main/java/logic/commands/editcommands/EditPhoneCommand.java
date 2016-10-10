@@ -2,6 +2,7 @@ package logic.commands.editcommands;
 
 import logic.commands.maincommands.UpdateCommand;
 import logic.entity.ContactPhone;
+import logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -11,10 +12,11 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 01.10.2016.
  */
-public class EditPhoneCommand extends UpdateCommand {
+public class EditPhoneCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         updatePhone(request);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
 
         return getProperty("path.page.edit");
     }
@@ -32,7 +34,7 @@ public class EditPhoneCommand extends UpdateCommand {
             newPhone = editPhone;
         }
 
-        ArrayList<ContactPhone> phoneList = getEmployeeFromSession(request).getPhoneList();
+        ArrayList<ContactPhone> phoneList = updateCommand.getEmployeeFromSession(request).getPhoneList();
         if (newPhone != editPhone) {
             phoneList.add(getPhoneFromJSP(request, newPhone));
         } else {

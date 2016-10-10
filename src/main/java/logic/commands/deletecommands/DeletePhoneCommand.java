@@ -13,19 +13,20 @@ import static logic.configuration.ConfigurationManager.getProperty;
 /**
  * Created by aefrd on 10.09.2016.
  */
-public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
+public class DeletePhoneCommand implements ActionCommand{
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
         for (String aSelectedPhone : selectedPhone) {
             this.deletePhone(request, Integer.parseInt(aSelectedPhone));
         }
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
 
         return getProperty("path.page.edit");
     }
 
     public boolean deletePhone(HttpServletRequest request,final int PHONEID) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         List<ContactPhone> phoneList = employee.getPhoneList();
         for(ContactPhone phone : phoneList){
             if(phone.getId()==PHONEID){

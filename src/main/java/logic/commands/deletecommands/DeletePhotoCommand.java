@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import static logic.configuration.ConfigurationManager.getProperty;
 
-public class DeletePhotoCommand extends UpdateCommand implements ActionCommand{
+public class DeletePhotoCommand implements ActionCommand{
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
 
         deletePhoto(request);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
 
     public boolean deletePhoto(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         Photo photo = employee.getPhoto();
         photo.setDeleted(true);
         return true;

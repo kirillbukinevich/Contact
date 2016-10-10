@@ -119,7 +119,7 @@
                                             <c:if test="${(currentPage-5<=i and currentPage>=i)  or
                                                            currentPage+5>=i and currentPage<=i}">
                                                 <td><a href="controller?command=contact&page=${i}"
-                                                       class="btn btn-trans btn-trans-success">${i}</a>
+                                                       class="btn btn-trans btn-trans-info">${i}</a>
                                                 </td>
                                             </c:if>
                                         </c:otherwise>

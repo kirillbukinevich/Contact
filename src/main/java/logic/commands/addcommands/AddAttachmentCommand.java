@@ -14,11 +14,12 @@ import java.util.Iterator;
 import java.util.List;
 import static logic.configuration.ConfigurationManager.getProperty;
 
-public class AddAttachmentCommand extends UpdateCommand implements ActionCommand {
+public class AddAttachmentCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
         addFile(request, employee);
-        super.fillAllParameters(request);
+        updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
 

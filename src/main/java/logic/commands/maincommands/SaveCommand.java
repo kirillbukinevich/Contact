@@ -25,7 +25,8 @@ import java.util.Iterator;
 
 import static logic.configuration.LogConfiguration.LOGGER;
 
-public class SaveCommand extends UpdateCommand implements ActionCommand {
+public class SaveCommand implements ActionCommand {
+    private UpdateCommand updateCommand = new UpdateCommand();
     public SaveCommand() {
     }
 
@@ -42,8 +43,8 @@ public class SaveCommand extends UpdateCommand implements ActionCommand {
 
 
     public boolean saveContact(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
-        updateEmployee(request, employee);
+        Employee employee = updateCommand.getEmployeeFromSession(request);
+        updateCommand.updateEmployee(request, employee);
 
         savePhones(employee.getPhoneList(),employee.getId());
         saveAttchment(employee);
