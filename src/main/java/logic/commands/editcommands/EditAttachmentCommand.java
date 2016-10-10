@@ -2,7 +2,6 @@ package logic.commands.editcommands;
 
 import logic.commands.maincommands.UpdateCommand;
 import logic.entity.Attachment;
-import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
 import org.apache.commons.fileupload.FileItem;
 

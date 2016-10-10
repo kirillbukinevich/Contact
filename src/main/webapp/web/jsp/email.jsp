@@ -28,13 +28,15 @@
             <h3>Отправить email</h3>
         </div>
         <form id="emailForm" method="POST" action="controller">
+            <input type="hidden" id="command" name="command" value="">
             <div class="panel-body">
                 <div class="form">
                 <input type="text" class="form-control" name="list_mail" value="${lst_mail}">
                 <input type="text" class="form-control" name="theme" placeholder="Enter the theme"
                        value="${template.subject}">
                 <label>Выберите шаблон
-                    <select class="select-style" name="template_type" id="template_type" onchange="this.form.submit()">
+                    <select class="select-style" name="template_type" id="template_type"
+                            onchange="setCommand('apply_template_email_command'); this.form.submit()">
                         <OPTION selected>
                         <OPTION ${template_type == 'С Днём рождения мужчинам' ? 'selected' : ''}>С Днём рождения
                             мужчинам
@@ -49,10 +51,17 @@
                 ${template.includePage}
             </div>
             <div class="panel-footer">
-                <button class="btn btn-trans btn-trans-success" name="command" value="sendemail">Отправить</button>
+                <button class="btn btn-trans btn-trans-success" onclick="setCommand('sendemail')">Отправить</button>
             </div>
         </FORM>
     </div>
 </div>
 </body>
 </html>
+<script>
+    function setCommand(value){
+        var command = document.getElementById("command");
+        command.value = value;
+
+    }
+</script>

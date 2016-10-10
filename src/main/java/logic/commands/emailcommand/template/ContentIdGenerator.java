@@ -38,15 +38,4 @@ public class ContentIdGenerator {
         int c = getSeq();
         return c + "." + System.currentTimeMillis() + "@" + hostname;
     }
-
-
-    public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.println(ContentIdGenerator.getContentId());
-            }
-            Thread.sleep(100);
-        }
-    }
-
 }

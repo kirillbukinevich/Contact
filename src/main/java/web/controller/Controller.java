@@ -36,7 +36,6 @@ public class Controller extends HttpServlet {
         ActionFactory client = new ActionFactory();
         response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
-        LogConfiguration.LOGGER.info("start : " + request.getParameter("command") + " command");
         page = command.execute(request);
         LogConfiguration.LOGGER.info("finish : " + request.getParameter("command") + " command");
 
@@ -45,7 +44,7 @@ public class Controller extends HttpServlet {
             dispatcher.forward(request, response);
 
         } else {
-            page = "/web/jsp/error.jsp";
+            page = "/web/jsp/welcome.jsp";
             response.sendRedirect(request.getContextPath() + page);
         }
 

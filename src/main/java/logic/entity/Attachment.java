@@ -5,10 +5,11 @@
 
 package logic.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import static logic.configuration.LogConfiguration.LOGGER;
 
-public class Attachment implements Cloneable{
+public class Attachment implements Cloneable,Serializable{
     private int id;
     private int employeeID;
     private String fileName;

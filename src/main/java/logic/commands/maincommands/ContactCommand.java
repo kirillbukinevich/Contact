@@ -3,12 +3,10 @@ package logic.commands.maincommands;
 import logic.configuration.ConfigurationManager;
 import logic.database.EmployeeDAO;
 import logic.processcommand.ActionCommand;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +24,7 @@ public class ContactCommand implements ActionCommand {
         EmployeeDAO dao = new EmployeeDAO();
         dao.rollBack();
 
-        byte RECORDSPERPAGE = 9;
+        final byte RECORDSPERPAGE = 9;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
                 searchCriteria,(HashMap)request.getSession().getAttribute("search_criteria"));
         int noOfRecords = dao.getNoOfRecords();

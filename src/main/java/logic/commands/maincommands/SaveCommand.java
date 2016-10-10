@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import static logic.configuration.LogConfiguration.LOGGER;
 
-public class SaveCommand implements ActionCommand {
+public class SaveCommand extends UpdateCommand implements ActionCommand {
     public SaveCommand() {
     }
 
@@ -42,13 +42,12 @@ public class SaveCommand implements ActionCommand {
 
 
     public boolean saveContact(HttpServletRequest request) {
-        EmployeeDAO contactDAO = new EmployeeDAO();
         Employee employee = getEmployeeFromSession(request);
         updateEmployee(request, employee);
 
         savePhones(employee.getPhoneList(),employee.getId());
         saveAttchment(employee);
-        if (!employee.getPhoto().isExistInDB() && employee.getPhoto().getPhotoName() != null) {
+        if (!employee.getPhoto().isSaved() && employee.getPhoto().getPhotoName() != null) {
             savePhoto(employee.getPhoto());
         }
         if (employee.getPhoto().isDeleted()) {
@@ -56,8 +55,8 @@ public class SaveCommand implements ActionCommand {
         }
 
 
+        EmployeeDAO contactDAO = new EmployeeDAO();
         contactDAO.editEmployee(employee);
-
         contactDAO.saveContact();
 
         return true;
@@ -90,7 +89,6 @@ public class SaveCommand implements ActionCommand {
                 attachmentDAO.addAttachment(attachment);
                 String resultFileName = filePath +
                         attachment.getId();
-                System.out.println("RESULTFileName: " + resultFileName);
                 try {
                     Path path = Paths.get(resultFileName);
                     Files.write(path, attachment.getAttachment());
@@ -113,7 +111,6 @@ public class SaveCommand implements ActionCommand {
                 attachmentDAO.updateAttachment(attachment);
                 String resultFileName = filePath +
                         attachment.getId();
-                System.out.println("RESULTFileName: " + resultFileName);
                 try {
                     Path path = Paths.get(resultFileName);
                     Files.write(path, attachment.getAttachment());
@@ -146,8 +143,6 @@ public class SaveCommand implements ActionCommand {
         return true;
     }
 
-
-
     public boolean deletePhotoFromDisk(Photo photo) {
         PhotoDAO photoDAO = new PhotoDAO();
         photoDAO.updatePhoto(photo);
@@ -161,47 +156,4 @@ public class SaveCommand implements ActionCommand {
         }
         return true;
     }
-
-    public Employee updateEmployee(HttpServletRequest request, Employee employee) {
-
-
-        employee.setFirstName(request.getParameter("first_name"));
-        employee.setLastName(request.getParameter("last_name"));
-        employee.setPatronymic(request.getParameter("patronymic"));
-
-        String[] date = request.getParameter("date_of_birth").split("\\-");
-        LocalDate localDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
-        employee.setDateOfBirth(localDate);
-
-        employee.setGender(request.getParameter("gender"));
-        employee.setNationality(request.getParameter("nationality"));
-        employee.setFamilyStatus(request.getParameter("family_status"));
-        employee.setWebSite(request.getParameter("web_site"));
-        employee.setEmail(request.getParameter("email"));
-        employee.setWorkPlace(request.getParameter("work_place"));
-        employee.setAddress(getAddress(request));
-
-        return employee;
-    }
-
-    public Address getAddress(HttpServletRequest request) {
-        Address address = new Address();
-        address.setCountryName(request.getParameter("country").isEmpty() ? null : (request.getParameter("country")));
-        address.setCityName(request.getParameter("city").isEmpty() ? null : request.getParameter("city"));
-        address.setStreetName(request.getParameter("street").isEmpty() ? null : request.getParameter("street"));
-            address.setHouseNumber(request.getParameter("house").isEmpty() ?
-                     null : (request.getParameter("house")));
-            address.setFlatNumber(request.getParameter("flat").isEmpty() ?
-                    0 : Integer.valueOf((request.getParameter("flat"))));
-            address.setIndex(request.getParameter("house").isEmpty() ?
-                    0 : Integer.valueOf((request.getParameter("index"))));
-        return address;
-    }
-
-    public Employee getEmployeeFromSession(HttpServletRequest request) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        return employee;
-    }
-
-
 }

@@ -1,7 +1,6 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.PhotoDAO;
 import logic.entity.Employee;
 import logic.entity.Photo;
 import logic.processcommand.ActionCommand;
@@ -44,7 +43,7 @@ public class AddPhotoCommand extends UpdateCommand implements ActionCommand {
                 photo.setPhotoName(fileName);
                 photo.setBytes(fi.get());
                 photo.setDeleted(false);
-                photo.setExistInDB(false);
+                photo.setSaved(false);
             }
         }
         return photo;

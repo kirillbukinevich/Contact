@@ -1,6 +1,8 @@
 package logic.entity;
 
-public class ContactPhone implements Cloneable{
+import java.io.Serializable;
+
+public class ContactPhone implements Cloneable,Serializable{
     private Integer id;
     private Integer employeeID;
     private Integer codeCountry;

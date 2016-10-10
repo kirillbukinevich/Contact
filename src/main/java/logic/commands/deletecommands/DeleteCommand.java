@@ -1,7 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
 
 package logic.commands.deletecommands;
 
@@ -40,7 +36,7 @@ public class DeleteCommand implements ActionCommand {
         String path = ConfigurationManager.getProperty("path.saveFile") + ID;
         try {
             FileUtils.deleteDirectory(new File(path));
-
+            LOGGER.info("deleted directory from server");
         } catch (IOException e) {
             LOGGER.error("can't delete directory from server " + e);
         }

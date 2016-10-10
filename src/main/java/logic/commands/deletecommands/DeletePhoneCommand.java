@@ -1,7 +1,6 @@
 package logic.commands.deletecommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.PhoneDAO;
 import logic.entity.ContactPhone;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
@@ -25,7 +24,6 @@ public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
         return getProperty("path.page.edit");
     }
 
-
     public boolean deletePhone(HttpServletRequest request,final int PHONEID) {
         Employee employee = getEmployeeFromSession(request);
         List<ContactPhone> phoneList = employee.getPhoneList();
@@ -37,14 +35,4 @@ public class DeletePhoneCommand extends UpdateCommand implements ActionCommand{
         }
         return true;
     }
-
-
-
-
-
-    public Employee getEmployeeFromSession(HttpServletRequest request){
-        Employee employee = (Employee)request.getSession().getAttribute("employee");
-        return employee;
-    }
-
 }

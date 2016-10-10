@@ -15,7 +15,6 @@ public class ChooseEditPhoneCommand extends UpdateCommand implements ActionComma
     public String execute(HttpServletRequest request) {
         String page = super.execute(request);
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
-        System.out.println(selectedPhone + " " + request.getParameter("phone_id"));
         if(selectedPhone==null) {
             this.editPhone(request, Integer.parseInt(request.getParameter("phone_id")));
         }else {
@@ -28,7 +27,6 @@ public class ChooseEditPhoneCommand extends UpdateCommand implements ActionComma
     }
 
     public boolean editPhone(HttpServletRequest request,final int PHONEID) {
-        System.out.println(PHONEID);
         Employee employee = getEmployeeFromSession(request);
         ArrayList<ContactPhone> phoneList = employee.getPhoneList();
         ContactPhone editPhone = null;

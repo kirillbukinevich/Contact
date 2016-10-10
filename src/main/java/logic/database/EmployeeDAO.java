@@ -19,7 +19,6 @@ public class EmployeeDAO extends AbstractDAO {
                 "date_of_birth=?,gender=?,nationality=?,family_status=?,web_site=?,email=?,work_place=?," +
                 "country=?,city=?,street=?,house=?,flat=?,index_address=? WHERE id=?");
         try {
-            System.out.println(employee.getFirstName() + " " + employee.getLastName() + " " + employee.getPatronymic());
             this.preparedStatement.setString(1, employee.getFirstName());
             this.preparedStatement.setString(2, employee.getLastName());
             this.preparedStatement.setString(3, employee.getPatronymic());
@@ -40,7 +39,6 @@ public class EmployeeDAO extends AbstractDAO {
             this.preparedStatement.setObject(17, employee.getId());
             this.preparedStatement.executeUpdate();
             LOGGER.info("update employee to BD");
-//            this.editAddress(employee.getAddress(), employee.getId());
         } catch (SQLException e) {
             LOGGER.error("can't update employee to BD ", e);
         } finally {
@@ -94,16 +92,13 @@ public class EmployeeDAO extends AbstractDAO {
                 for (int i = 0; i < searchCriteriasMap.size(); i++) {
                     String s = iterator.next();
                     preparedStatement.setObject(i + 1, s);
-                    System.out.println(i+1 + " ");
 
                 }
             }
-            System.out.println(query);
             ResultSet rs = preparedStatement.executeQuery();
             rs = preparedStatement.executeQuery("SELECT FOUND_ROWS()");
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
-                System.out.println("FOUND_ROWS: " + noOfRecords);
             }
 
             rs = preparedStatement.executeQuery();

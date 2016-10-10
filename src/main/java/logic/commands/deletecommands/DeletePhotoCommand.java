@@ -1,7 +1,6 @@
 package logic.commands.deletecommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.database.PhotoDAO;
 import logic.entity.Employee;
 import logic.entity.Photo;
 import logic.processcommand.ActionCommand;

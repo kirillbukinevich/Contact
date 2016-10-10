@@ -2,7 +2,9 @@ package logic.entity;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
     private int id;
     private String countryName;
     private String cityName;

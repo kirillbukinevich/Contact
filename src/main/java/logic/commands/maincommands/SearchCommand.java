@@ -36,7 +36,6 @@ public class SearchCommand implements ActionCommand{
             criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
         }
       }
-      System.out.println(criteriaDate);
       request.setAttribute("search_info","результаты поиска: " + criteriaInfo);
       request.getSession().setAttribute("search_criteria",searchCriteriasMap);
       request.getSession().setAttribute("search_date_criteria",criteriaDate.toString());

@@ -13,7 +13,6 @@ import java.util.Properties;
 public class ConfigurationManager {
     private static Properties config;
     public static Properties mailProperties;
-    // ����� ��������� ���������� �� ����� config.properties
 
     private ConfigurationManager() {
     }

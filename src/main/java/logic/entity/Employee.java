@@ -5,10 +5,11 @@
 
 package logic.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Employee {
+public class Employee implements Serializable{
     private int id;
     private String firstName;
     private String lastName;

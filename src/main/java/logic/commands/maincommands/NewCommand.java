@@ -29,7 +29,7 @@ public class NewCommand implements ActionCommand {
         startCreateContact();
         Employee employee = getNewEmployee();
         setEmployeeToSession(request, employee);
-        request.setAttribute("photo", getPhotoForJSP(request, employee.getPhoto()));
+        request.setAttribute("photo", getPhotoForJSP());
 
         return getProperty("path.page.edit");
     }
@@ -55,7 +55,7 @@ public class NewCommand implements ActionCommand {
         return employee;
     }
 
-    public String getPhotoForJSP(HttpServletRequest request, Photo photo) {
+    public String getPhotoForJSP() {
         String resultFileName;
         byte[] data;
         byte[] encodeBase64;

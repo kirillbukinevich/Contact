@@ -17,7 +17,6 @@ public class ApplyTemplateEmailCommand implements ActionCommand {
 
     public boolean fillTemplates(HttpServletRequest request) {
         String templateType = request.getParameter("template_type");
-        System.out.println(templateType);
         if(templateType.isEmpty()){
             request.setAttribute("editable_area","show");
 
@@ -25,7 +24,6 @@ public class ApplyTemplateEmailCommand implements ActionCommand {
             request.setAttribute("editable_area","hide");
         }
         request.setAttribute("template_type",templateType);
-        System.out.println(templateType);
         GenerateTemplates generateTemplates = new GenerateTemplates();
         generateTemplates.chooseTemplate(templateType);
         request.setAttribute("template", generateTemplates);

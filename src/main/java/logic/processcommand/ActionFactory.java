@@ -21,6 +21,7 @@ public class ActionFactory {
             try {
                 CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
                 current = currentEnum.getCurrentCommand();
+                LogConfiguration.LOGGER.info("start : " + action + " command");
             } catch (IllegalArgumentException var5) {
                 LogConfiguration.LOGGER.error("wrong command: " + var5);
             }

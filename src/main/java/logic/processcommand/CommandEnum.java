@@ -1,6 +1,6 @@
 package logic.processcommand;
 
-import logic.commands.*;
+import logic.commands.EmptyCommand;
 import logic.commands.addcommands.AddAttachmentCommand;
 import logic.commands.addcommands.AddPhoneCommand;
 import logic.commands.addcommands.AddPhotoCommand;
@@ -9,9 +9,9 @@ import logic.commands.deletecommands.DeleteCommand;
 import logic.commands.deletecommands.DeletePhoneCommand;
 import logic.commands.deletecommands.DeletePhotoCommand;
 import logic.commands.editcommands.*;
-import logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
 import logic.commands.emailcommand.EmailCommand;
 import logic.commands.emailcommand.SendMailCommand;
+import logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
 import logic.commands.maincommands.*;
 
 public enum CommandEnum {
@@ -25,7 +25,7 @@ public enum CommandEnum {
             this.command = new AddAttachmentCommand();
         }
     },
-    APPLYTEMPLATEEMAILCOMMAND{
+    APPLY_TEMPLATE_EMAIL_COMMAND{
         {
             this.command = new ApplyTemplateEmailCommand();
         }
@@ -140,4 +140,6 @@ public enum CommandEnum {
     public ActionCommand getCurrentCommand() {
         return this.command;
     }
+
+
 }

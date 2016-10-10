@@ -1,6 +1,5 @@
 package logic.commands.maincommands;
 
-import logic.commands.maincommands.EditCommand;
 import logic.entity.Address;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
@@ -43,7 +42,6 @@ public class UpdateCommand implements ActionCommand{
     }
 
     public Employee updateEmployee(HttpServletRequest request, Employee employee) {
-        System.out.println("HERE: " + request.getParameter("first_name"));
 
         employee.setFirstName(request.getParameter("first_name"));
         employee.setLastName(request.getParameter("last_name"));

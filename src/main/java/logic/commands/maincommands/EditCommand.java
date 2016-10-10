@@ -84,7 +84,6 @@ public class EditCommand implements ActionCommand {
     public boolean fillAddressParameters(HttpServletRequest request, Address address) {
         request.setAttribute("country", address.getCountryName());
         request.setAttribute("city", address.getCityName());
-        System.out.println("HERESTREETFill: " + address.getStreetName());
 
         request.setAttribute("street", address.getStreetName());
         request.setAttribute("house", address.getHouseNumber());
@@ -94,13 +93,11 @@ public class EditCommand implements ActionCommand {
     }
 
     public boolean fillPhoneParameters(HttpServletRequest request, List<ContactPhone> phoneList) {
-        System.out.println(phoneList);
         request.setAttribute("phoneList", phoneList);
         return true;
     }
 
     public boolean fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
-        System.out.println("attachmentList: " + attachmentList);
         String filePath = ConfigurationManager.getPathProperty("path.saveFile");
         request.setAttribute("file_path", filePath);
         request.setAttribute("attachList", attachmentList);
@@ -120,7 +117,7 @@ public class EditCommand implements ActionCommand {
         FileInputStream fileInputStream = null;
         try {
             if (photo.getBytes() == null) {
-                if (!photo.isExistInDB() || photo.isDeleted()) {
+                if (!photo.isSaved() || photo.isDeleted()) {
                     resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
                 } else {
                     resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +

@@ -2,7 +2,6 @@ package logic.database;
 
 import logic.entity.Photo;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -21,7 +20,7 @@ public class PhotoDAO extends AbstractDAO {
                 String photoName = e.getString(1);
                 if (photoName != null) {
                     photo.setPhotoName(photoName);
-                    photo.setExistInDB(true);
+                    photo.setSaved(true);
                 }
                 photo.setEmployeeID(e.getInt(2));
             }

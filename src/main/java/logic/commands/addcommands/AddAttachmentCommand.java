@@ -1,8 +1,6 @@
 package logic.commands.addcommands;
 
 import logic.commands.maincommands.UpdateCommand;
-import logic.configuration.ConfigurationManager;
-import logic.database.AttachmentDAO;
 import logic.entity.Attachment;
 import logic.entity.Employee;
 import logic.processcommand.ActionCommand;
@@ -12,11 +10,9 @@ import org.apache.commons.io.FilenameUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static logic.configuration.ConfigurationManager.*;
+import static logic.configuration.ConfigurationManager.getProperty;
 
 public class AddAttachmentCommand extends UpdateCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {

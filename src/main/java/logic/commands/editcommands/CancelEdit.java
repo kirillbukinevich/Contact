@@ -11,10 +11,8 @@ import logic.processcommand.ActionCommand;
 import org.apache.commons.collections.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import static logic.configuration.ConfigurationManager.getProperty;

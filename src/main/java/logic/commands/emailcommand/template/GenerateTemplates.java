@@ -88,7 +88,6 @@ public class GenerateTemplates {
         emailTestTemplate.add("content", emailContent);
         emailTestTemplate.add("senderFullName", "Jeoff Desouza");
         includePage = emailTestTemplate.render();
-        System.out.println(includePage);
         return true;
     }
 

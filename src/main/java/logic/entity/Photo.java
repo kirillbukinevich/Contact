@@ -1,14 +1,16 @@
 package logic.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by aefrd on 13.09.2016.
  */
-public class Photo {
+public class Photo implements Serializable{
     private int id;
     private int employeeID;
     private String photoName;
     private byte[] bytes;
-    private boolean existInDB = false;
+    private boolean saved = false;
     private boolean deleted = false;
 
     public boolean isDeleted() {
@@ -19,12 +21,12 @@ public class Photo {
         this.deleted = deleted;
     }
 
-    public boolean isExistInDB() {
-        return existInDB;
+    public boolean isSaved() {
+        return saved;
     }
 
-    public void setExistInDB(boolean existInDB) {
-        this.existInDB = existInDB;
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 
     public int getId() {

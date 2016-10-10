@@ -36,18 +36,18 @@ public class AttachmentDAO extends AbstractDAO {
         return true;
     }
 
-    public boolean updateAttachment(Attachment attachment){
+    public boolean updateAttachment(Attachment attachment) {
         String query = "UPDATE attachments SET file_name=?,date_of_load=?,comment=? WHERE id=?";
         updatePrepareStatement(query);
         try {
             this.preparedStatement.setString(1, attachment.getFileName());
             this.preparedStatement.setTimestamp(2, Timestamp.valueOf(attachment.getLoadDate()));
             this.preparedStatement.setString(3, attachment.getComment());
-            this.preparedStatement.setInt(4,attachment.getId());
+            this.preparedStatement.setInt(4, attachment.getId());
             this.preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("can't update attachment to BD ", e);
-        }finally {
+        } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
@@ -58,6 +58,7 @@ public class AttachmentDAO extends AbstractDAO {
         }
         return true;
     }
+
     public List<Attachment> getAttachmentList(int ID) {
         ArrayList<Attachment> attachmentList = new ArrayList<>();
         String query = "select * from attachments WHERE employee_id  = " + ID;
