@@ -31,8 +31,8 @@
                         <label>Выберите дату</label>
                         <select class="selectpicker" name="find_date_direction">
                             <OPTION selected>
-                            <OPTION> с
-                            <OPTION> до
+                            <OPTION value="since"> с
+                            <OPTION value="until"> до
                         </SELECT>
                         <input type="date" name="find_date_of_birth">
                         <br/>
