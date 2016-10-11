@@ -91,12 +91,15 @@ public class GenerateTemplates {
 
 
     public Boolean chooseTemplate(String templateType) {
+        System.out.println("HERE");
         try {
             switch (templateType) {
                 case "С Днём рождения мужчинам":
+                    System.out.println("1");
                     fillBirthdayManTemplate();
                     break;
                 case "С Днём рождения женщинам":
+                    System.out.println("2");
                     fillBirthdayWomanTemplate();
                     break;
                 case "email":
