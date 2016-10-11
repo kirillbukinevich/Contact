@@ -33,6 +33,12 @@ body {
 
     padding-top: 35%;
 }
+@media (max-width: 700px) {
+    .panel-body{
+        padding-top: 10%;
+    }
+
+}
 
 
 h2 {
@@ -43,31 +49,28 @@ h2 {
     letter-spacing: 13px;
 }
 
-/*.mh-container * {*/
-/*text-transform: uppercase;*/
-/*font-weight: normal;*/
-/*line-height: 1.2;*/
-/*}*/
-
 h2 {
     margin: 10px 0 5px 0;
     font-size: 20px;
     line-height: 30px;
     color: #fffdfe;
 }
+h3{
+    color: #fff7f4;
+}
 
 p {
     margin-bottom: 15px;
     font-family: serif;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 21px;
-    color: #dbbaff;
+    color: #504c54;
 
 }
 
-@media (max-width: 860px) {
+@media (max-width: 700px) {
     p {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 27px;
     }
 }
