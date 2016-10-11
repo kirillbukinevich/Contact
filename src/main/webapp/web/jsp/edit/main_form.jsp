@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<p><label>Ф.И.О.</label></p>
+<p><label>Имя</label></p>
 <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Введите ваше имя"
        value="${first_name}" pattern="^[^$.|?*+()]+$" required >
+<p><label>Отчество</label></p>
 <input type="text" class="form-control" name="patronymic" value="${patronymic}"
        placeholder="Введите ваше отчество" pattern="^[^$.|?*+()]+$" required>
 
+<p><label>Фамилия</label></p>
 <input type="text" class="form-control" name="last_name" value="${last_name}"
        placeholder="Введите вашу фамилию" pattern="^[^$.|?*+()]+$" required>
 
@@ -44,31 +46,36 @@
 <input type="text" class="form-control" name="work_place" value="${work_place}"
        placeholder="Место работы">
 
-<p><label>Адрес</label></p>
+<p><label>Страна</label></p>
 <input type="text" class="form-control" name="country" id="country" value="${country}"
        placeholder="страна" pattern="^[^$.|?*+()]+$"
        oninvalid="setCustomValidity('Введите пожалуйста корректное название страны')"
        oninput="setCustomValidity('')" >
+<p><label>Город</label></p>
 <input type="text" class="form-control" name="city" id="city" value="${city}"
        placeholder="город" pattern="^[^$.|?*+()]+$"
        oninvalid="setCustomValidity('Введите пожалуйста корректное название города')"
        oninput="setCustomValidity('')" >
 
+<p><label>Улица</label></p>
 <input type="text" class="form-control" name="street" id="street" value="${street}"
        placeholder="улица" pattern="^[^$.|?*+()]+$"
        oninvalid="setCustomValidity('Введите пожалуйста корректное название улицы')"
        oninput="setCustomValidity('')" >
 
+<p><label>Дом</label></p>
 <input type="text" class="form-control" name="house" id="house" value="${house}"
        placeholder="дом" pattern="^[1-9]{1}[0-9]{0,2}[а-я]?$"
        oninvalid="setCustomValidity('Введите пожалуйста номер дома')"
        oninput="setCustomValidity('')" >
 
+<p><label>Квартира</label></p>
 <input type="text" class="form-control" name="flat" id="flat" value="${flat}"
        placeholder="квартира" pattern="^[1-9]{1}[0-9]{0,2}$"
        oninvalid="setCustomValidity('Введите пожалуйста номер квартиры')"
        oninput="setCustomValidity('')" >
 
+<p><label>Индекс</label></p>
 <input type="text" class="form-control" name="index" id="index" value="${index}"
        placeholder="индекс" pattern="^[0-9]{6}$"
        oninvalid="setCustomValidity('Введите пожалуйста ваш индекса')"

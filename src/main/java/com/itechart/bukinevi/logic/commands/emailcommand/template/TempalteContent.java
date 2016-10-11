@@ -46,10 +46,10 @@ public class TempalteContent {
     public void chooseTemplateType(String typeTemplate) {
         try {
             switch (typeTemplate) {
-                case "С Днём рождения мужчинам":
+                case "man_birthday":
                     generateTemplateBirthdayManForSend();
                     break;
-                case "С Днём рождения женщинам":
+                case "woman_birthday":
                     generateTemplateBirthdayWomanForSend();
                     break;
                 case "email":

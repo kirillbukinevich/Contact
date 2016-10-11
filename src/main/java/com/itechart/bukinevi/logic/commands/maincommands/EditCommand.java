@@ -116,7 +116,7 @@ public class EditCommand implements ActionCommand {
         byte[] encodeBase64;
         FileInputStream fileInputStream = null;
         try {
-            if (photo.getBytes() == null) {
+            if (photo.getBytes() == null || photo.isDeleted()) {
                 if (!photo.isSaved() || photo.isDeleted()) {
                     resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
                 } else {

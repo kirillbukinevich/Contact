@@ -4,6 +4,7 @@ import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -63,9 +64,10 @@ public class EditAttachmentCommand implements ActionCommand {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
-
-                attachment.setFileName(fileName);
-                attachment.setAttachment(fi.get());
+                if(StringUtils.isNotEmpty(fileName)) {
+                    attachment.setFileName(fileName);
+                    attachment.setAttachment(fi.get());
+                }
             } else {
                 request.setAttribute(fi.getFieldName(), fi.getString());
             }

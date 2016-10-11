@@ -24,7 +24,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-trans btn-trans-success" name="command"
-                        value="${type_operation}">Сохранить
+                        value="${type_operation}" ${type_operation=='Edit_file' ? 'formnovalidate' : ''}>Сохранить
                 </button>
 
                 <button class="btn btn-trans btn-trans-success" id="close_attachModal">Отменить

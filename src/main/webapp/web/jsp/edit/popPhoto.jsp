@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-trans btn-trans-success" name="command" value="savePhoto">Сохранить</button>
-                <button class="btn btn-trans btn-trans-success" name="command" value="delete_photo">Удалить моё фото
+                <button class="btn btn-trans btn-trans-success" name="command" value="delete_photo" formnovalidate>Удалить моё фото
                 </button>
                 <button class="btn btn-trans btn-trans-success" id="close_photoModal">Отменить</button>
 

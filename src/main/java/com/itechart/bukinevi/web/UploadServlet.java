@@ -51,11 +51,15 @@ public class UploadServlet extends HttpServlet {
                 if (fi.isFormField()){
                     if(fi.getFieldName().equals("command")){
                         request.setAttribute("command",fi.getString());
-                        Controller controller = new Controller();
-                        controller.processRequest(request,response);
+                    }
+                    if(fi.getFieldName().equals("comment")){
+                        request.setAttribute("comment",fi.getString());
                     }
                 }
+
             }
+            Controller controller = new Controller();
+            controller.processRequest(request,response);
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
