@@ -16,6 +16,10 @@ body {
     padding-right: 2%;
     padding-top: 4%;
  }
+::-webkit-input-placeholder {color:#7de4ff;}
+::-moz-placeholder          {color:#7de4ff;}/* Firefox 19+ */
+:-moz-placeholder           {color:#7de4ff;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#7de4ff;}
 
 .form {
     background: rgba(0, 0, 0, 0.58);

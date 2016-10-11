@@ -9,6 +9,7 @@
     margin-bottom: 20px;
     background-color: rgba(0, 0, 0, 0.23);
 }
+
 .panel-footer{
     background-color: transparent;
 }
@@ -16,6 +17,13 @@ h3{
     color: #fcffff;
     text-align: center;
 }
+p{
+    color: #fff7f4;
+}
+::-webkit-input-placeholder {color:#7de4ff;}
+::-moz-placeholder          {color:#7de4ff;}/* Firefox 19+ */
+:-moz-placeholder           {color:#7de4ff;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#7de4ff;}
 .form {
     background: rgba(0, 0, 0, 0.58);
     width: 470px;
@@ -86,8 +94,7 @@ h3{
     background-repeat: no-repeat;
     border: 0px solid #FFF;
     color: #555;
-    font-size: medium;
-    margin-left: 2%;
+    font-size: small;
     overflow: hidden;
     padding-top: 3px;
     padding-bottom: 5px;

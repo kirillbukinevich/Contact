@@ -35,6 +35,7 @@
                 <input type="text" class="form-control" name="theme" placeholder="Enter the theme"
                        value="${template.subject}">
                 <label>Выберите шаблон
+                    <br>
                     <select class="select-style" name="template_type" id="template_type"
                             onchange="setCommand('apply_template_email_command'); this.form.submit()">
                         <OPTION selected>

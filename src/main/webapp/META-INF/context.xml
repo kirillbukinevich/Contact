@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context reloadable="true" antiResourceLocking="true" path="/zcontact">
 
-    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/com.itechart.bukinevi.web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/com.itechart.bukinevi.web.xml</WatchedResource>
     <Resource
             driverClassName="com.mysql.jdbc.Driver"
             maxActive="4"

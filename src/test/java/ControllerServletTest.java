@@ -2,12 +2,12 @@
  * Created by aefrd on 03.10.2016.
  */
 
-import logic.database.ConnectionFactory;
+import com.itechart.bukinevi.logic.database.ConnectionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import web.controller.Controller;
+import com.itechart.bukinevi.web.controller.Controller;
 
 import javax.activation.DataSource;
 import javax.servlet.RequestDispatcher;
@@ -20,7 +20,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 import static junit.framework.TestCase.assertEquals;
-import static logic.database.ConnectionFactory.getConnection;
+import static com.itechart.bukinevi.logic.database.ConnectionFactory.getConnection;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -84,7 +84,6 @@ public class ControllerServletTest {
 
         String result = sw.getBuffer().toString().trim();
 
-        System.out.println("Result: "+result);
 
         assertEquals("Login successfull...", result);
     }

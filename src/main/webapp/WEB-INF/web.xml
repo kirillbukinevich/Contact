@@ -20,7 +20,7 @@
     <filter>
         <description>Force the request character encoding to UTF-8</description>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>web.CharacterEncodingFilter</filter-class>
+        <filter-class>com.itechart.bukinevi.web.CharacterEncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>

@@ -1,26 +1,29 @@
-.container-fluid{
+.container-fluid {
     padding: 5% 5%;
 
 }
+
 h2 {
     text-shadow: 0 1px 0 #ccc,
     0 2px 0 #c9c9c9,
     0 3px 0 #bbb,
     0 4px 0 #b9b9b9,
     0 5px 0 #aaa,
-    0 6px 1px rgba(0,0,0,.1),
-    0 0 5px rgba(0,0,0,.1),
-    0 1px 3px rgba(0,0,0,.3),
-    0 3px 5px rgba(0,0,0,.2),
-    0 5px 10px rgba(0,0,0,.25),
-    0 10px 10px rgba(0,0,0,.2),
-    0 20px 20px rgba(0,0,0,.15);
+    0 6px 1px rgba(0, 0, 0, .1),
+    0 0 5px rgba(0, 0, 0, .1),
+    0 1px 3px rgba(0, 0, 0, .3),
+    0 3px 5px rgba(0, 0, 0, .2),
+    0 5px 10px rgba(0, 0, 0, .25),
+    0 10px 10px rgba(0, 0, 0, .2),
+    0 20px 20px rgba(0, 0, 0, .15);
 }
+
 input[type=text]:hover {
-    background-color:#ffff66;
-    border-color:#999999;
+    background-color: #ffff66;
+    border-color: #999999;
 }
-.panel{
+
+.panel {
     background-color: rgba(0, 0, 0, 0.55);
 }
 
@@ -31,41 +34,41 @@ input[type=text]:hover {
     font-family: 'Roboto', sans-serif;
 }
 
-.panel-footer{
+.panel-footer {
     /*background: -webkit-linear-gradient(left, #79c6ee, #5187c4);*/
     /*background: linear-gradient(to right, #79c6ee, #5187c4);*/
     font-family: 'Roboto', sans-serif;
     background-color: transparent;
 }
 
-.back-img{
+.back-img {
 
     background-image: url('../image/office.jpg');
     border: 1px solid #000000;
-    background-repeat:no-repeat;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-    background-position:center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
 }
 
-
-
-.btn-group{
+.btn-group {
     padding-top: 0.8%;
     float: right;
     display: flex;
 }
 
-.btn-link{
+.btn-link {
     color: #fbfff0;
 }
-table{
-    width:100%;
+
+table {
+    width: 100%;
     table-layout: inherit;
 }
-th{
+
+th {
     padding: 20px 15px;
     text-align: left;
     font-weight: 500;
@@ -73,33 +76,89 @@ th{
     color: #fffcfa;
     text-transform: uppercase;
 }
-td{
+
+td {
     padding: 15px;
     text-align: left;
-    vertical-align:middle;
+    vertical-align: middle;
     font-weight: 300;
     font-size: 12px;
     color: #fbfff0;
-    border-bottom: solid 1px rgba(255,255,255,0.1);
-    border-top: solid 1px rgba(255,255,255,0.1);
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+    border-top: solid 1px rgba(255, 255, 255, 0.1);
 }
 
-
-.form{
-    background:#f1f1f1; width:440px; margin:0 auto; padding-left:10px; padding-right:10px; padding-top:20px;
+.form {
+    background: #f1f1f1;
+    width: 440px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
-.form fieldset{border:0px; padding:0px; margin:0px;}
-.form p.contact { font-size: 12px; margin:0px 0px 10px 0;line-height: 14px; font-family:Arial, Helvetica;}
 
-.form input[type="text"] { width: 400px; }
-.form input[type="email"] { width: 400px; }
-.form input[type="password"] { width: 400px; }
-.form input.birthday{width:60px;}
-.form input.birthyear{width:120px;}
-.form label { color: #000; font-weight:bold;font-size: 12px;font-family:Arial, Helvetica; }
-.form label.month {width: 135px;}
-.form input, textarea { background-color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(122, 192, 0, 0.15); padding: 7px; font-family: Keffeesatz, Arial; color: #4b4b4b; font-size: 14px; -webkit-border-radius: 5px; margin-bottom: 15px; margin-top: -10px; }
-.form input:focus, textarea:focus { border: 1px solid #ff5400; background-color: rgba(255, 255, 255, 1); }
+.form fieldset {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.form p.contact {
+    font-size: 12px;
+    margin: 0px 0px 10px 0;
+    line-height: 14px;
+    font-family: Arial, Helvetica;
+}
+
+.form input[type="text"] {
+    width: 400px;
+}
+
+.form input[type="email"] {
+    width: 400px;
+}
+
+.form input[type="password"] {
+    width: 400px;
+}
+
+.form input.birthday {
+    width: 60px;
+}
+
+.form input.birthyear {
+    width: 120px;
+}
+
+.form label {
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: Arial, Helvetica;
+}
+
+.form label.month {
+    width: 135px;
+}
+
+.form input, textarea {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(122, 192, 0, 0.15);
+    padding: 7px;
+    font-family: Keffeesatz, Arial;
+    color: #4b4b4b;
+    font-size: 14px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 15px;
+    margin-top: -10px;
+}
+
+.form input:focus, textarea:focus {
+    border: 1px solid #ff5400;
+    background-color: rgba(255, 255, 255, 1);
+}
+
 .form .select-style {
     -webkit-appearance: button;
     -webkit-border-radius: 2px;
@@ -119,24 +178,51 @@ td{
     padding-top: 5px;
     padding-bottom: 5px;
     text-overflow: ellipsis;
-    white-space: nowrap;}
+    white-space: nowrap;
+}
+
 .form .gender {
-    width:410px;
+    width: 410px;
 }
-.form input.buttom{ background: #4b8df9; display: inline-block; padding: 5px 10px 6px; color: #fbf7f7; text-decoration: none; font-weight: bold; line-height: 1; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; -moz-box-shadow: 0 1px 3px #999; -webkit-box-shadow: 0 1px 3px #999; box-shadow: 0 1px 3px #999; text-shadow: 0 -1px 1px #222; border: none; position: relative; cursor: pointer; font-size: 14px; font-family:Verdana, Geneva, sans-serif;}
-.form input.buttom:hover	{ background-color: #2a78f6; }
 
+.form input.buttom {
+    background: #4b8df9;
+    display: inline-block;
+    padding: 5px 10px 6px;
+    color: #fbf7f7;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px #999;
+    -webkit-box-shadow: 0 1px 3px #999;
+    box-shadow: 0 1px 3px #999;
+    text-shadow: 0 -1px 1px #222;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Verdana, Geneva, sans-serif;
+}
 
-.filter-col{
+.form input.buttom:hover {
+    background-color: #2a78f6;
+}
+
+.filter-col {
     color: #f9ff3a;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 input {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     color: #f9ff3a;
     border: none;
 }
+
 .form-control-search-bar {
     display: block;
     width: 8%;
@@ -155,18 +241,20 @@ input {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
 .form-group-search-bar {
     display: -webkit-box;
     margin-bottom: 0;
     margin-top: 1%;
     vertical-align: middle;
 }
+
 .select-search-bar {
     border: 1px solid #fff;
     background-color: transparent;
 }
 
-.select-search-bar option{
+.select-search-bar option {
     background-color: transparent !important;
     border: 1px solid #e4e4e4;
     color: #f9ff3a;
