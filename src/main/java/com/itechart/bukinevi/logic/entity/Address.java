@@ -79,16 +79,16 @@ public class Address implements Serializable{
             result.append(countryName);
         }
         if(StringUtils.isNotEmpty(cityName)){
-            result.append(" г.").append(cityName);
+            result.append(" city: ").append(cityName);
         }
         if(StringUtils.isNotEmpty(streetName)){
-            result.append(" ул.").append(streetName);
+            result.append(" stret: ").append(streetName);
         }
         if(StringUtils.isNotEmpty(houseNumber)){
-            result.append(" д.").append(houseNumber);
+            result.append(" home: ").append(houseNumber);
         }
         if(flatNumber!=0){
-            result.append(" кв.").append(flatNumber);
+            result.append(" flat: ").append(flatNumber);
         }
 
         return result.toString();
