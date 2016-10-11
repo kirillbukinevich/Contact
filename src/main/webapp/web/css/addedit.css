@@ -170,3 +170,7 @@ input:required:valid {
 .btn-link:active{
     color: #a4abad;
 }
+#photo_button{
+    margin-left: 22%;
+    margin-bottom: 10px;
+}

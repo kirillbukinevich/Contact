@@ -28,14 +28,12 @@
 </nav>
 <form name="edit_form" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
-        <div class="col-md-1">
-            <button class="btn btn-default" id="myBtn4" name="command" value="update_photo">
-                <img src="data:image/png;base64, <c:out value='${photo}'/>"
-                     class="img-responsive"  />
-            </button>
-        </div>
-        <div class="col-md-5">
+        <div class="col-md-6 col-sm-12 col-xs-12" >
             <div class="form">
+                <button class="btn btn-default" id="photo_button" name="command" value="update_photo">
+                    <img src="data:image/png;base64, <c:out value='${photo}'/>"
+                         class="img-responsive"  />
+                </button>
                 <jsp:include page="edit/main_form.jsp"/>
                 <button class="btn btn-trans btn-trans-success" id="btnSave" name="command" value="save">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
@@ -47,7 +45,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12 col-xs-12">
             <div class="row">
                 <%--show contact phone--%>
                 <div class="col-sm-11">
