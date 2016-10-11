@@ -39,9 +39,9 @@
                     <select class="select-style" name="template_type" id="template_type"
                             onchange="setCommand('apply_template_email_command'); this.form.submit()">
                         <OPTION selected>
-                        <OPTION ${template_type == 'С Днём рождения мужчинам' ? 'selected' : ''}>С Днём рождения
+                        <OPTION value="man_birthday" ${template_type == 'man_birthday' ? 'selected' : ''}>С Днём рождения
                             мужчинам
-                        <OPTION ${template_type == 'С Днём рождения женщинам' ? 'selected' : ''}>С Днём рождения
+                        <OPTION value="woman_birthday" ${template_type == 'woman_birthday' ? 'selected' : ''}>С Днём рождения
                             женщинам
                             <%--<OPTION ${template_type == 'email' ? 'selected' : ''}> email--%>
                     </SELECT><br><br>

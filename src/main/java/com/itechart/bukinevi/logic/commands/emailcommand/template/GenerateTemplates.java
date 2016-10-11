@@ -94,11 +94,11 @@ public class GenerateTemplates {
         System.out.println("HERE");
         try {
             switch (templateType) {
-                case "С Днём рождения мужчинам":
+                case "man_birthday":
                     System.out.println("1");
                     fillBirthdayManTemplate();
                     break;
-                case "С Днём рождения женщинам":
+                case "woman_birthday":
                     System.out.println("2");
                     fillBirthdayWomanTemplate();
                     break;
