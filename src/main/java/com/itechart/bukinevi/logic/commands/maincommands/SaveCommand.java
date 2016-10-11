@@ -31,11 +31,6 @@ public class SaveCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request) {
         this.saveContact(request);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         ContactCommand contactCommand = new ContactCommand();
         return contactCommand.execute(request);
     }
@@ -44,7 +39,6 @@ public class SaveCommand implements ActionCommand {
     public boolean saveContact(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         updateCommand.updateEmployee(request, employee);
-
         savePhones(employee.getPhoneList(),employee.getId());
         saveAttchment(employee);
         if (!employee.getPhoto().isSaved() && employee.getPhoto().getPhotoName() != null) {

@@ -14,7 +14,6 @@ public class SearchCommand implements ActionCommand{
     public String execute(HttpServletRequest request) {
         search(request);
         ContactCommand contactCommand = new ContactCommand();
-        request.setAttribute("search_bar","show");
         return contactCommand.execute(request);
     }
     public void search(HttpServletRequest request){
@@ -36,9 +35,9 @@ public class SearchCommand implements ActionCommand{
             criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
         }
       }
-      request.setAttribute("search_info","search result: " + criteriaInfo);
+      request.getSession().setAttribute("search_info","search result: " + criteriaInfo);
       request.getSession().setAttribute("search_criteria",searchCriteriasMap);
-      request.getSession().setAttribute("search_date_criteria",criteriaDate.toString());
+      request.getSession().setAttribute("search_date_criteria", criteriaDate.toString());
       return true;
   }
     public boolean isCriteria(String tempCriteria){

@@ -1,10 +1,6 @@
 <!-- Trigger/Open The Modal -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<button class="btn btn-trans btn-trans-success"" id="btnSave" name="command" value="save" onclick="popDialog('saveModal')">
-    <span class="glyphicon glyphicon-floppy-saved"></span>
-    Сохранить
-</button>
 <!-- The Modal -->
 <div id="saveModal" class="modal">
 
@@ -19,7 +15,7 @@
         <div class="modal-footer">
 
             <!-- write here-->
-            <button class="btn btn-trans btn-trans-success"" id="close_saveModal" name="command"
+            <button class="btn btn-trans btn-trans-success" id="close_saveModal" name="command"
                     value="contact">Закрыть
             </button>
 

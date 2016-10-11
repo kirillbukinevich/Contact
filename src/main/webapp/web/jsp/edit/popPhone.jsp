@@ -14,17 +14,26 @@
             <form name="loginForm" method="post" action="controller" id="edit_phone">
                 <div class="form">
                     <div class="form-phone">
-                        <label >Введите код страны</label>
+                        <label>Введите код страны</label>
                         <input type="number" class="form-control" name="code_country" value="${code_country}"
-                               id="code_country" min="0" max="999" required>
+                               id="code_country" min="0" max="999" required
+                               oninvalid="setCustomValidity('Введите пожалуйста корректный код страны')"
+                               oninput="setCustomValidity('')">
 
-                        <label >Введите код оператора</label>
+
+                        <label>Введите код оператора</label>
                         <input type="number" class="form-control" name="code_operator" value="${code_operator}"
-                               id="code_operator" min="0" max="99" required>
+                               id="code_operator" min="0" max="99" required
+                               oninvalid="setCustomValidity('Введите пожалуйста корректный код оператора')"
+                               oninput="setCustomValidity('')">
 
-                        <label >Введите телефонный номер</label>
+
+                        <label>Введите телефонный номер</label>
                         <input type="number" class="form-control" name="phone_number" value="${phone_number}"
-                               id="phone_number" min="1000000" max="9999999" required>
+                               id="phone_number" min="1000000" max="9999999" required
+                               oninvalid="setCustomValidity('Введите пожалуйста корректный номер телефона')"
+                               oninput="setCustomValidity('')">
+
                         <br>
                         <label>Выберите тип телефона</label>
                         <select class="select-style" name="phone_type">

@@ -1,20 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `bukinevichkirillstudentlabdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bukinevichkirillstudentlabdb`;
 
-
-CREATE TABLE IF NOT EXISTS `attachments` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) unsigned NOT NULL,
-  `file_name` varchar(50) NOT NULL,
-  `date_of_load` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `comment` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` (`employee_id`),
-  CONSTRAINT `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` FOREIGN KEY (`employee_id`) REFERENCES `main_info` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
-
-
-
 CREATE TABLE IF NOT EXISTS `main_info` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(20) DEFAULT NULL,
@@ -36,6 +22,16 @@ CREATE TABLE IF NOT EXISTS `main_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `attachments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) unsigned NOT NULL,
+  `file_name` varchar(50) NOT NULL,
+  `date_of_load` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `comment` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` (`employee_id`),
+  CONSTRAINT `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` FOREIGN KEY (`employee_id`) REFERENCES `main_info` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `phone` (

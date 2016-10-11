@@ -17,6 +17,13 @@ public class ContactCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request) {
         int page = 1;
+        if (StringUtils.equals(request.getParameter("search_info"),"false")) {
+            request.getSession().setAttribute("search_criteria", null);
+            request.getSession().setAttribute("search_info",null);
+        } else if(StringUtils.isNotEmpty((String) request.getSession().getAttribute("search_info"))){
+            request.setAttribute("search_bar", "show");
+
+        }
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
@@ -24,9 +31,9 @@ public class ContactCommand implements ActionCommand {
         EmployeeDAO dao = new EmployeeDAO();
         dao.rollBack();
 
-        final byte RECORDSPERPAGE = 9;
+        final byte RECORDSPERPAGE = 1;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
-                searchCriteria,(HashMap)request.getSession().getAttribute("search_criteria"));
+                searchCriteria, (HashMap) request.getSession().getAttribute("search_criteria"));
         int noOfRecords = dao.getNoOfRecords();
         int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDSPERPAGE);
 
@@ -36,31 +43,32 @@ public class ContactCommand implements ActionCommand {
         request.setAttribute("currentPage", Integer.valueOf(page));
         return ConfigurationManager.getProperty("path.page.main");
     }
-    public String getSearchCriteria(HttpServletRequest request){
-        HashMap<String,String> searchCriteria = (HashMap)request.getSession().getAttribute("search_criteria");
+
+    public String getSearchCriteria(HttpServletRequest request) {
+        HashMap<String, String> searchCriteria = (HashMap) request.getSession().getAttribute("search_criteria");
         StringBuilder criteria = new StringBuilder("WHERE ");
-        String searchDateCriteria = (String)request.getSession().getAttribute("search_date_criteria");
-        if(StringUtils.isNotEmpty(searchDateCriteria)){
+        String searchDateCriteria = (String) request.getSession().getAttribute("search_date_criteria");
+        if (StringUtils.isNotEmpty(searchDateCriteria)) {
             criteria.append(searchDateCriteria);
-            if(MapUtils.isNotEmpty(searchCriteria)){
+            if (MapUtils.isNotEmpty(searchCriteria)) {
                 criteria.append(" AND ");
             }
         }
-        if(MapUtils.isNotEmpty(searchCriteria)){
+        if (MapUtils.isNotEmpty(searchCriteria)) {
             Iterator<String> iterator = searchCriteria.keySet().iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 criteria.append(iterator.next()).append("=? ");
-                if(iterator.hasNext()){
+                if (iterator.hasNext()) {
                     criteria.append("AND ");
                 }
             }
         }
-        request.getSession().setAttribute("search_criteria",null);
-        request.getSession().setAttribute("search_date_criteria",null);
-        if(StringUtils.equals(criteria.toString(),"WHERE ")){
+        if (StringUtils.equals(criteria.toString(), "WHERE ")) {
             return "";
-        }else {
+        } else {
             return criteria.toString();
         }
     }
+
+
 }

@@ -53,12 +53,15 @@
         </nav>
     <div class="panel">
         <div class="panel-heading">
+            <c:set var="search_info" value="${search_info}" scope="application"/>
             <div id="search_bar" style="display: ${search_bar == "show" ? 'block':'none'}">
                 <div class="row">
                         <p style="color: #f3ffff">${search_info}</p>
-                        <button form="contact_form" class="btn btn-trans btn-trans-success" id="close_searchModal"
-                                name="command" value="contact">Сбросить
-                        </button>
+                    <a form="contact_form" class="btn btn-trans btn-trans-success"
+                       href="controller?command=contact&search_info=false">Сбросить</a>
+                    <%--<button form="contact_form" class="btn btn-trans btn-trans-success" id="close_searchModal"--%>
+                                <%--name="command" value="contact">Сбросить--%>
+                        <%--</button>--%>
                 </div>
             </div>
         </div>

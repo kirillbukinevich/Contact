@@ -23,11 +23,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-info" name="command"
+                <button class="btn btn-trans btn-trans-success" name="command"
                         value="${type_operation}">Сохранить
                 </button>
 
-                <button class="btn btn-info" id="close_attachModal">Отменить
+                <button class="btn btn-trans btn-trans-success" id="close_attachModal">Отменить
                 </button>
 
             </div>

@@ -28,7 +28,4 @@
     </c:forEach>
     </tbody>
 </table>
-<script>
-    //    window.alert(file.saved);
-</script>
 

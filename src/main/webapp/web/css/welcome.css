@@ -11,7 +11,7 @@ body {
 .background_image {
     width: 100%;
     height: 100%;
-    background-image: url('../image/welcome.jpg');
+    background-image: url('../image/office.jpg');
     background-size: 100% 100%;
     border: 1px solid #000000;
 }
@@ -30,7 +30,6 @@ body {
 }
 
 .panel-body{
-
     padding-top: 32%;
 }
 @media (max-width: 700px) {
@@ -39,6 +38,12 @@ body {
     }
 
 }
+@media (min-width: 1600px){
+    .panel-body{
+        padding-top: 45%;
+    }
+}
+
 
 
 h2 {
@@ -64,7 +69,7 @@ p {
     font-family: serif;
     font-size: 20px;
     line-height: 21px;
-    color: #504c54;
+    color: #fefffd;
 
 }
 

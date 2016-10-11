@@ -29,7 +29,10 @@ public class UpdateCommand implements ActionCommand{
             request.setAttribute("type_operation","New_File");
         }else if(command.equals("update_photo")){
             request.setAttribute("popDialog","photoModal");
+        }else if(command.equals("save")){
+            request.setAttribute("popDialog","saveModal");
         }
+
         return true;
 
     }
