@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,10 +28,10 @@ public class ContactCommand implements ActionCommand {
             page = Integer.parseInt(request.getParameter("page"));
         }
         String searchCriteria = getSearchCriteria(request);
-        EmployeeDAO dao = new EmployeeDAO();
+        EmployeeDAOUtil dao = new EmployeeDAOUtil();
         dao.rollBack();
 
-        final byte RECORDSPERPAGE = 1;
+        final byte RECORDSPERPAGE = 10;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
                 searchCriteria, (HashMap) request.getSession().getAttribute("search_criteria"));
         int noOfRecords = dao.getNoOfRecords();

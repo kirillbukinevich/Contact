@@ -7,7 +7,7 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.entity.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
@@ -35,7 +35,7 @@ public class NewCommand implements ActionCommand {
     }
 
     public void startCreateContact() {
-        AbstractDAO contactDAO = new EmployeeDAO();
+        AbstractDAO contactDAO = new EmployeeDAOUtil();
         contactDAO.startEditContact();
     }
 
@@ -44,7 +44,7 @@ public class NewCommand implements ActionCommand {
     }
 
     public Employee getNewEmployee() {
-        EmployeeDAO contactDAO = new EmployeeDAO();
+        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         final int ID = contactDAO.getNewEmployeeID();
         Employee employee = new Employee();
         employee.setId(ID);

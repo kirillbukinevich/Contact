@@ -2,8 +2,8 @@ package com.itechart.bukinevi.logic.commands.editcommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.EditCommand;
 import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
-import com.itechart.bukinevi.logic.database.PhotoDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.PhotoDAOUtil;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
 import com.itechart.bukinevi.logic.entity.Employee;
@@ -24,9 +24,9 @@ public class CancelEdit implements ActionCommand{
     private UpdateCommand updateCommand = new UpdateCommand();
     @Override
     public String execute(HttpServletRequest request) {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
         Employee employee = employeeDAO.getEmployeeOnId(updateCommand.getEmployeeFromSession(request).getId());
-        PhotoDAO photoDAO = new PhotoDAO();
+        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         employee.setPhoto(photoDAO.getPhoto(updateCommand.getEmployeeFromSession(request).getId()));
         cancelAttcachments(request,employee);
         cancelContactPhone(request,employee);

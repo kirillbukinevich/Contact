@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.emailcommand;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -42,7 +42,7 @@ public class BirthdayNotice implements Runnable {
     }
 
     public List<String> getBirthdayListFromDB() {
-        EmployeeDAO contactDAO = new EmployeeDAO();
+        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         return contactDAO.getBirthdayList();
 
     }

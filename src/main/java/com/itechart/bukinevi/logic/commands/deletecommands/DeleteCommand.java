@@ -3,7 +3,7 @@ package com.itechart.bukinevi.logic.commands.deletecommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.ContactCommand;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.io.FileUtils;
 
@@ -25,7 +25,7 @@ public class DeleteCommand implements ActionCommand {
     }
 
     public boolean deleteEmployee(final int ID) {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
         employeeDAO.deleteEmployee(ID);
         deleteAttachmentDirectory(ID);
         return true;

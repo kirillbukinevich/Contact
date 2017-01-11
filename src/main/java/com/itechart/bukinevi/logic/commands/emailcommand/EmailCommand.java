@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.emailcommand;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class EmailCommand implements ActionCommand {
     }
     public StringBuilder getEmailsFromBD(String[] selectedEmployee){
         StringBuilder emails = new StringBuilder();
-        EmployeeDAO employeeDAO = new EmployeeDAO();
+        EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
         for (int i = 0; i < selectedEmployee.length; i++) {
             emails.append(employeeDAO.getEmail(Integer.parseInt(selectedEmployee[i])) + " ");
         }

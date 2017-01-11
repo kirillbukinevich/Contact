@@ -6,10 +6,10 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.AttachmentDAO;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
-import com.itechart.bukinevi.logic.database.PhoneDAO;
-import com.itechart.bukinevi.logic.database.PhotoDAO;
+import com.itechart.bukinevi.logic.database.AttachmentDAOUtil;
+import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.PhoneDAOUtil;
+import com.itechart.bukinevi.logic.database.PhotoDAOUtil;
 import com.itechart.bukinevi.logic.entity.*;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 
@@ -49,7 +49,7 @@ public class SaveCommand implements ActionCommand {
         }
 
 
-        EmployeeDAO contactDAO = new EmployeeDAO();
+        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         contactDAO.editEmployee(employee);
         contactDAO.saveContact();
 
@@ -58,7 +58,7 @@ public class SaveCommand implements ActionCommand {
 
     public boolean savePhones(ArrayList<ContactPhone> phones,final int EMPLOYEEID){
         Iterator<ContactPhone> phoneIterator = phones.iterator();
-        PhoneDAO phoneDAO = new PhoneDAO();
+        PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
         while (phoneIterator.hasNext()){
             ContactPhone phone = phoneIterator.next();
             if(!(phone.isSaved() || phone.isDeleted() || phone.isUpdated())){
@@ -75,7 +75,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     public boolean saveAttchment(Employee employee) {
-        AttachmentDAO attachmentDAO = new AttachmentDAO();
+        AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
         ArrayList<Attachment> attachments = employee.getAttachmentList();
         String filePath = ConfigurationManager.getPathProperty("path.saveFile") + employee.getId() + "/";
         for (Attachment attachment : attachments) {
@@ -118,7 +118,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     public boolean savePhoto(Photo photo) {
-        PhotoDAO photoDAO = new PhotoDAO();
+        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") + photo.getEmployeeID() + "/photo/";
         File uploadDir = new File(resultFileName);
@@ -138,7 +138,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     public boolean deletePhotoFromDisk(Photo photo) {
-        PhotoDAO photoDAO = new PhotoDAO();
+        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                 photo.getEmployeeID() + "/photo/" + photo.getPhotoName();

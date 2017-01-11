@@ -37,13 +37,13 @@ public class EditCommand implements ActionCommand {
             ID = Integer.parseInt(employee_id);
         }
         employee.setId(ID);
-        EmployeeDAO contactDAO = new EmployeeDAO();
+        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         employee = contactDAO.getEmployeeOnId(employee.getId());
-        AttachmentDAO attachmentDAO = new AttachmentDAO();
+        AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
         employee.setAttachmentList((ArrayList) attachmentDAO.getAttachmentList(employee.getId()));
-        PhoneDAO phoneDAO = new PhoneDAO();
+        PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
         employee.setPhoneList((ArrayList) phoneDAO.getPhoneList(employee.getId()));
-        PhotoDAO photoDAO = new PhotoDAO();
+        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         Photo photo = photoDAO.getPhoto(employee.getId());
         employee.setPhoto(photo);
 
@@ -51,7 +51,7 @@ public class EditCommand implements ActionCommand {
     }
 
     public void startEditContact() {
-        AbstractDAO abstractDAO = new EmployeeDAO();
+        AbstractDAO abstractDAO = new EmployeeDAOUtil();
         abstractDAO.startEditContact();
     }
 
