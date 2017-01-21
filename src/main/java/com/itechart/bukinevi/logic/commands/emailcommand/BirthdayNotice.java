@@ -1,7 +1,9 @@
 package com.itechart.bukinevi.logic.commands.emailcommand;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,9 +13,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Properties;
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
 
 public class BirthdayNotice implements Runnable {
+    private static final Logger LOGGER = LogManager.getLogger(BirthdayNotice.class);
+
     private void noticeAdmin(List<String> birthdayList) {
         Properties props = ConfigurationManager.mailProperties;
         Session session = Session.getDefaultInstance(props);
@@ -41,7 +44,7 @@ public class BirthdayNotice implements Runnable {
         }
     }
 
-    public List<String> getBirthdayListFromDB() {
+    private List<String> getBirthdayListFromDB() {
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         return contactDAO.getBirthdayList();
 

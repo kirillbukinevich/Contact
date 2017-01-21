@@ -1,18 +1,21 @@
-package com.itechart.bukinevi.logic.database;
+package com.itechart.bukinevi.logic.database.impl;
 
+import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.AttachmentDAO;
 import com.itechart.bukinevi.logic.entity.Attachment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
+public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
+    private static final Logger LOGGER = LogManager.getLogger(AttachmentDAOUtil.class.getName());
 
-public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO{
-    public boolean addAttachment(Attachment attachment) {
+    public void addAttachment(Attachment attachment) {
         final int EMPLOYEEID = attachment.getEmployeeID();
         updatePrepareStatement("INSERT INTO attachments(file_name,date_of_load,comment,employee_id) " +
                 "VALUES(?,?,?," + EMPLOYEEID + ")");
@@ -23,20 +26,19 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO{
             this.preparedStatement.executeUpdate();
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            LOGGER.error("can't add attachment to BD ", e);
+            LOGGER.error(String.format("can't add attachment to BD %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error("can't close preparedStatement method addAttachment to BD ", e);
+                LOGGER.error(String.format("can't close preparedStatement method addAttachment to BD %s", e));
             }
         }
-        return true;
     }
 
-    public boolean updateAttachment(Attachment attachment) {
+    public int updateAttachment(Attachment attachment) {
         String query = "UPDATE attachments SET file_name=?,date_of_load=?,comment=? WHERE id=?";
         updatePrepareStatement(query);
         try {
@@ -45,18 +47,19 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO{
             this.preparedStatement.setString(3, attachment.getComment());
             this.preparedStatement.setInt(4, attachment.getId());
             this.preparedStatement.executeUpdate();
+            return attachment.getId();
         } catch (SQLException e) {
-            LOGGER.error("can't update attachment to BD ", e);
+            LOGGER.error(String.format("can't update attachment to BD %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error("can't close preparedStatement method updateAttachment to BD ", e);
+                LOGGER.error(String.format("can't close preparedStatement method updateAttachment to BD %s", e));
             }
         }
-        return true;
+            return -1;
     }
 
     public List<Attachment> getAttachmentList(int ID) {
@@ -77,22 +80,22 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO{
                 attachment.setSaved(true);
                 attachmentList.add(attachment);
             }
-        } catch (SQLException var6) {
-            LOGGER.error("can't get attachment list ", var6);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't get attachment list %s", e));
         }
 
         return attachmentList;
     }
 
-    public boolean deleteAttachment(final int ATTACHMENTID) {
+    public void deleteAttachment(final int ATTACHMENTID) {
         String deleteSQL = "DELETE FROM attachments WHERE attachments.id = ?";
 
         try {
             preparedStatement = connection.prepareStatement(deleteSQL);
             preparedStatement.setInt(1, ATTACHMENTID);
             preparedStatement.executeUpdate();
-        } catch (SQLException var5) {
-            LOGGER.error("can't delete attachment ", var5);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't delete attachment %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -102,8 +105,6 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO{
                 e.printStackTrace();
             }
         }
-
-        return true;
-    }
+     }
 
 }

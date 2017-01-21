@@ -5,11 +5,15 @@
 
 package com.itechart.bukinevi.logic.entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
 
 public class Attachment implements Cloneable,Serializable{
+    private static final Logger LOGGER = LogManager.getLogger(Attachment.class.getName());
+
     private int id;
     private int employeeID;
     private String fileName;
@@ -20,10 +24,11 @@ public class Attachment implements Cloneable,Serializable{
     private boolean updated;
     private byte[] attachment;
 
+    public Attachment() {}
+
     public boolean isDeleted() {
         return deleted;
     }
-
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
@@ -35,9 +40,6 @@ public class Attachment implements Cloneable,Serializable{
 
     public void setAttachment(byte[] attachment) {
         this.attachment = attachment;
-    }
-
-    public Attachment() {
     }
 
     public int getId() {
@@ -101,7 +103,7 @@ public class Attachment implements Cloneable,Serializable{
         try {
             return (Attachment)super.clone();
         } catch (CloneNotSupportedException e) {
-            LOGGER.error("can't clon attachment: " + e);
+            LOGGER.error(String.format("can't clone attachment: %s", e));
         }
         return new Attachment();
     }

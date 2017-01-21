@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by aefrd on 21.09.2016.
  */
 public class ChooseEditAttachmentCommand implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     @Override
     public String execute(HttpServletRequest request) {
         String page = updateCommand.execute(request);
@@ -22,7 +22,7 @@ public class ChooseEditAttachmentCommand implements ActionCommand{
         }
         return page;
     }
-    public boolean editAttachment(HttpServletRequest request,final int ATTACHMENTID) {
+    private void editAttachment(HttpServletRequest request, final int ATTACHMENTID) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         ArrayList<Attachment> attachmentList = employee.getAttachmentList();
         Attachment editAttachment = null;
@@ -35,11 +35,10 @@ public class ChooseEditAttachmentCommand implements ActionCommand{
             }
         }
         request.getSession().setAttribute("edit_attachment",editAttachment);
+        assert editAttachment != null;
         request.setAttribute("file_name", editAttachment.getFileName());
         request.setAttribute("comment_file",editAttachment.getComment());
         request.setAttribute("type_operation","Edit_file");
-
-        return true;
     }
 
 }

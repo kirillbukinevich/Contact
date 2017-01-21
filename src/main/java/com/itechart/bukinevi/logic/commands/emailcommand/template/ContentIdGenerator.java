@@ -6,10 +6,10 @@ package com.itechart.bukinevi.logic.commands.emailcommand.template;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-public class ContentIdGenerator {
+class ContentIdGenerator {
 
-    static int seq = 0;
-    static String hostname;
+    private static int seq = 0;
+    private static String hostname;
 
     static {
         try {
@@ -25,7 +25,7 @@ public class ContentIdGenerator {
      * and saves
      * @return
      */
-    public static synchronized int getSeq() {
+    private static synchronized int getSeq() {
         return (seq++) % 100000;
     }
 

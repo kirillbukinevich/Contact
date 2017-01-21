@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,12 +39,12 @@ public class ContactCommand implements ActionCommand {
 
 
         request.setAttribute("employeeList", employeesList);
-        request.setAttribute("noOfPages", Integer.valueOf(noOfPages));
-        request.setAttribute("currentPage", Integer.valueOf(page));
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
         return ConfigurationManager.getProperty("path.page.main");
     }
 
-    public String getSearchCriteria(HttpServletRequest request) {
+    private String getSearchCriteria(HttpServletRequest request) {
         HashMap<String, String> searchCriteria = (HashMap) request.getSession().getAttribute("search_criteria");
         StringBuilder criteria = new StringBuilder("WHERE ");
         String searchDateCriteria = (String) request.getSession().getAttribute("search_date_criteria");

@@ -14,7 +14,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  * Created by aefrd on 10.09.2016.
  */
 public class DeletePhoneCommand implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
         for (String aSelectedPhone : selectedPhone) {
@@ -25,15 +25,12 @@ public class DeletePhoneCommand implements ActionCommand{
         return getProperty("path.page.edit");
     }
 
-    public boolean deletePhone(HttpServletRequest request,final int PHONEID) {
+    private void deletePhone(HttpServletRequest request, final int PHONEID) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         List<ContactPhone> phoneList = employee.getPhoneList();
-        for(ContactPhone phone : phoneList){
-            if(phone.getId()==PHONEID){
-                phone.setIsDeleted(true);
+        phoneList.stream().filter(phone -> phone.getId() == PHONEID).forEach(phone -> {
+            phone.setIsDeleted(true);
 
-            }
-        }
-        return true;
+        });
     }
 }

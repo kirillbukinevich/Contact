@@ -20,8 +20,8 @@ import java.util.List;
 public class UploadServlet extends HttpServlet {
 
     private String filePath;
-    private long maxFileSize = 50000 * 1024;
-    private int maxMemSize = 14 * 1024;
+    private final long maxFileSize = 50000 * 1024;
+    private final int maxMemSize = 14 * 1024;
     private File file;
 
     public void init() {
@@ -47,17 +47,14 @@ public class UploadServlet extends HttpServlet {
             List<FileItem> fileItems = upload.parseRequest(request);
             request.setAttribute("file_item",fileItems);
 
-            for (FileItem fi : fileItems) {
-                if (fi.isFormField()){
-                    if(fi.getFieldName().equals("command")){
-                        request.setAttribute("command",fi.getString());
-                    }
-                    if(fi.getFieldName().equals("comment")){
-                        request.setAttribute("comment",fi.getString());
-                    }
+            fileItems.stream().filter(FileItem::isFormField).forEach(fi -> {
+                if (fi.getFieldName().equals("command")) {
+                    request.setAttribute("command", fi.getString());
                 }
-
-            }
+                if (fi.getFieldName().equals("comment")) {
+                    request.setAttribute("comment", fi.getString());
+                }
+            });
             Controller controller = new Controller();
             controller.processRequest(request,response);
         } catch (FileUploadException e) {

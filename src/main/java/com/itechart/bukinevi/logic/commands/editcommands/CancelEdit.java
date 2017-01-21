@@ -2,8 +2,8 @@ package com.itechart.bukinevi.logic.commands.editcommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.EditCommand;
 import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
-import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
-import com.itechart.bukinevi.logic.database.PhotoDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
 import com.itechart.bukinevi.logic.entity.Employee;
@@ -21,7 +21,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  * Created by aefrd on 04.10.2016.
  */
 public class CancelEdit implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     @Override
     public String execute(HttpServletRequest request) {
         EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
@@ -35,7 +35,7 @@ public class CancelEdit implements ActionCommand{
         editCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
-    public boolean cancelAttcachments(HttpServletRequest request,Employee employee){
+    private void cancelAttcachments(HttpServletRequest request, Employee employee){
         List<Attachment> attachments = updateCommand.getEmployeeFromSession(request).getAttachmentList();
         if(CollectionUtils.isNotEmpty(attachments)) {
             Iterator<Attachment> attachmentIterator = attachments.listIterator();
@@ -51,9 +51,8 @@ public class CancelEdit implements ActionCommand{
             }
         }
         employee.setAttachmentList((ArrayList<Attachment>) attachments);
-        return true;
     }
-    public boolean cancelContactPhone(HttpServletRequest request,Employee employee){
+    private void cancelContactPhone(HttpServletRequest request, Employee employee){
         List<ContactPhone> phoneList = updateCommand.getEmployeeFromSession(request).getPhoneList();
         Iterator<ContactPhone> phoneIterator = phoneList.listIterator();
         while (phoneIterator.hasNext()){
@@ -67,7 +66,6 @@ public class CancelEdit implements ActionCommand{
             }
         }
         employee.setPhoneList((ArrayList<ContactPhone>) phoneList);
-        return true;
     }
 
 

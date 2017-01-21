@@ -18,16 +18,16 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  * Created by aefrd on 01.10.2016.
  */
 public class EditAttachmentCommand implements ActionCommand {
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         updateFile(request);
         updateCommand.fillAllParameters(request);
         return getProperty("path.page.edit");
     }
 
-    public void updateFile(HttpServletRequest request) {
+    private void updateFile(HttpServletRequest request) {
         Attachment oldAttachment = getEditAttachment(request);
-        Attachment newAttachment = null;
+        Attachment newAttachment;
         if (oldAttachment.isSaved()) {
             oldAttachment.setUpdated(true);
             newAttachment = oldAttachment.clone();
@@ -46,14 +46,14 @@ public class EditAttachmentCommand implements ActionCommand {
     }
 
 
-    public Attachment getFile(HttpServletRequest request, Attachment attachment) {
+    private Attachment getFile(HttpServletRequest request, Attachment attachment) {
         attachment.setComment((String) request.getAttribute("comment"));
         attachment.setLoadDate(LocalDateTime.now());
         processAttachmentFile(request, attachment);
         return attachment;
     }
 
-    public boolean processAttachmentFile(HttpServletRequest request, Attachment attachment) {
+    private void processAttachmentFile(HttpServletRequest request, Attachment attachment) {
         List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
         String filePath = request.getAttribute("file_path").toString();
         for (FileItem fi : fileItems) {
@@ -72,10 +72,9 @@ public class EditAttachmentCommand implements ActionCommand {
                 request.setAttribute(fi.getFieldName(), fi.getString());
             }
         }
-        return true;
     }
 
-    public Attachment getEditAttachment(HttpServletRequest request) {
+    private Attachment getEditAttachment(HttpServletRequest request) {
         Attachment editAttachment = (Attachment) request.getSession().getAttribute("edit_attachment");
         request.getSession().setAttribute("edit_attachment", null);
         return editAttachment;

@@ -7,7 +7,7 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
-import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.entity.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
@@ -34,16 +34,16 @@ public class NewCommand implements ActionCommand {
         return getProperty("path.page.edit");
     }
 
-    public void startCreateContact() {
+    private void startCreateContact() {
         AbstractDAO contactDAO = new EmployeeDAOUtil();
         contactDAO.startEditContact();
     }
 
-    public void setEmployeeToSession(HttpServletRequest request, Employee employee) {
+    private void setEmployeeToSession(HttpServletRequest request, Employee employee) {
         request.getSession().setAttribute("employee", employee);
     }
 
-    public Employee getNewEmployee() {
+    private Employee getNewEmployee() {
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         final int ID = contactDAO.getNewEmployeeID();
         Employee employee = new Employee();
@@ -55,7 +55,7 @@ public class NewCommand implements ActionCommand {
         return employee;
     }
 
-    public String getPhotoForJSP() {
+    private String getPhotoForJSP() {
         String resultFileName;
         byte[] data;
         byte[] encodeBase64;

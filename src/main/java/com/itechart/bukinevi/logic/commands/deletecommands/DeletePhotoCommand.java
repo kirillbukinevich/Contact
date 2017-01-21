@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 public class DeletePhotoCommand implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
 
         deletePhoto(request);
@@ -18,10 +18,9 @@ public class DeletePhotoCommand implements ActionCommand{
         return getProperty("path.page.edit");
     }
 
-    public boolean deletePhoto(HttpServletRequest request) {
+    private void deletePhoto(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         Photo photo = employee.getPhoto();
         photo.setDeleted(true);
-        return true;
     }
 }

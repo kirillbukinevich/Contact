@@ -1,13 +1,17 @@
-package com.itechart.bukinevi.logic.database;
+package com.itechart.bukinevi.logic.database.impl;
 
+import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.PhotoDAO;
 import com.itechart.bukinevi.logic.entity.Photo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
+public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
+    private static final Logger LOGGER = LogManager.getLogger(PhotoDAOUtil.class.getName());
 
-public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO{
     public Photo getPhoto(final int ID) {
         String query = "select photo_name,employee_id from photo  WHERE photo.employee_id=?";
         updatePrepareStatement(query);
@@ -24,8 +28,8 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO{
                 }
                 photo.setEmployeeID(e.getInt(2));
             }
-        } catch (SQLException var5) {
-            LOGGER.error("can't get photo ", var5);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't get photo %s",e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -38,7 +42,7 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO{
         return photo;
     }
 
-    public boolean updatePhoto(Photo photo) {
+    public void updatePhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
         updatePrepareStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
@@ -49,9 +53,9 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO{
             }
             this.preparedStatement.setInt(2, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
-            LOGGER.info("update photo to BD");
+            LOGGER.info(String.format("update photo to BD id: %d", photo.getId()));
         } catch (SQLException e) {
-            LOGGER.error("can't update photo to BD ", e);
+            LOGGER.error(String.format("can't update photo to BD %s",e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -61,7 +65,6 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO{
                 e.printStackTrace();
             }
         }
-        return true;
     }
 
 }

@@ -13,7 +13,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  * Created by aefrd on 10.09.2016.
  */
 public class AddPhoneCommand implements ActionCommand {
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         addPhone(request, employee);
@@ -22,7 +22,7 @@ public class AddPhoneCommand implements ActionCommand {
     }
 
 
-    public void addPhone(HttpServletRequest request, Employee employee) {
+    private void addPhone(HttpServletRequest request, Employee employee) {
         final int EMPLOYEEID = employee.getId();
         ContactPhone phone = getPhone(request);
         phone.setEmployeeID(EMPLOYEEID);
@@ -30,7 +30,7 @@ public class AddPhoneCommand implements ActionCommand {
 
     }
 
-    public ContactPhone getPhone(HttpServletRequest request) {
+    private ContactPhone getPhone(HttpServletRequest request) {
         ContactPhone phone = new ContactPhone();
         phone.setCodeCountry(Integer.valueOf(request.getParameter("code_country")));
         phone.setCodeOperator(Integer.valueOf(request.getParameter("code_operator")));

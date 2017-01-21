@@ -1,14 +1,16 @@
 package com.itechart.bukinevi.logic.database;
 
-import java.sql.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
+import java.sql.*;
 
 /**
  * Created by aefrd on 28.09.2016.
  */
 public abstract class AbstractDAO {
-    protected static Connection connection = ConnectionFactory.getConnection();
+    protected static final Connection connection = ConnectionFactory.getConnection();
+    private static final Logger LOGGER = LogManager.getLogger(AttachmentDAO.class.getName());
     protected Statement stmt;
     protected PreparedStatement preparedStatement;
 
@@ -17,11 +19,11 @@ public abstract class AbstractDAO {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            LOGGER.error("can't start edit contact ", e);
+            LOGGER.error(String.format("can't start edit contact %s", e));
         }
     }
 
-    public boolean saveContact() {
+    public void saveContact() {
         try {
             if (!connection.getAutoCommit()) {
                 connection.commit();
@@ -29,13 +31,11 @@ public abstract class AbstractDAO {
                 LOGGER.info("save contact");
             }
         } catch (SQLException e) {
-            LOGGER.error("can't save contact ", e);
+            LOGGER.error(String.format("can't save contact %s", e));
         }
-        return true;
-
     }
 
-    public boolean rollBack() {
+    public void rollBack() {
         try {
             if (!connection.getAutoCommit()) {
                 connection.rollback();
@@ -43,14 +43,12 @@ public abstract class AbstractDAO {
                 LOGGER.info("cancel edit contact");
             }
         } catch (SQLException e) {
-            LOGGER.error("can't cancel edit contact ", e);
+            LOGGER.error(String.format("can't cancel edit contact %s", e));
         }
-        return true;
-
     }
 
 
-    public void updatePrepareStatement(String sqlQuery) {
+    protected void updatePrepareStatement(String sqlQuery) {
         try {
             this.preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException var3) {
@@ -58,7 +56,7 @@ public abstract class AbstractDAO {
         }
     }
 
-    public int retriveId(PreparedStatement preparedStatement) throws SQLException {
+    protected int retriveId(PreparedStatement preparedStatement) throws SQLException {
         ResultSet rs = preparedStatement.getGeneratedKeys();
         int last_inserted_id = 0;
         if (rs.next()) {

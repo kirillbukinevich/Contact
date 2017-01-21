@@ -1,18 +1,12 @@
 package com.itechart.bukinevi.logic.database;
 
-import com.itechart.bukinevi.logic.entity.Address;
 import com.itechart.bukinevi.logic.entity.Employee;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
-
- interface EmployeeDAO{
-     boolean editEmployee(Employee employee);
+ public interface EmployeeDAO{
+     void editEmployee(Employee employee);
 
      List<String> getBirthdayList();
 
@@ -26,7 +20,7 @@ import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
      int getNewEmployeeID();
 
 
-     boolean deleteEmployee(int ID);
+     void deleteEmployee(int ID);
 
      int getNoOfRecords();
 

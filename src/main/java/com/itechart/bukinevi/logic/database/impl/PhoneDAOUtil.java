@@ -1,6 +1,10 @@
-package com.itechart.bukinevi.logic.database;
+package com.itechart.bukinevi.logic.database.impl;
 
+import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.PhoneDAO;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,13 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
-
 /**
  * Created by aefrd on 28.09.2016.
  */
-public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
-    public boolean addPhone(ContactPhone phone, final int EMPLOYEEID) {
+public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
+    private static final Logger LOGGER = LogManager.getLogger(PhoneDAOUtil.class);
+
+
+    public void addPhone(ContactPhone phone, final int EMPLOYEEID) {
         updatePrepareStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
                 "VALUES(?,?,?,?,?,?)");
         try {
@@ -28,17 +33,16 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
             LOGGER.info("add phone to BD");
             phone.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            LOGGER.error("can't add phone to BD ", e);
+            LOGGER.error(String.format("can't add phone to BD %s", e));
         }finally {
             try {
                 if(preparedStatement!=null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error("can't close preparedStatement method  addphone to BD ", e);
+                LOGGER.error(String.format("can't close preparedStatement method  addphone to BD %s", e));
             }
         }
-        return true;
     }
     public List<ContactPhone> getPhoneList(int ID) {
         ArrayList<ContactPhone> phoneList = new ArrayList<>();
@@ -60,8 +64,8 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
                 contactPhone.setIsSaved(true);
                 phoneList.add(contactPhone);
             }
-        } catch (SQLException var6) {
-            LOGGER.error("can't get phone list ", var6);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't get phone list %s",e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -74,7 +78,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
 
         return phoneList;
     }
-    public boolean updatePhone(ContactPhone phone){
+    public void updatePhone(ContactPhone phone){
         String query = "UPDATE phone SET code_country=?,code_operator=?,number=?,type=?,comment=? " +
                 "WHERE id=?";
         updatePrepareStatement(query);
@@ -86,22 +90,21 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
             preparedStatement.setString(5,phone.getComment());
             preparedStatement.setInt(6,phone.getId());
             preparedStatement.executeUpdate();
-            LOGGER.info("update phone to BD");
+            LOGGER.info("update phone to BD id: ", phone.getId());
         } catch (SQLException e) {
-            LOGGER.error("can't update phone to BD ", e);
+            LOGGER.error(String.format("can't update phone to BD %s",e));
         }finally {
             try {
                 if(preparedStatement!=null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error("can't close preparedStatement method  updatephone to BD ", e);
+                LOGGER.error(String.format("can't close preparedStatement method  updatephone to BD %s",e));
             }
         }
-        return true;
     }
 
-    public boolean deletePhone(final int PHONEID) {
+    public void deletePhone(final int PHONEID) {
         String deleteSQL = "DELETE FROM phone WHERE phone.id = ?";
 
         try {
@@ -109,8 +112,8 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
             preparedStatement.setInt(1, PHONEID);
             preparedStatement.executeUpdate();
             LOGGER.info("delete phone to BD");
-        } catch (SQLException var5) {
-            LOGGER.error("can't delete phone ", var5);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't delete phone %s",e));
         }finally {
             try {
                 if(preparedStatement!=null) {
@@ -120,7 +123,5 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO{
                 e.printStackTrace();
             }
         }
-
-        return true;
     }
 }

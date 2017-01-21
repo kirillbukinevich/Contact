@@ -49,7 +49,7 @@ public class DownloadFileServlet extends HttpServlet {
         OutputStream outStream = response.getOutputStream();
 
         byte[] buffer = new byte[4096];
-        int bytesRead = -1;
+        int bytesRead;
 
         while ((bytesRead = inStream.read(buffer)) != -1) {
             outStream.write(buffer, 0, bytesRead);

@@ -12,7 +12,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  * Created by aefrd on 12.09.2016.
  */
 public class DeleteAttachmentCommand implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         String[] selectedFile = request.getParameterValues("check_selected_file");
         for (String aSelectedFile : selectedFile) {
@@ -24,7 +24,7 @@ public class DeleteAttachmentCommand implements ActionCommand{
     }
 
 
-    public boolean deleteAttachment(HttpServletRequest request, final int ATTACHMENTID) {
+    private void deleteAttachment(HttpServletRequest request, final int ATTACHMENTID) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         List<Attachment> attachmentList = employee.getAttachmentList();
         Attachment removeFile = null;
@@ -33,7 +33,7 @@ public class DeleteAttachmentCommand implements ActionCommand{
                 removeFile = attachment;
             }
         }
+        assert removeFile != null;
         removeFile.setDeleted(true);
-        return true;
     }
 }

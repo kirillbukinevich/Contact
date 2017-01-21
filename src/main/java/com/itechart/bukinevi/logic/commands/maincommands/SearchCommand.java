@@ -16,11 +16,11 @@ public class SearchCommand implements ActionCommand{
         ContactCommand contactCommand = new ContactCommand();
         return contactCommand.execute(request);
     }
-    public void search(HttpServletRequest request){
+    private void search(HttpServletRequest request){
         defineSearchParameters(request);
 
     }
-  public boolean defineSearchParameters(HttpServletRequest request){
+  private void defineSearchParameters(HttpServletRequest request){
       ArrayList<String> parameterList = Collections.list(request.getParameterNames());
       HashMap<String,String> searchCriteriasMap = new HashMap<>();
       parameterList.remove("command");
@@ -29,21 +29,19 @@ public class SearchCommand implements ActionCommand{
       StringBuilder criteriaInfo = new StringBuilder();
       criteriaInfo.append(criteriaDate);
 
-      for(String parameterName : parameterList){
-        if(isCriteria(request.getParameter(parameterName))){
-            searchCriteriasMap.put(parameterName.substring(5),request.getParameter(parameterName));
-            criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
-        }
-      }
+      parameterList.stream().filter(parameterName -> isCriteria(request.getParameter(parameterName))).forEach(parameterName -> {
+          searchCriteriasMap.put(parameterName.substring(5), request.getParameter(parameterName));
+          criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
+      });
+
       request.getSession().setAttribute("search_info","search result: " + criteriaInfo);
       request.getSession().setAttribute("search_criteria",searchCriteriasMap);
       request.getSession().setAttribute("search_date_criteria", criteriaDate.toString());
-      return true;
   }
-    public boolean isCriteria(String tempCriteria){
+    private boolean isCriteria(String tempCriteria){
         return !tempCriteria.isEmpty();
     }
-    public StringBuilder processDateCriteria(HttpServletRequest request, ArrayList<String> paramList){
+    private StringBuilder processDateCriteria(HttpServletRequest request, ArrayList<String> paramList){
         String date = request.getParameter("find_date_of_birth");
         StringBuilder criteria = new StringBuilder();
         if(!date.isEmpty()){

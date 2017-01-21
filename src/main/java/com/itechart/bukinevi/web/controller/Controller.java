@@ -5,10 +5,11 @@
 
 package com.itechart.bukinevi.web.controller;
 
-import com.itechart.bukinevi.logic.configuration.LogConfiguration;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.processcommand.ActionFactory;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
 
     public Controller() {
     }
@@ -33,15 +35,14 @@ public class Controller extends HttpServlet {
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
         ActionFactory client = new ActionFactory();
         response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
-        page = command.execute(request);
+        String page = command.execute(request);
         if(StringUtils.isEmpty(request.getParameter("command"))){
-            LogConfiguration.LOGGER.info("finish : " + request.getAttribute("command") + " command");
+            LOGGER.info(String.format("finish : %s command", request.getAttribute("command")));
         }else {
-            LogConfiguration.LOGGER.info("finish : " + request.getParameter("command") + " command");
+            LOGGER.info(String.format("finish : %s command", request.getParameter("command")));
         }
         if (page != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);

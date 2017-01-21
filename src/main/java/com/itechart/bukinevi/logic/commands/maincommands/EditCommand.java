@@ -2,6 +2,10 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.*;
+import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
 import com.itechart.bukinevi.logic.entity.*;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.codec.binary.Base64;
@@ -26,7 +30,7 @@ public class EditCommand implements ActionCommand {
         return getProperty("path.page.edit");
     }
 
-    public Employee getEmployeeOnId(HttpServletRequest request) {
+    private Employee getEmployeeOnId(HttpServletRequest request) {
         Employee employee = new Employee();
         String employee_id = request.getParameter("employee_id");
         final int ID;
@@ -50,23 +54,22 @@ public class EditCommand implements ActionCommand {
         return employee;
     }
 
-    public void startEditContact() {
+    private void startEditContact() {
         AbstractDAO abstractDAO = new EmployeeDAOUtil();
         abstractDAO.startEditContact();
     }
 
-    public boolean fillAllParameters(HttpServletRequest request) {
+    public void fillAllParameters(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
         this.fillEmployeeParameters(request, employee);
         this.fillAddressParameters(request, employee.getAddress());
         this.fillPhoneParameters(request, employee.getPhoneList());
         this.fillAttachmentParameters(request, employee.getAttachmentList());
         this.fillPhotoParameter(request, employee);
-        return true;
     }
 
 
-    public boolean fillEmployeeParameters(HttpServletRequest request, Employee employee) {
+    private void fillEmployeeParameters(HttpServletRequest request, Employee employee) {
         request.setAttribute("first_name", employee.getFirstName());
         request.setAttribute("last_name", employee.getLastName());
         request.setAttribute("patronymic", employee.getPatronymic());
@@ -78,10 +81,9 @@ public class EditCommand implements ActionCommand {
         request.setAttribute("email", employee.getEmail());
         request.setAttribute("work_place", employee.getWorkPlace());
 
-        return true;
     }
 
-    public boolean fillAddressParameters(HttpServletRequest request, Address address) {
+    private void fillAddressParameters(HttpServletRequest request, Address address) {
         request.setAttribute("country", address.getCountryName());
         request.setAttribute("city", address.getCityName());
 
@@ -89,28 +91,24 @@ public class EditCommand implements ActionCommand {
         request.setAttribute("house", address.getHouseNumber());
         request.setAttribute("flat", address.getFlatNumber());
         request.setAttribute("index", address.getIndex());
-        return true;
     }
 
-    public boolean fillPhoneParameters(HttpServletRequest request, List<ContactPhone> phoneList) {
+    private void fillPhoneParameters(HttpServletRequest request, List<ContactPhone> phoneList) {
         request.setAttribute("phoneList", phoneList);
-        return true;
     }
 
-    public boolean fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
+    private void fillAttachmentParameters(HttpServletRequest request, List<Attachment> attachmentList) {
         String filePath = ConfigurationManager.getPathProperty("path.saveFile");
         request.setAttribute("file_path", filePath);
         request.setAttribute("attachList", attachmentList);
-        return true;
     }
 
-    public boolean fillPhotoParameter(HttpServletRequest request, Employee employee) {
+    private void fillPhotoParameter(HttpServletRequest request, Employee employee) {
         Photo photo = employee.getPhoto();
-        request.setAttribute("photo", getPhotoForJSP(request, photo));
-        return true;
+        request.setAttribute("photo", getPhotoForJSP(photo));
     }
 
-    public String getPhotoForJSP(HttpServletRequest request, Photo photo) {
+    private String getPhotoForJSP(Photo photo) {
         String resultFileName;
         byte[] data;
         byte[] encodeBase64;
@@ -147,12 +145,11 @@ public class EditCommand implements ActionCommand {
     }
 
 
-    public Employee getEmployeeFromSession(HttpServletRequest request) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        return employee;
+    private Employee getEmployeeFromSession(HttpServletRequest request) {
+        return (Employee) request.getSession().getAttribute("employee");
     }
 
-    public void setEmployeeToSession(HttpServletRequest request, Employee employee) {
+    private void setEmployeeToSession(HttpServletRequest request, Employee employee) {
         request.getSession().setAttribute("employee", employee);
     }
 

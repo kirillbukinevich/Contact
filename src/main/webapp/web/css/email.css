@@ -33,14 +33,14 @@ p{
 }
 
 .form fieldset {
-    border: 0px;
-    padding: 0px;
-    margin: 0px;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .form p.contact {
     font-size: 12px;
-    margin: 0px 0px 10px 0;
+    margin: 0 0 10px 0;
     line-height: 14px;
     font-family: Arial, Helvetica;
 }
@@ -84,7 +84,7 @@ p{
 .form .select-style {
     -webkit-appearance: button;
     -webkit-border-radius: 2px;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-padding-end: 50px;
     -webkit-padding-start: 2px;
     -webkit-user-select: none;
@@ -92,7 +92,7 @@ p{
     -webkit-linear-gradient(rgba(0, 0, 0, 0.52), rgba(2, 2, 2, 0.3) 40%, #E5E5E5);
     background-position: center right;
     background-repeat: no-repeat;
-    border: 0px solid #FFF;
+    border: 0 solid #FFF;
     color: #555;
     font-size: small;
     overflow: hidden;

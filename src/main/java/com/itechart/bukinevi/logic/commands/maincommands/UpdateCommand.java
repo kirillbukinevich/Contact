@@ -19,32 +19,36 @@ public class UpdateCommand implements ActionCommand{
         chooseDialog(request);
         return getProperty("path.page.edit");
     }
-    public boolean chooseDialog(HttpServletRequest request){
+    private void chooseDialog(HttpServletRequest request){
         String command = request.getParameter("command");
-        if(command.equals("update_phone") || command.equals("update_edit_phone")) {
-            request.setAttribute("popDialog", "phoneModal");
-            request.setAttribute("type_operation","New_Phone");
-        }else if(command.equals("update_attachment") || command.equals("update_edit_attachment")){
-            request.setAttribute("popDialog", "attachModal");
-            request.setAttribute("type_operation","New_File");
-        }else if(command.equals("update_photo")){
-            request.setAttribute("popDialog","photoModal");
-        }else if(command.equals("save")){
-            request.setAttribute("popDialog","saveModal");
+        switch (command) {
+            case "update_phone":
+            case "update_edit_phone":
+                request.setAttribute("popDialog", "phoneModal");
+                request.setAttribute("type_operation", "New_Phone");
+                break;
+            case "update_attachment":
+            case "update_edit_attachment":
+                request.setAttribute("popDialog", "attachModal");
+                request.setAttribute("type_operation", "New_File");
+                break;
+            case "update_photo":
+                request.setAttribute("popDialog", "photoModal");
+                break;
+            case "save":
+                request.setAttribute("popDialog", "saveModal");
+                break;
         }
-
-        return true;
-
     }
 
-    public void update(HttpServletRequest request) {
+    private void update(HttpServletRequest request) {
         Employee employee = getEmployeeFromSession(request);
         updateEmployee(request, employee);
         fillAllParameters(request);
         setEmployeeToSession(request, employee);
     }
 
-    public Employee updateEmployee(HttpServletRequest request, Employee employee) {
+    void updateEmployee(HttpServletRequest request, Employee employee) {
 
         employee.setFirstName(request.getParameter("first_name"));
         employee.setLastName(request.getParameter("last_name"));
@@ -63,11 +67,9 @@ public class UpdateCommand implements ActionCommand{
         employee.setEmail(request.getParameter("email"));
         employee.setWorkPlace(request.getParameter("work_place"));
         employee.setAddress(updateAddress(request));
-
-        return employee;
     }
 
-    public Address updateAddress(HttpServletRequest request) {
+    private Address updateAddress(HttpServletRequest request) {
         Address address = new Address();
         address.setCountryName(StringUtils.isEmpty(request.getParameter("country"))
                 ? null : (request.getParameter("country")));
@@ -86,8 +88,7 @@ public class UpdateCommand implements ActionCommand{
 
 
     public Employee getEmployeeFromSession(HttpServletRequest request) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        return employee;
+        return (Employee) request.getSession().getAttribute("employee");
     }
 
     public void setEmployeeToSession(HttpServletRequest request, Employee employee) {

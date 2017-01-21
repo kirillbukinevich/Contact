@@ -7,12 +7,7 @@ function checkboxes() {
         }
     }
     var editbutton = document.getElementById("editbutton");
-    if (count > 1 || count == 0) {
-        editbutton.disabled = true;
-
-    } else {
-        editbutton.disabled = false;
-    }
+    editbutton.disabled = !!(count > 1 || count == 0);
 }
 function checkboxesForMail() {
     var inputElems = document.getElementsByTagName("input"),

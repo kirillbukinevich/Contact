@@ -22,8 +22,8 @@ public class Employee implements Serializable{
     private String email;
     private String workPlace;
     private Address address = new Address();
-    private ArrayList<ContactPhone> phoneList = new ArrayList<ContactPhone>();
-    private ArrayList<Attachment> attachmentList = new ArrayList<Attachment>();
+    private ArrayList<ContactPhone> phoneList = new ArrayList<>();
+    private ArrayList<Attachment> attachmentList = new ArrayList<>();
     private Photo photo;
     public Employee() {
     }

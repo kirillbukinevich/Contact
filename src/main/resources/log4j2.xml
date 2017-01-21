@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="trace">
-    <appenders>
-        <File name="FILE" fileName="log.txt">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+<Configuration status="warn" name="ContactApp" packages="">
+    <Appenders>
+        <File name="FileAppender" fileName="dk-contact-logs/contactapp.log" append="false">
+            <PatternLayout>
+                <Pattern>%d [%p] %c{1}.%M %m%n</Pattern>
+            </PatternLayout>
         </File>
-        <param name="maxFileSize" value="1MB" />
-        <param name="MaxBackupIndex" value="5"/>
-    </appenders>
-    <loggers>
-        <root level="debug">
-            <appender-ref ref="FILE"/>
-
-        </root>
-    </loggers>
-
-</configuration>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

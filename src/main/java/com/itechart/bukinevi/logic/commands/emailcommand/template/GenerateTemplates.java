@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 /**
  * Created by aefrd on 23.09.2016.
  */
-public class GenerateTemplates {
+class GenerateTemplates {
     private String subject;
     private String text;
     private String includePage;
@@ -20,7 +20,7 @@ public class GenerateTemplates {
     }
 
     public void setIncludePage(String includePage) {
-        includePage = includePage;
+        this.includePage = includePage;
     }
 
     public String getSubject() {
@@ -39,7 +39,7 @@ public class GenerateTemplates {
         this.text = text;
     }
 
-    public boolean fillBirthdayManTemplate() {
+    private void fillBirthdayManTemplate() {
         subject = "Happy Birthday!";
         text = "We all hope you have a bright future, <br>" +
                 "because you have a lot of challenges coming up in your life, <br>" +
@@ -55,9 +55,8 @@ public class GenerateTemplates {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return true;
     }
-    public boolean fillBirthdayWomanTemplate() {
+    private void fillBirthdayWomanTemplate() {
         subject = "Happy Birthday!";
         text = "Today is a great day to celebrate a birthday,<br>\n" +
                 "May joy and laughter never leave you<br>\n" +
@@ -73,10 +72,9 @@ public class GenerateTemplates {
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
-    public boolean fillEmailTemplate() throws URISyntaxException, IOException {
+    private void fillEmailTemplate() throws URISyntaxException, IOException {
         ST emailTestTemplate = new ST(new String(Files.readAllBytes(Paths
                 .get(GenerateTemplates.class.getResource(
                         "/emailTemplate.html").toURI()))), '$', '$');
@@ -86,11 +84,10 @@ public class GenerateTemplates {
         emailTestTemplate.add("content", emailContent);
         emailTestTemplate.add("senderFullName", "Jeoff Desouza");
         includePage = emailTestTemplate.render();
-        return true;
     }
 
 
-    public Boolean chooseTemplate(String templateType) {
+    void chooseTemplate(String templateType) {
         try {
             switch (templateType) {
                 case "man_birthday":
@@ -106,8 +103,6 @@ public class GenerateTemplates {
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
-
-        return true;
     }
 
 

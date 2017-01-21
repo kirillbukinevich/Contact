@@ -6,12 +6,14 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.AttachmentDAOUtil;
-import com.itechart.bukinevi.logic.database.EmployeeDAOUtil;
-import com.itechart.bukinevi.logic.database.PhoneDAOUtil;
-import com.itechart.bukinevi.logic.database.PhotoDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
 import com.itechart.bukinevi.logic.entity.*;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -22,10 +24,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
 
 public class SaveCommand implements ActionCommand {
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private static final Logger LOGGER = LogManager.getLogger(SaveCommand.class);
+
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public SaveCommand() {
     }
 
@@ -36,7 +39,7 @@ public class SaveCommand implements ActionCommand {
     }
 
 
-    public boolean saveContact(HttpServletRequest request) {
+    private void saveContact(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         updateCommand.updateEmployee(request, employee);
         savePhones(employee.getPhoneList(),employee.getId());
@@ -53,10 +56,9 @@ public class SaveCommand implements ActionCommand {
         contactDAO.editEmployee(employee);
         contactDAO.saveContact();
 
-        return true;
     }
 
-    public boolean savePhones(ArrayList<ContactPhone> phones,final int EMPLOYEEID){
+    private void savePhones(ArrayList<ContactPhone> phones, final int EMPLOYEEID){
         Iterator<ContactPhone> phoneIterator = phones.iterator();
         PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
         while (phoneIterator.hasNext()){
@@ -71,10 +73,9 @@ public class SaveCommand implements ActionCommand {
                 phoneDAO.deletePhone(phone.getId());
             }
         }
-        return true;
     }
 
-    public boolean saveAttchment(Employee employee) {
+    private void saveAttchment(Employee employee) {
         AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
         ArrayList<Attachment> attachments = employee.getAttachmentList();
         String filePath = ConfigurationManager.getPathProperty("path.saveFile") + employee.getId() + "/";
@@ -98,7 +99,7 @@ public class SaveCommand implements ActionCommand {
                 try {
                     Files.delete(path);
                 } catch (IOException e) {
-                    LOGGER.error("can't delete file from server " + e);
+                    LOGGER.error(String.format("can't delete file from server %s", e));
                 }
             }
             if(!attachment.isSaved() && attachment.isUpdated()){
@@ -114,10 +115,9 @@ public class SaveCommand implements ActionCommand {
             }
 
         }
-        return true;
     }
 
-    public boolean savePhoto(Photo photo) {
+    private void savePhoto(Photo photo) {
         PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") + photo.getEmployeeID() + "/photo/";
@@ -130,14 +130,13 @@ public class SaveCommand implements ActionCommand {
             Path path = Paths.get(resultFileName);
             Files.write(path, photo.getBytes());
         } catch (IOException e) {
-            LOGGER.error("can't write photo on disk: " + e);
+            LOGGER.error(String.format("can't write photo on disk: %s", e));
         }
 
 
-        return true;
     }
 
-    public boolean deletePhotoFromDisk(Photo photo) {
+    private void deletePhotoFromDisk(Photo photo) {
         PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
@@ -146,8 +145,7 @@ public class SaveCommand implements ActionCommand {
         try {
             Files.delete(path);
         } catch (IOException e) {
-            LOGGER.error("can't delete photo from server " + e);
+            LOGGER.error(String.format("can't delete photo from server %s", e));
         }
-        return true;
     }
 }

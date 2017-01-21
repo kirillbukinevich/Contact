@@ -1,20 +1,23 @@
-package com.itechart.bukinevi.logic.database;
+package com.itechart.bukinevi.logic.database.impl;
 
+import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAO;
 import com.itechart.bukinevi.logic.entity.Address;
 import com.itechart.bukinevi.logic.entity.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.itechart.bukinevi.logic.configuration.LogConfiguration.LOGGER;
+public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
+    private static final Logger LOGGER = LogManager.getLogger(EmployeeDAOUtil.class);
 
-public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
     private int noOfRecords;
 
-    public boolean editEmployee(Employee employee) {
+    public void editEmployee(Employee employee) {
         this.updatePrepareStatement("UPDATE main_info SET first_name=?,last_name=?,patronymic=?," +
                 "date_of_birth=?,gender=?,nationality=?,family_status=?,web_site=?,email=?,work_place=?," +
                 "country=?,city=?,street=?,house=?,flat=?,index_address=? WHERE id=?");
@@ -38,9 +41,10 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
             this.preparedStatement.setObject(16, address.getIndex());
             this.preparedStatement.setObject(17, employee.getId());
             this.preparedStatement.executeUpdate();
-            LOGGER.info("update employee to BD");
+
+            LOGGER.info(String.format("update employee to BD id: %d", employee.getId()));
         } catch (SQLException e) {
-            LOGGER.error("can't update employee to BD ", e);
+            LOGGER.error(String.format("can't update employee to BD %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -50,7 +54,6 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
                 e.printStackTrace();
             }
         }
-        return true;
     }
 
     public List<String> getBirthdayList() {
@@ -66,7 +69,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
                         resultSet.getString(2) + " " + resultSet.getString(3));
             }
         } catch (SQLException e) {
-            LOGGER.error("can't get birthdayList: " + e.getMessage());
+            LOGGER.error(String.format("can't get birthdayList: %s", e));
         } finally {
             try {
                 if (stmt!= null) {
@@ -128,8 +131,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
             }
 
 
-        } catch (SQLException var8) {
-            LOGGER.error("can't get employee list ", var8);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't get employee list %s", e));
         }finally {
             try {
                 if (preparedStatement != null) {
@@ -153,7 +156,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
             resultSet.next();
             email = resultSet.getString(1);
         } catch (SQLException e) {
-            LOGGER.error("can't get email ", e);
+            LOGGER.error(String.format("can't get email %s", e));
         }
         return email;
     }
@@ -189,8 +192,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
                 address.setIndex(e.getInt("index_address"));
                 employee.setAddress(address);
             }
-        } catch (SQLException var5) {
-            LOGGER.error("can't get employee on id ", var5);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't get employee on id %s", e));
         }
 
         return employee;
@@ -206,7 +209,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
             this.preparedStatement.executeUpdate();
             return EMPLOYEEID;
         } catch (SQLException e) {
-            LOGGER.error("can't get new employee id ", e);
+            LOGGER.error(String.format("can't get new employee id %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -216,11 +219,11 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
                 e.printStackTrace();
             }
         }
-        return 0;
+        return -1;
     }
 
 
-    public boolean deleteEmployee(int ID) {
+    public void deleteEmployee(int ID) {
         String deleteSQL = "DELETE main_info FROM main_info " +
                 "WHERE main_info.id = ?";
 
@@ -228,8 +231,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
             preparedStatement = connection.prepareStatement(deleteSQL);
             preparedStatement.setInt(1, ID);
             preparedStatement.executeUpdate();
-        } catch (SQLException var5) {
-            LOGGER.error("can't delete employee ", var5);
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't delete employee %s", e));
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -239,8 +242,6 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO{
                 e.printStackTrace();
             }
         }
-
-        return true;
     }
 
     public int getNoOfRecords() {

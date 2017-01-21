@@ -13,29 +13,27 @@ import java.io.IOException;
 public class TempalteContent {
     private String attachImage;
     private String text;
-    private String cid = ContentIdGenerator.getContentId();
-    private MimeBodyPart imagePart = new MimeBodyPart();
-    private MimeBodyPart textPart = new MimeBodyPart();
-    private MimeMultipart content = new MimeMultipart("related");
-    private String path = ConfigurationManager.getPathProperty("path.image");
+    private final String cid = ContentIdGenerator.getContentId();
+    private final MimeBodyPart imagePart = new MimeBodyPart();
+    private final MimeBodyPart textPart = new MimeBodyPart();
+    private final MimeMultipart content = new MimeMultipart("related");
+    private final String path = ConfigurationManager.getPathProperty("path.image");
 
-    private boolean generateTemplateBirthdayManForSend() throws MessagingException, IOException {
+    private void generateTemplateBirthdayManForSend() throws MessagingException, IOException {
         attachImage = path + "birthday/birthday_men.jpg";
         text = "We all hope you have a bright future, <br>" +
                 "because you have a lot of challenges coming up in your life, <br>" +
                 "you’re brave, smart, loving, and we know you will be able to get through them! <br>";
         content.addBodyPart(getTextPart());
         content.addBodyPart(getImagePart());
-        return true;
     }
-    private boolean generateTemplateBirthdayWomanForSend() throws MessagingException, IOException {
+    private void generateTemplateBirthdayWomanForSend() throws MessagingException, IOException {
         attachImage = path + "birthday/birthday_women.jpg";
         text = "Today is a great day to celebrate a birthday,<br>\n" +
                 "May joy and laughter never leave you<br>\n" +
                 "And all your sorrows go away!<br>";
         content.addBodyPart(getTextPart());
         content.addBodyPart(getImagePart());
-        return true;
     }
 
     public MimeMultipart getContent() {
@@ -72,7 +70,7 @@ public class TempalteContent {
         imagePart.setDisposition(MimeBodyPart.INLINE);
         return imagePart;
     }
-    public MimeBodyPart getTextPart() throws MessagingException {
+    private MimeBodyPart getTextPart() throws MessagingException {
         String attachBody = "<html>"
                 + "<body><div><b>" + text + "</b></div>"
                 + "<img src=\"cid:"

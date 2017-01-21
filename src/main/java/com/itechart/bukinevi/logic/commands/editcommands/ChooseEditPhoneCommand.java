@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by aefrd on 17.09.2016.
  */
 public class ChooseEditPhoneCommand implements ActionCommand{
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         String page = updateCommand.execute(request);
         String[] selectedPhone = request.getParameterValues("check_selected_phone");
@@ -27,7 +27,7 @@ public class ChooseEditPhoneCommand implements ActionCommand{
         return page;
     }
 
-    public boolean editPhone(HttpServletRequest request,final int PHONEID) {
+    private void editPhone(HttpServletRequest request, final int PHONEID) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         ArrayList<ContactPhone> phoneList = employee.getPhoneList();
         ContactPhone editPhone = null;
@@ -40,12 +40,12 @@ public class ChooseEditPhoneCommand implements ActionCommand{
             }
         }
         request.getSession().setAttribute("edit_phone",editPhone);
+        assert editPhone != null;
         request.setAttribute("code_country",editPhone.getCodeCountry());
         request.setAttribute("code_operator",editPhone.getCodeOperator());
         request.setAttribute("phone_number",editPhone.getNumber());
         request.setAttribute("phone_type",editPhone.getType());
         request.setAttribute("comment_phone",editPhone.getComment());
         request.setAttribute("type_operation","Edit_phone");
-        return true;
     }
 }

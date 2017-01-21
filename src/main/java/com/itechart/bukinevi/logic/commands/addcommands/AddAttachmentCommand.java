@@ -15,7 +15,7 @@ import java.util.List;
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 public class AddAttachmentCommand implements ActionCommand {
-    private UpdateCommand updateCommand = new UpdateCommand();
+    private final UpdateCommand updateCommand = new UpdateCommand();
     public String execute(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         addFile(request, employee);
@@ -23,13 +23,13 @@ public class AddAttachmentCommand implements ActionCommand {
         return getProperty("path.page.edit");
     }
 
-    public void addFile(HttpServletRequest request, Employee employee) {
+    private void addFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = getFile(request, employee);
 
         employee.getAttachmentList().add(attachment);
     }
 
-    public Attachment getFile(HttpServletRequest request, Employee employee) {
+    private Attachment getFile(HttpServletRequest request, Employee employee) {
         Attachment attachment = new Attachment();
         final int EMPLOYEEID = employee.getId();
         attachment.setEmployeeID(EMPLOYEEID);
@@ -40,7 +40,7 @@ public class AddAttachmentCommand implements ActionCommand {
         return attachment;
     }
 
-    public synchronized boolean processAttachmentFile(HttpServletRequest request, Employee employee,Attachment attachment) {
+    private synchronized void processAttachmentFile(HttpServletRequest request, Employee employee, Attachment attachment) {
         List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
         String filePath  = request.getAttribute("file_path").toString();
         for (FileItem fi : fileItems) {
@@ -59,18 +59,15 @@ public class AddAttachmentCommand implements ActionCommand {
                 request.setAttribute(fi.getFieldName(), fi.getString());
             }
         }
-        return true;
     }
 
-    public String getSaveName(Employee employee, String originalFileName){
+    private String getSaveName(Employee employee, String originalFileName){
         String extension =  FilenameUtils.getExtension(originalFileName);
         String fileNameOutExtnsn = FilenameUtils.removeExtension(originalFileName);
         String fileName = originalFileName;
         int count = 0;
-        Iterator<Attachment> attachmentIterator = employee.getAttachmentList().iterator();
-        while (attachmentIterator.hasNext()){
-            Attachment attachment = attachmentIterator.next();
-            if(attachment.getFileName().equals(fileName)){
+        for (Attachment attachment : employee.getAttachmentList()) {
+            if (attachment.getFileName().equals(fileName)) {
                 fileName = fileNameOutExtnsn + "(" + ++count + ")." + extension;
             }
         }

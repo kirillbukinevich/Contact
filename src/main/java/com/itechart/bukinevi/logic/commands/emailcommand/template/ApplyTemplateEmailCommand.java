@@ -16,7 +16,7 @@ public class ApplyTemplateEmailCommand implements ActionCommand {
         return getProperty("path.page.email");
     }
 
-    public boolean fillTemplates(HttpServletRequest request) {
+    private void fillTemplates(HttpServletRequest request) {
         String templateType = request.getParameter("template_type");
         if(templateType.isEmpty()){
             request.setAttribute("editable_area","show");
@@ -29,7 +29,6 @@ public class ApplyTemplateEmailCommand implements ActionCommand {
         generateTemplates.chooseTemplate(templateType);
         request.setAttribute("template", generateTemplates);
         request.getSession().setAttribute("template",generateTemplates);
-        return true;
     }
 
 }
