@@ -28,13 +28,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't add attachment to BD %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(String.format("can't close preparedStatement method addAttachment to BD %s", e));
-            }
+            this.closePreparedStatement("addAttachment");
         }
     }
 
@@ -51,15 +45,9 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't update attachment to BD %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(String.format("can't close preparedStatement method updateAttachment to BD %s", e));
-            }
+            this.closePreparedStatement("updateAttachment");
         }
-            return -1;
+        return -1;
     }
 
     public List<Attachment> getAttachmentList(int ID) {
@@ -82,8 +70,9 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get attachment list %s", e));
+        }finally {
+            this.closeStatement("getAttachmentList");
         }
-
         return attachmentList;
     }
 
@@ -97,13 +86,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't delete attachment %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+          this.closePreparedStatement("deleteAttachment");
         }
      }
 

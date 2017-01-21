@@ -35,13 +35,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't add phone to BD %s", e));
         }finally {
-            try {
-                if(preparedStatement!=null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(String.format("can't close preparedStatement method  addphone to BD %s", e));
-            }
+           this.closePreparedStatement("addPhone");
         }
     }
     public List<ContactPhone> getPhoneList(int ID) {
@@ -67,17 +61,11 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get phone list %s",e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("getPhoneList");
         }
-
         return phoneList;
     }
+
     public void updatePhone(ContactPhone phone){
         String query = "UPDATE phone SET code_country=?,code_operator=?,number=?,type=?,comment=? " +
                 "WHERE id=?";
@@ -94,13 +82,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't update phone to BD %s",e));
         }finally {
-            try {
-                if(preparedStatement!=null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(String.format("can't close preparedStatement method  updatephone to BD %s",e));
-            }
+            this.closePreparedStatement("updatePhone");
         }
     }
 
@@ -115,13 +97,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't delete phone %s",e));
         }finally {
-            try {
-                if(preparedStatement!=null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+           this.closePreparedStatement("deletePhone");
         }
     }
 }

@@ -46,13 +46,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't update employee to BD %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("editEmplloyee");
         }
     }
 
@@ -71,13 +65,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get birthdayList: %s", e));
         } finally {
-            try {
-                if (stmt!= null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closeStatement("getBirthdayList");
+
         }
         return birthdayList;
     }
@@ -134,13 +123,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get employee list %s", e));
         }finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("getEmployeesList");
         }
 
         return list;
@@ -157,6 +140,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             email = resultSet.getString(1);
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get email %s", e));
+        }finally {
+            this.closePreparedStatement("getEmail");
         }
         return email;
     }
@@ -194,6 +179,8 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             }
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get employee on id %s", e));
+        }finally {
+            this.closePreparedStatement("getEmployeeOnId");
         }
 
         return employee;
@@ -211,13 +198,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get new employee id %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("getNewEmployeeID");
         }
         return -1;
     }
@@ -234,13 +215,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't delete employee %s", e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("deleteEmployee");
         }
     }
 

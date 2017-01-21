@@ -65,4 +65,26 @@ public abstract class AbstractDAO {
         return last_inserted_id;
     }
 
+    protected void closePreparedStatement(String methodName){
+        try {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't close preparedStatement method %s to BD %s",methodName, e));
+        }
+
+    }
+
+    protected void closeStatement(String methodName){
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (SQLException e) {
+            LOGGER.error(String.format("can't close statement method %s to BD %s",methodName, e));
+        }
+
+    }
+
 }

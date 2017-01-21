@@ -31,13 +31,7 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
         } catch (SQLException e) {
             LOGGER.error(String.format("can't get photo %s",e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("getPhoto");
         }
         return photo;
     }
@@ -53,17 +47,11 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
             }
             this.preparedStatement.setInt(2, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
-            LOGGER.info(String.format("update photo to BD id: %d", photo.getId()));
+            LOGGER.info(String.format("update photo to BD employee id: %d", photo.getEmployeeID()));
         } catch (SQLException e) {
             LOGGER.error(String.format("can't update photo to BD %s",e));
         } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            this.closePreparedStatement("updatePhoto");
         }
     }
 
