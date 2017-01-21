@@ -90,7 +90,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
             preparedStatement.setString(5,phone.getComment());
             preparedStatement.setInt(6,phone.getId());
             preparedStatement.executeUpdate();
-            LOGGER.info("update phone to BD id: ", phone.getId());
+            LOGGER.info(String.format("update phone to BD id: %d", phone.getId()));
         } catch (SQLException e) {
             LOGGER.error(String.format("can't update phone to BD %s",e));
         }finally {
