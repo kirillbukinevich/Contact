@@ -29,6 +29,7 @@ public class SaveCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(SaveCommand.class);
 
     private final UpdateCommand updateCommand = new UpdateCommand();
+
     public SaveCommand() {
     }
 
@@ -50,7 +51,6 @@ public class SaveCommand implements ActionCommand {
         if (employee.getPhoto().isDeleted()) {
             deletePhotoFromDisk(employee.getPhoto());
         }
-
 
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         contactDAO.editEmployee(employee);

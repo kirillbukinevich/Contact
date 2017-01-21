@@ -143,12 +143,4 @@ public class EditCommand implements ActionCommand {
         }
         return "default";
     }
-
-
-    private Employee getEmployeeFromSession(HttpServletRequest request) {
-        return (Employee) request.getSession().getAttribute("employee");
-    }
-
-
-
 }

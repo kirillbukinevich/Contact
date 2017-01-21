@@ -16,6 +16,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
  */
 public class AddPhotoCommand implements ActionCommand {
     private final UpdateCommand updateCommand = new UpdateCommand();
+
     public String execute(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         savePhoto(request,employee);

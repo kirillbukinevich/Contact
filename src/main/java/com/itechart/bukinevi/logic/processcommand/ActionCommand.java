@@ -11,4 +11,9 @@ public interface ActionCommand {
         request.getSession().setAttribute("employee", employee);
     }
 
+    default Employee getEmployeeFromSession(HttpServletRequest request) {
+        return (Employee) request.getSession().getAttribute("employee");
+    }
+
+
 }

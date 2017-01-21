@@ -86,15 +86,6 @@ public class UpdateCommand implements ActionCommand{
         return address;
     }
 
-
-    public Employee getEmployeeFromSession(HttpServletRequest request) {
-        return (Employee) request.getSession().getAttribute("employee");
-    }
-
-    public void setEmployeeToSession(HttpServletRequest request, Employee employee) {
-        request.getSession().setAttribute("employee", employee);
-    }
-
     public void fillAllParameters(HttpServletRequest request) {
         EditCommand editCommand = new EditCommand();
         editCommand.fillAllParameters(request);
