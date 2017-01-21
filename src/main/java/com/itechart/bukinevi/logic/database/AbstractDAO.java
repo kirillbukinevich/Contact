@@ -15,9 +15,9 @@ public abstract class AbstractDAO {
     protected PreparedStatement preparedStatement;
 
     public void startEditContact() {
-        LOGGER.info("start edit contact");
         try {
             connection.setAutoCommit(false);
+            LOGGER.info("start edit contact");
         } catch (SQLException e) {
             LOGGER.error(String.format("can't start edit contact %s", e));
         }

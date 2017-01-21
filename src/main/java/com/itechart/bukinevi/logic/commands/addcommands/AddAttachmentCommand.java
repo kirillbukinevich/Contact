@@ -10,12 +10,13 @@ import org.apache.commons.io.FilenameUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
+
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 public class AddAttachmentCommand implements ActionCommand {
     private final UpdateCommand updateCommand = new UpdateCommand();
+
     public String execute(HttpServletRequest request) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         addFile(request, employee);
@@ -40,7 +41,7 @@ public class AddAttachmentCommand implements ActionCommand {
         return attachment;
     }
 
-    private synchronized void processAttachmentFile(HttpServletRequest request, Employee employee, Attachment attachment) {
+    private void processAttachmentFile(HttpServletRequest request, Employee employee, Attachment attachment) {
         List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
         String filePath  = request.getAttribute("file_path").toString();
         for (FileItem fi : fileItems) {

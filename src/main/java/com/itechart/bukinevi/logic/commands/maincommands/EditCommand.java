@@ -149,9 +149,6 @@ public class EditCommand implements ActionCommand {
         return (Employee) request.getSession().getAttribute("employee");
     }
 
-    private void setEmployeeToSession(HttpServletRequest request, Employee employee) {
-        request.getSession().setAttribute("employee", employee);
-    }
 
 
 }

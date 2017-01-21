@@ -39,10 +39,6 @@ public class NewCommand implements ActionCommand {
         contactDAO.startEditContact();
     }
 
-    private void setEmployeeToSession(HttpServletRequest request, Employee employee) {
-        request.getSession().setAttribute("employee", employee);
-    }
-
     private Employee getNewEmployee() {
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         final int ID = contactDAO.getNewEmployeeID();
