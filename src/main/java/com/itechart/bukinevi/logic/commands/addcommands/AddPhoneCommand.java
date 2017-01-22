@@ -25,13 +25,13 @@ public class AddPhoneCommand implements ActionCommand {
 
     private void addPhone(HttpServletRequest request, Employee employee) {
         final int EMPLOYEEID = employee.getId();
-        ContactPhone phone = getPhone(request);
+        ContactPhone phone = getPhoneFromJSP(request);
         phone.setEmployeeID(EMPLOYEEID);
         employee.getPhoneList().add(phone);
 
     }
 
-    private ContactPhone getPhone(HttpServletRequest request) {
+    private ContactPhone getPhoneFromJSP(HttpServletRequest request) {
         ContactPhone phone = new ContactPhone();
         phone.setCodeCountry(Integer.valueOf(request.getParameter("code_country")));
         phone.setCodeOperator(Integer.valueOf(request.getParameter("code_operator")));

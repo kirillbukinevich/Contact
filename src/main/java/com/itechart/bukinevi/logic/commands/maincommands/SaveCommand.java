@@ -80,7 +80,17 @@ public class SaveCommand implements ActionCommand {
         ArrayList<Attachment> attachments = employee.getAttachmentList();
         String filePath = ConfigurationManager.getPathProperty("path.saveFile") + employee.getId() + "/";
         for (Attachment attachment : attachments) {
-            if (!(attachment.isSaved() || attachment.isDeleted() || attachment.isUpdated())) {
+            if (attachment.isDeleted()) {
+                attachmentDAO.deleteAttachment(attachment.getId());
+                String resultFileName = filePath +
+                        attachment.getId();
+                Path path = Paths.get(resultFileName);
+                try {
+                    Files.delete(path);
+                } catch (IOException e) {
+                    LOGGER.error(String.format("can't delete file from server %s", e));
+                }
+            }else if (isNewAttachment(attachment)) {
                 attachmentDAO.addAttachment(attachment);
                 String resultFileName = filePath +
                         attachment.getId();
@@ -91,31 +101,13 @@ public class SaveCommand implements ActionCommand {
                     e.printStackTrace();
                 }
             }
-            if (attachment.isDeleted() && !attachment.isUpdated()) {
-                attachmentDAO.deleteAttachment(attachment.getId());
-                String resultFileName = filePath +
-                        attachment.getId();
-                Path path = Paths.get(resultFileName);
-                try {
-                    Files.delete(path);
-                } catch (IOException e) {
-                    LOGGER.error(String.format("can't delete file from server %s", e));
-                }
-            }
-            if(!attachment.isSaved() && attachment.isUpdated()){
-                attachmentDAO.updateAttachment(attachment);
-                String resultFileName = filePath +
-                        attachment.getId();
-                try {
-                    Path path = Paths.get(resultFileName);
-                    Files.write(path, attachment.getAttachment());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
     }
+    private boolean isNewAttachment(Attachment attachment){
+        return !(attachment.isSaved() || attachment.isDeleted() || attachment.isUpdated())
+                || !attachment.isSaved() && attachment.isUpdated();
+    }
+
 
     private void savePhoto(Photo photo) {
         PhotoDAOUtil photoDAO = new PhotoDAOUtil();
