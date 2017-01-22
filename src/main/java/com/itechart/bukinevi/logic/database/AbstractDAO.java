@@ -19,7 +19,7 @@ public abstract class AbstractDAO {
             connection.setAutoCommit(false);
             LOGGER.info("start edit contact");
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't start edit contact %s", e));
+            LOGGER.error("can't start edit contact: ", e);
         }
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractDAO {
                 LOGGER.info("save contact");
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't save contact %s", e));
+            LOGGER.error("can't save contact: ", e);
         }
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractDAO {
                 LOGGER.info("cancel edit contact");
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't cancel edit contact %s", e));
+            LOGGER.error("can't cancel edit contact: ", e);
         }
     }
 

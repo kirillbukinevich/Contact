@@ -39,15 +39,19 @@ class GenerateTemplates {
         this.text = text;
     }
 
+    private ST getSTInstance() throws URISyntaxException, IOException {
+        return  new ST(new String(Files.readAllBytes(Paths
+                .get(GenerateTemplates.class.getResource(
+                        "/birthday.html").toURI()))), '#', '#');
+    }
+
     private void fillBirthdayManTemplate() {
         subject = "Happy Birthday!";
         text = "We all hope you have a bright future, <br>" +
                 "because you have a lot of challenges coming up in your life, <br>" +
                 "you’re brave, smart, loving, and we know you will be able to get through them! <br>";
         try {
-            ST st = new ST(new String(Files.readAllBytes(Paths
-                    .get(GenerateTemplates.class.getResource(
-                            "/birthday.html").toURI()))), '#', '#');
+            ST st = getSTInstance();
             st.add("image","<img class=\"img-responsive\" src=\"/zcontact/web/image/birthday/birthday_men.jpg\">");
             st.add("text",text);
             includePage = st.render();
@@ -62,9 +66,7 @@ class GenerateTemplates {
                 "May joy and laughter never leave you<br>\n" +
                 "And all your sorrows go away!<br>";
         try {
-            ST st = new ST(new String(Files.readAllBytes(Paths
-                    .get(GenerateTemplates.class.getResource(
-                            "/birthday.html").toURI()))), '#', '#');
+            ST st = getSTInstance();
             st.add("image","<img class=\"img-responsive\" src=\"/zcontact/web/image/birthday/birthday_women.jpg\">");
             st.add("text",text);
             includePage = st.render();

@@ -82,14 +82,7 @@ public class SaveCommand implements ActionCommand {
         for (Attachment attachment : attachments) {
             if (attachment.isDeleted()) {
                 attachmentDAO.deleteAttachment(attachment.getId());
-                String resultFileName = filePath +
-                        attachment.getId();
-                Path path = Paths.get(resultFileName);
-                try {
-                    Files.delete(path);
-                } catch (IOException e) {
-                    LOGGER.error(String.format("can't delete file from server %s", e));
-                }
+                deleteAttachmentFromDisk(filePath + attachment.getId());
             }else if (isNewAttachment(attachment)) {
                 attachmentDAO.addAttachment(attachment);
                 String resultFileName = filePath +
@@ -103,6 +96,7 @@ public class SaveCommand implements ActionCommand {
             }
         }
     }
+
     private boolean isNewAttachment(Attachment attachment){
         return !(attachment.isSaved() || attachment.isDeleted() || attachment.isUpdated())
                 || !attachment.isSaved() && attachment.isUpdated();
@@ -122,7 +116,7 @@ public class SaveCommand implements ActionCommand {
             Path path = Paths.get(resultFileName);
             Files.write(path, photo.getBytes());
         } catch (IOException e) {
-            LOGGER.error(String.format("can't write photo on disk: %s", e));
+            LOGGER.error("can't write photo on disk: ", e);
         }
 
 
@@ -133,11 +127,16 @@ public class SaveCommand implements ActionCommand {
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                 photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
-        Path path = Paths.get(resultFileName);
+        deleteAttachmentFromDisk(resultFileName);
+    }
+
+    private void deleteAttachmentFromDisk(String fileName){
+        Path path = Paths.get(fileName);
         try {
             Files.delete(path);
         } catch (IOException e) {
-            LOGGER.error(String.format("can't delete photo from server %s", e));
+            LOGGER.error("can't delete file from server ", e);
         }
+
     }
 }

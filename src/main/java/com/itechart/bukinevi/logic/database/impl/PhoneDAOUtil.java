@@ -33,7 +33,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
             LOGGER.info("add phone to BD");
             phone.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't add phone to BD %s", e));
+            LOGGER.error("can't add phone to BD ", e);
         }finally {
            this.closePreparedStatement("addPhone");
         }
@@ -59,7 +59,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
                 phoneList.add(contactPhone);
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get phone list %s",e));
+            LOGGER.error("can't get phone list ",e);
         } finally {
             this.closePreparedStatement("getPhoneList");
         }
@@ -80,7 +80,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
             preparedStatement.executeUpdate();
             LOGGER.info(String.format("update phone to BD id: %d", phone.getId()));
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't update phone to BD %s",e));
+            LOGGER.error("can't update phone to BD ",e);
         }finally {
             this.closePreparedStatement("updatePhone");
         }
@@ -95,7 +95,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
             preparedStatement.executeUpdate();
             LOGGER.info("delete phone to BD");
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't delete phone %s",e));
+            LOGGER.error("can't delete phone ",e);
         }finally {
            this.closePreparedStatement("deletePhone");
         }

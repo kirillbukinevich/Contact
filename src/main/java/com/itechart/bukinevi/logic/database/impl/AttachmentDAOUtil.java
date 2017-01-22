@@ -26,7 +26,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
             this.preparedStatement.executeUpdate();
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't add attachment to BD %s", e));
+            LOGGER.error("can't add attachment to BD ", e);
         } finally {
             this.closePreparedStatement("addAttachment");
         }
@@ -43,7 +43,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
             this.preparedStatement.executeUpdate();
             return attachment.getId();
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't update attachment to BD %s", e));
+            LOGGER.error("can't update attachment to BD ", e);
         } finally {
             this.closePreparedStatement("updateAttachment");
         }
@@ -69,7 +69,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
                 attachmentList.add(attachment);
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get attachment list %s", e));
+            LOGGER.error("can't get attachment list ", e);
         }finally {
             this.closeStatement("getAttachmentList");
         }
@@ -84,7 +84,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
             preparedStatement.setInt(1, ATTACHMENTID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't delete attachment %s", e));
+            LOGGER.error("can't delete attachment ", e);
         } finally {
           this.closePreparedStatement("deleteAttachment");
         }

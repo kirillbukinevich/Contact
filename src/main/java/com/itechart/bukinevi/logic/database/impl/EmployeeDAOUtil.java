@@ -44,7 +44,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
 
             LOGGER.info(String.format("update employee to BD id: %d", employee.getId()));
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't update employee to BD %s", e));
+            LOGGER.error("can't update employee to BD ", e);
         } finally {
             this.closePreparedStatement("editEmplloyee");
         }
@@ -63,7 +63,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
                         resultSet.getString(2) + " " + resultSet.getString(3));
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get birthdayList: %s", e));
+            LOGGER.error("can't get birthdayList: ", e);
         } finally {
             this.closeStatement("getBirthdayList");
 
@@ -121,7 +121,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
 
 
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get employee list %s", e));
+            LOGGER.error("can't get employee list ", e);
         }finally {
             this.closePreparedStatement("getEmployeesList");
         }
@@ -139,7 +139,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             resultSet.next();
             email = resultSet.getString(1);
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get email %s", e));
+            LOGGER.error("can't get email ", e);
         }finally {
             this.closePreparedStatement("getEmail");
         }
@@ -178,7 +178,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
                 employee.setAddress(address);
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get employee on id %s", e));
+            LOGGER.error("can't get employee on id ", e);
         }finally {
             this.closePreparedStatement("getEmployeeOnId");
         }
@@ -196,7 +196,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             this.preparedStatement.executeUpdate();
             return EMPLOYEEID;
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't get new employee id %s", e));
+            LOGGER.error("can't get new employee id ", e);
         } finally {
             this.closePreparedStatement("getNewEmployeeID");
         }
@@ -213,7 +213,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             preparedStatement.setInt(1, ID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't delete employee %s", e));
+            LOGGER.error("can't delete employee ", e);
         } finally {
             this.closePreparedStatement("deleteEmployee");
         }

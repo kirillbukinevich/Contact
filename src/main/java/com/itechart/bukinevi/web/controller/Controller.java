@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
@@ -38,6 +39,7 @@ public class Controller extends HttpServlet {
         ActionFactory client = new ActionFactory();
         response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
+        assert command != null;
         String page = command.execute(request);
         if(StringUtils.isEmpty(request.getParameter("command"))){
             LOGGER.info(String.format("finish : %s command", request.getAttribute("command")));
@@ -49,7 +51,7 @@ public class Controller extends HttpServlet {
             dispatcher.forward(request, response);
 
         } else {
-            page = "/com/itechart/bukinevi/web/jsp/welcome.jsp";
+            page = getProperty("path.page.start");
             response.sendRedirect(request.getContextPath() + page);
         }
 

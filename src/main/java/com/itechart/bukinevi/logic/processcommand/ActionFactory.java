@@ -25,7 +25,7 @@ public class ActionFactory {
                 current = currentEnum.getCurrentCommand();
                 LOGGER.info(String.format("start : %s command", action));
             } catch (IllegalArgumentException e) {
-                LOGGER.error(String.format("wrong command: %s",e));
+                LOGGER.error("wrong command: ",e);
             }
         }
         return (ActionCommand) current;

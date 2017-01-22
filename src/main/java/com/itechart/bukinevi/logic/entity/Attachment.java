@@ -1,7 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
 
 package com.itechart.bukinevi.logic.entity;
 
@@ -103,7 +99,7 @@ public class Attachment implements Cloneable,Serializable{
         try {
             return (Attachment)super.clone();
         } catch (CloneNotSupportedException e) {
-            LOGGER.error(String.format("can't clone attachment: %s", e));
+            LOGGER.error("can't clone attachment: ", e);
         }
         return new Attachment();
     }
