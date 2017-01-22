@@ -28,9 +28,6 @@ public class DeletePhoneCommand implements ActionCommand{
     private void deletePhone(HttpServletRequest request, final int PHONEID) {
         Employee employee = updateCommand.getEmployeeFromSession(request);
         List<ContactPhone> phoneList = employee.getPhoneList();
-        phoneList.stream().filter(phone -> phone.getId() == PHONEID).forEach(phone -> {
-            phone.setIsDeleted(true);
-
-        });
+        phoneList.stream().filter(phone -> phone.getId() == PHONEID).forEach(phone -> phone.setIsDeleted(true));
     }
 }

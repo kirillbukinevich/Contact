@@ -37,7 +37,9 @@ public class AddPhotoCommand implements ActionCommand {
     }
 
     private void processPhoto(HttpServletRequest request, Photo photo) {
+        @SuppressWarnings("unchecked")
         List<FileItem> fileItems = (List<FileItem>)request.getAttribute("file_item");
+
         fileItems.stream().filter(fi -> !fi.isFormField()).forEach(fi -> {
             String fileName = fi.getName();
             photo.setPhotoName(fileName);

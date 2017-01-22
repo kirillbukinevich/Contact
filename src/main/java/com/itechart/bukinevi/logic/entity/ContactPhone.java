@@ -116,9 +116,4 @@ public class ContactPhone implements Cloneable,Serializable{
                 ", isUpdated=" + isUpdated +
                   " " + number + "hashcode=" + hashCode() + "}" + '\n';
     }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

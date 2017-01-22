@@ -50,7 +50,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
         return -1;
     }
 
-    public List<Attachment> getAttachmentList(int ID) {
+    public ArrayList<Attachment> getAttachmentList(int ID) {
         ArrayList<Attachment> attachmentList = new ArrayList<>();
         String query = "select * from attachments WHERE employee_id  = " + ID;
 

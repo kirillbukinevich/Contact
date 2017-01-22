@@ -38,7 +38,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
            this.closePreparedStatement("addPhone");
         }
     }
-    public List<ContactPhone> getPhoneList(int ID) {
+    public ArrayList<ContactPhone> getPhoneList(int ID) {
         ArrayList<ContactPhone> phoneList = new ArrayList<>();
         String query = "SELECT * FROM phone WHERE phone.employee_id=?";
         try {

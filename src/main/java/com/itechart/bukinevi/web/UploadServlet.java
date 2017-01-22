@@ -1,14 +1,13 @@
 package com.itechart.bukinevi.web;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
+import com.itechart.bukinevi.web.controller.Controller;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import com.itechart.bukinevi.web.controller.Controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 
     private String filePath;
-    private final long maxFileSize = 50000 * 1024;
-    private final int maxMemSize = 14 * 1024;
+    private final long MAX_FILE_SIZE = 50000 * 1024;
+    private final int MAX_MEMORY_SIZE = 14 * 1024;
     private File file;
 
     public void init() {
@@ -39,12 +37,14 @@ public class UploadServlet extends HttpServlet {
             response.sendRedirect("jsp/error.jsp");
         }
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(maxMemSize);
+        factory.setSizeThreshold(MAX_MEMORY_SIZE);
 
         ServletFileUpload upload = new ServletFileUpload(factory);
-        upload.setSizeMax(maxFileSize);
+        upload.setSizeMax(MAX_FILE_SIZE);
         try {
+            @SuppressWarnings("unchecked")
             List<FileItem> fileItems = upload.parseRequest(request);
+
             request.setAttribute("file_item",fileItems);
 
             fileItems.stream().filter(FileItem::isFormField).forEach(fi -> {

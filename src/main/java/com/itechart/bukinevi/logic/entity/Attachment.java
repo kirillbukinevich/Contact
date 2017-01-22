@@ -115,9 +115,4 @@ public class Attachment implements Cloneable,Serializable{
                 ", updated=" + updated +
                 "}\n";
     }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

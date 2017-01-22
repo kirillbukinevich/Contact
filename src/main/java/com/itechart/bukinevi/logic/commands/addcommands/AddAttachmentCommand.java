@@ -42,7 +42,9 @@ public class AddAttachmentCommand implements ActionCommand {
     }
 
     private void processAttachmentFile(HttpServletRequest request, Employee employee, Attachment attachment) {
+        @SuppressWarnings("unchecked")
         List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
+
         String filePath  = request.getAttribute("file_path").toString();
         for (FileItem fi : fileItems) {
             if (!fi.isFormField()) {

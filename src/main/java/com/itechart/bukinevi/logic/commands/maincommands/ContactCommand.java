@@ -33,7 +33,7 @@ public class ContactCommand implements ActionCommand {
 
         final byte RECORDSPERPAGE = 10;
         List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
-                searchCriteria, (HashMap) request.getSession().getAttribute("search_criteria"));
+                searchCriteria, getMapSearchCriteria(request));
         int noOfRecords = dao.getNoOfRecords();
         int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDSPERPAGE);
 
@@ -44,8 +44,9 @@ public class ContactCommand implements ActionCommand {
         return ConfigurationManager.getProperty("path.page.main");
     }
 
+
     private String getSearchCriteria(HttpServletRequest request) {
-        HashMap<String, String> searchCriteria = (HashMap) request.getSession().getAttribute("search_criteria");
+        HashMap<String, String> searchCriteria = getMapSearchCriteria(request);
         StringBuilder criteria = new StringBuilder("WHERE ");
         String searchDateCriteria = (String) request.getSession().getAttribute("search_date_criteria");
         if (StringUtils.isNotEmpty(searchDateCriteria)) {
@@ -70,5 +71,8 @@ public class ContactCommand implements ActionCommand {
         }
     }
 
-
+    @SuppressWarnings("unchecked")
+    private HashMap<String,String> getMapSearchCriteria(HttpServletRequest request){
+        return (HashMap)request.getSession().getAttribute("search_criteria");
+    }
 }

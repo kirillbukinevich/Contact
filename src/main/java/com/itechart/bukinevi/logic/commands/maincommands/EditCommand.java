@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.*;
+import com.itechart.bukinevi.logic.database.AbstractDAO;
 import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
 import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
@@ -44,9 +43,9 @@ public class EditCommand implements ActionCommand {
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         employee = contactDAO.getEmployeeOnId(employee.getId());
         AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
-        employee.setAttachmentList((ArrayList) attachmentDAO.getAttachmentList(employee.getId()));
+        employee.setAttachmentList(attachmentDAO.getAttachmentList(employee.getId()));
         PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
-        employee.setPhoneList((ArrayList) phoneDAO.getPhoneList(employee.getId()));
+        employee.setPhoneList(phoneDAO.getPhoneList(employee.getId()));
         PhotoDAOUtil photoDAO = new PhotoDAOUtil();
         Photo photo = photoDAO.getPhoto(employee.getId());
         employee.setPhoto(photo);
