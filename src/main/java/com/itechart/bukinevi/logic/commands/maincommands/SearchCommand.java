@@ -31,9 +31,8 @@ public class SearchCommand implements ActionCommand{
 
       parameterList.stream().filter(parameterName -> isCriteria(request.getParameter(parameterName))).forEach(parameterName -> {
           searchCriteriasMap.put(parameterName.substring(5), request.getParameter(parameterName));
-          criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName));
+          criteriaInfo.append(parameterName.substring(5)).append(": ").append(request.getParameter(parameterName)).append(" ");
       });
-
       request.getSession().setAttribute("search_info","search result: " + criteriaInfo);
       request.getSession().setAttribute("search_criteria",searchCriteriasMap);
       request.getSession().setAttribute("search_date_criteria", criteriaDate.toString());

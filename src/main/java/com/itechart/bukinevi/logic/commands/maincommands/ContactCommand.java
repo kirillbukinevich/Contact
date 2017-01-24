@@ -58,7 +58,7 @@ public class ContactCommand implements ActionCommand {
         if (MapUtils.isNotEmpty(searchCriteria)) {
             Iterator<String> iterator = searchCriteria.keySet().iterator();
             while (iterator.hasNext()) {
-                criteria.append(iterator.next()).append("=? ");
+                criteria.append(iterator.next()).append(" LIKE ? ");
                 if (iterator.hasNext()) {
                     criteria.append("AND ");
                 }

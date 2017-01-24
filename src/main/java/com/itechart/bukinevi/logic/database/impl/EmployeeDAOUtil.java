@@ -74,7 +74,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
     public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, HashMap<String, String> searchCriteriasMap) {
         String query = "select SQL_CALC_FOUND_ROWS * from main_info "
                 + criteria + " limit " + offset + ", " + recordsPerPage;
-
+        System.out.println(criteria);
         ArrayList<Employee> list = new ArrayList<>();
 
         try {
@@ -83,12 +83,11 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
                 Iterator<String> iterator = searchCriteriasMap.values().iterator();
                 for (int i = 0; i < searchCriteriasMap.size(); i++) {
                     String s = iterator.next();
-                    preparedStatement.setObject(i + 1, s);
+                    preparedStatement.setString(i + 1, "%" + s + "%");
 
                 }
             }
-            ResultSet rs = preparedStatement.executeQuery();
-            rs = preparedStatement.executeQuery("SELECT FOUND_ROWS()");
+            ResultSet rs = preparedStatement.executeQuery("SELECT FOUND_ROWS()");
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
             }
