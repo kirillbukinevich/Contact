@@ -3,7 +3,7 @@ function popDialog(modalID){
     modal.style.display = "block";
     var close_button = document.getElementById("close_" + modalID);
     close_button.onclick = function () {
-        modal.style.display = "";
+        modal.style.display = "none";
             return false;
     }
 }
