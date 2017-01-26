@@ -14,9 +14,8 @@
 <link href="${pageContext.request.contextPath}/web/css/popBackgroundImage.css"
       rel="stylesheet">
 
-<script src="${pageContext.request.contextPath}/web/scripts/editScript.js"></script>
-<script src="${pageContext.request.contextPath}/web/scripts/popDialog.js"></script>
-<script src="${pageContext.request.contextPath}/web/scripts/validedit.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/popDialog.js"></script>
 <html>
 <head>
     <title>Редактируем</title>
