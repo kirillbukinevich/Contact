@@ -14,8 +14,15 @@
 <link href="${pageContext.request.contextPath}/web/css/popBackgroundImage.css"
       rel="stylesheet">
 
-<script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/editScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/popDialog.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/valid.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/entity/contactPhone.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/deletePhone.js"></script>
+<jsp:include page="edit/popPhone.jsp"/>
+<jsp:include page="edit/popattachfile.jsp"/>
+<jsp:include page="edit/popPhoto.jsp"/>
+
 <html>
 <head>
     <title>Редактируем</title>
@@ -25,7 +32,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <a href="controller?command=contact" class="btn btn-trans btn-trans-success">На главную</a>
 </nav>
-<form name="edit_form" method="POST" action="controller" id="edit_form">
+<form name="edit_form" onsubmit="return submitForm();" method="POST" action="controller" id="edit_form">
     <div class="container-fluid">
         <div class="col-md-6 col-sm-12 col-xs-12" >
             <div class="form">
@@ -53,15 +60,15 @@
                 <div class="col-sm-1">
                     <div class="btn-group-vertical">
                         <%--handling edit remove and new operations--%>
-                        <button class="btn btn-trans btn-trans-success" id="myBtn" name="command"
-                                value="update_phone"><span class="glyphicon glyphicon-plus"></span>
+                        <button class="btn btn-trans btn-trans-success" id="addPhone" name="command"
+                                value="update_phone"  onclick="popDialog('phoneModal','Add_Phone')"><span class="glyphicon glyphicon-plus"></span>
                         </button>
                         <button class="btn btn-trans btn-trans-success" id="editPhone" name="command"
-                                value="update_edit_phone" disabled="true">
+                                value="update_edit_phone" disabled onclick="popDialog('phoneModal','Edit_Phone')">
                             <span class="glyphicon glyphicon-cog"></span>
                         </button>
                         <button class="btn btn-trans btn-trans-success" id="deletePhone" name="command"
-                                value="deletePhone" disabled="true">
+                                value="deletePhone" disabled onclick = "deletePhones()">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
@@ -99,11 +106,7 @@
 </form>
 </body>
 </html>
-<jsp:include page="edit/popPhone.jsp"/>
-<jsp:include page="edit/popattachfile.jsp"/>
-<jsp:include page="edit/popPhoto.jsp"/>
 
 <script>
-    var popDialogID = "${pageContext.request.getAttribute("popDialog")}";
-    popDialog(popDialogID);
+    popDialog(${pageContext.request.getAttribute("popDialog")});
 </script>

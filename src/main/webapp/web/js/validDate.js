@@ -3,8 +3,8 @@ function checkDate() {
     var birth_date = new Date(date_of_birth.value);
     var current_date = Date.now();
     if (current_date <= birth_date) {
-        date_of_birth.parentNode.getElementsByTagName('p')[0].style.display = ''
+        date_of_birth.parentNode.getElementsByTagName('p')[1].style.display = ''
     } else {
-        date_of_birth.parentNode.getElementsByTagName('p')[0].style.display = 'none'
+        date_of_birth.parentNode.getElementsByTagName('p')[1].style.display = 'none'
     }
 }

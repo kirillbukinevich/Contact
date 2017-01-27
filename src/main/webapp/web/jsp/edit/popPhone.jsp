@@ -6,14 +6,15 @@
 <div id="phoneModal" class="modal phone-img">
 
     <!-- Modal content -->
+    <form name="popPhoneForm" onsubmit="return saveChange();" method="post" action="controller" id="edit_phone">
     <div class="modal-content">
         <div class="modal-header">
             <h2>${type_operation}</h2>
         </div>
         <div class="modal-body">
-            <form name="loginForm" method="post" action="controller" id="edit_phone">
                 <div class="form">
                     <div class="form-phone">
+                        <input type="hidden" name="tableRowIndex">
                         <label>Введите код страны</label>
                         <input type="number" class="form-control" name="code_country" value="${code_country}"
                                id="code_country" min="0" max="999" required
@@ -47,18 +48,18 @@
 
                     </div>
                 </div>
-            </form>
+
         </div>
         <div class="modal-footer">
-            <button class="btn btn-trans btn-trans-success" form="edit_phone" name="command" value="${type_operation}">
+            <button class="btn btn-trans btn-trans-success" name="command" value="${type_operation}">
                 Сохранить
             </button>
             <button class="btn btn-trans btn-trans-success" id="close_phoneModal">Отменить
             </button>
 
-
         </div>
     </div>
+    </form>
 
 </div>
 

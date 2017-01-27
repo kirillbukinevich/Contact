@@ -1,8 +1,9 @@
-function checkboxes(editButtonId,deleteButtonId) {
-    var inputElems = document.getElementsByTagName("input"),
-        count = 0;
-    for (var i = 0; i < inputElems.length; i++) {
-        if (inputElems[i].type === "checkbox" && inputElems[i].checked === true) {
+function checkboxesEditDelete(inputClassName,editButtonId,deleteButtonId) {
+    var inputs = document.getElementsByClassName(inputClassName);
+    count = 0;
+    console.log(inputs);
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
             count++;
         }
     }
@@ -18,4 +19,9 @@ function checkboxes(editButtonId,deleteButtonId) {
         editbuttonPhone.disabled = true;
         deleteButtonId.disabled = false;
     }
+}
+function submitForm(isSubmit) {
+    var target = document.forms.edit_form;
+    console.dir(target);
+        return false;
 }
