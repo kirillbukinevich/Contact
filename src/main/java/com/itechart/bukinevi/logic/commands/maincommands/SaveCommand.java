@@ -84,8 +84,11 @@ public class SaveCommand implements ActionCommand {
         savePhones(employee.getPhoneList(), employee.getId());
         saveAttachment(employee.getAttachmentList(), employee.getId(), request);
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
+        System.out.println("HERE");
         contactDAO.editEmployee(employee);
+        System.out.println("HERE");
         contactDAO.saveContact();
+        System.out.println("HERE");
 
     }
 

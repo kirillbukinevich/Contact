@@ -1,16 +1,22 @@
 function submitEditForm(command) {
+    if(command === "cancel_edit"){
+        location.reload();
+    }
     var form = document.forms.edit_form;
     form.onsubmit = function () {
         return false;
     };
-    if (command === "cancel_edit" || command === "contact") {
-        setTimeout(function () {
-            form.action = "controller?command=contact";
-            form.onsubmit = function () {
-                return true;
-            };
-            form.submit();
-        },2500);
+    if (document.getElementsByClassName('error').length == 0) {
+        if (command === "contact") {
+            console.dir(form.btnSave.validity);
+            setTimeout(function () {
+                form.action = "controller?command=contact";
+                form.onsubmit = function () {
+                    return true;
+                };
+                form.submit();
+            }, 1500);
+        }
     }
 }
 
@@ -39,10 +45,10 @@ function processEditCommand(command) {
             saveEmployee();
             break;
         case 'update_photo':
-            popDialog('photoModal','Update_Photo');
+            popDialog('photoModal', 'Update_Photo');
             break;
     }
-   submitEditForm(command);
+    submitEditForm(command);
 
 }
 
@@ -57,15 +63,17 @@ function getPhoto() {
 
 }
 function saveEmployee() {
-    var employee = getEmployee();
-    employee.photoName = document.getElementById("avatar").textContent;
-    employee.phoneList = getPhoneArray();
-    employee.attachmentList = getAttachmentArray();
-    console.log(JSON.stringify(employee));
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/zcontact/controller?command=save", true);
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify(employee));
+    if (document.getElementsByClassName('error').length == 0) {
+        var employee = getEmployee();
+        employee.photoName = document.getElementById("avatar").textContent;
+        employee.phoneList = getPhoneArray();
+        employee.attachmentList = getAttachmentArray();
+        console.log(JSON.stringify(employee));
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/zcontact/controller?command=save", true);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify(employee));
+    }
 }
 function getEmployee() {
     var employee = new Employee();

@@ -6,7 +6,6 @@ import com.itechart.bukinevi.logic.commands.addcommands.AddPhotoCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeleteAttachmentCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeleteCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeletePhotoCommand;
-import com.itechart.bukinevi.logic.commands.editcommands.CancelEdit;
 import com.itechart.bukinevi.logic.commands.editcommands.EditAttachmentCommand;
 import com.itechart.bukinevi.logic.commands.emailcommand.EmailCommand;
 import com.itechart.bukinevi.logic.commands.emailcommand.SendMailCommand;
@@ -27,10 +26,6 @@ public enum CommandEnum {
     CONTACT {
         {
             this.command = new ContactCommand();
-        }
-    }, CANCEL_EDIT {
-        {
-            this.command = new CancelEdit();
         }
     },
     DELETE {

@@ -28,7 +28,10 @@ public class NewCommand implements ActionCommand {
         startCreateContact();
         Employee employee = getNewEmployee();
         setEmployeeToSession(request, employee);
-        request.setAttribute("photo", getPhotoForJSP());
+        request.setAttribute("employee_id",employee.getId());
+        request.setAttribute("default_photo", getPhotoForJSP());
+        request.setAttribute("show_default_photo","");
+        request.setAttribute("show_photo","none");
 
         return getProperty("path.page.edit");
     }

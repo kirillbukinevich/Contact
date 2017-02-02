@@ -171,6 +171,7 @@ input:required:valid {
     color: #a4abad;
 }
 #photo_button{
-    margin-left: 22%;
-    margin-bottom: 10px;
+    margin-left: 15%;
+    margin-bottom: 4%;
+    width: 50%;
 }
