@@ -12,6 +12,7 @@ import java.sql.SQLException;
 public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
     private static final Logger LOGGER = LogManager.getLogger(PhotoDAOUtil.class.getName());
 
+    @Override
     public Photo getPhoto(final int ID) {
         String query = "select photo_name,employee_id from photo  WHERE photo.employee_id=?";
         updatePrepareStatement(query);
@@ -36,6 +37,7 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
         return photo;
     }
 
+    @Override
     public void updatePhoto(Photo photo) {
         final int EMPLOYEEID = photo.getEmployeeID();
         updatePrepareStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");

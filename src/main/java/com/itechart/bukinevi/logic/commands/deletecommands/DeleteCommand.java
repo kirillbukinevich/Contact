@@ -17,6 +17,7 @@ public class DeleteCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(DeleteCommand.class);
 
 
+    @Override
     public String execute(HttpServletRequest request) {
         String[] selectedEmpl = request.getParameterValues("check_selected");
 

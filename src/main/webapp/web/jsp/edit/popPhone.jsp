@@ -6,7 +6,7 @@
 <div id="phoneModal" class="modal phone-img">
 
     <!-- Modal content -->
-    <form name="popPhoneForm" onsubmit="return saveChange();" method="post" action="controller" id="edit_phone">
+    <form name="popPhoneForm" onsubmit="return savePhoneChange();" method="post" action="controller" id="edit_phone">
     <div class="modal-content">
         <div class="modal-header">
             <h2>${type_operation}</h2>
@@ -14,6 +14,7 @@
         <div class="modal-body">
                 <div class="form">
                     <div class="form-phone">
+                        <input type="hidden" name="phone_id">
                         <input type="hidden" name="tableRowIndex">
                         <label>Введите код страны</label>
                         <input type="number" class="form-control" name="code_country" value="${code_country}"

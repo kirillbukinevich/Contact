@@ -17,6 +17,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
 
     private int noOfRecords;
 
+    @Override
     public void editEmployee(Employee employee) {
         this.updatePrepareStatement("UPDATE main_info SET first_name=?,last_name=?,patronymic=?," +
                 "date_of_birth=?,gender=?,nationality=?,family_status=?,web_site=?,email=?,work_place=?," +
@@ -50,8 +51,9 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         }
     }
 
+    @Override
     public List<String> getBirthdayList() {
-        LinkedList<String> birthdayList = new LinkedList<>();
+        List<String> birthdayList = new LinkedList<>();
         try {
             String query = "SELECT first_name,patronymic,last_name FROM main_info " +
                     "WHERE MONTH(date_of_birth) = MONTH(NOW()) AND DAY(date_of_birth) = DAY(NOW())";
@@ -71,11 +73,11 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         return birthdayList;
     }
 
-    public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, HashMap<String, String> searchCriteriasMap) {
+    @Override
+    public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, Map<String, String> searchCriteriasMap) {
         String query = "select SQL_CALC_FOUND_ROWS * from main_info "
                 + criteria + " limit " + offset + ", " + recordsPerPage;
-        System.out.println(criteria);
-        ArrayList<Employee> list = new ArrayList<>();
+        List<Employee> list = new ArrayList<>();
 
         try {
             updatePrepareStatement(query);
@@ -99,7 +101,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
                 employee.setFirstName(rs.getString("first_name"));
                 employee.setLastName(rs.getString("last_name"));
                 employee.setPatronymic(rs.getString("patronymic"));
-                employee.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+                employee.setDateOfBirth(String.valueOf(rs.getDate("date_of_birth").toLocalDate()));
                 employee.setGender(rs.getString("gender"));
                 employee.setNationality(rs.getString("nationality"));
                 employee.setFamilyStatus(rs.getString("family_status"));
@@ -128,6 +130,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         return list;
     }
 
+    @Override
     public String getEmail(final int ID) {
         String query = "SELECT email FROM main_info WHERE id = ?";
         String email = new String();
@@ -146,6 +149,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
     }
 
 
+    @Override
     public Employee getEmployeeOnId(int ID) {
         String query = "select * from main_info WHERE main_info.id=?";
         updatePrepareStatement(query);
@@ -159,7 +163,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
                 employee.setFirstName(e.getString("first_name"));
                 employee.setLastName(e.getString("last_name"));
                 employee.setPatronymic(e.getString("patronymic"));
-                employee.setDateOfBirth(e.getDate("date_of_birth").toLocalDate());
+                employee.setDateOfBirth(String.valueOf(e.getDate("date_of_birth").toLocalDate()));
                 employee.setGender(e.getString("gender"));
                 employee.setNationality(e.getString("nationality"));
                 employee.setFamilyStatus(e.getString("family_status"));
@@ -185,6 +189,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         return employee;
     }
 
+    @Override
     public int getNewEmployeeID() {
         try {
             this.updatePrepareStatement("INSERT INTO main_info (id) VALUES (NULL)");
@@ -203,6 +208,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
     }
 
 
+    @Override
     public void deleteEmployee(int ID) {
         String deleteSQL = "DELETE main_info FROM main_info " +
                 "WHERE main_info.id = ?";
@@ -218,6 +224,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
         }
     }
 
+    @Override
     public int getNoOfRecords() {
         return this.noOfRecords;
     }

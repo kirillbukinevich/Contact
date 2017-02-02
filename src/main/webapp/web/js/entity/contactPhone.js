@@ -1,4 +1,5 @@
 function ContactPhone() {
+    this._id = undefined;
     this._rowIndex = undefined;
     this._codeCountry = undefined;
     this._codeOperator = undefined;
@@ -7,6 +8,12 @@ function ContactPhone() {
     this._comment = undefined;
 }
 ContactPhone.prototype = {
+    set id(id){
+        this._id = id;
+    },
+    get id(){
+        return this._id;
+    },
     set rowIndex(rowIndex) {
         this._rowIndex = rowIndex;
     },

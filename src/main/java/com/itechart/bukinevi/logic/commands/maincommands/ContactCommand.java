@@ -3,24 +3,24 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ContactCommand implements ActionCommand {
-    public ContactCommand() {
-    }
 
+    @Override
     public String execute(HttpServletRequest request) {
         int page = 1;
-        if (StringUtils.equals(request.getParameter("search_info"),"false")) {
+        if (StringUtils.equals(request.getParameter("search_info"), "false")) {
             request.getSession().setAttribute("search_criteria", null);
-            request.getSession().setAttribute("search_info",null);
-        } else if(StringUtils.isNotEmpty((String) request.getSession().getAttribute("search_info"))){
+            request.getSession().setAttribute("search_info", null);
+        } else if (StringUtils.isNotEmpty((String) request.getSession().getAttribute("search_info"))) {
             request.setAttribute("search_bar", "show");
 
         }
@@ -46,7 +46,7 @@ public class ContactCommand implements ActionCommand {
 
 
     private String getSearchCriteria(HttpServletRequest request) {
-        HashMap<String, String> searchCriteria = getMapSearchCriteria(request);
+        Map<String, String> searchCriteria = getMapSearchCriteria(request);
         StringBuilder criteria = new StringBuilder("WHERE ");
         String searchDateCriteria = (String) request.getSession().getAttribute("search_date_criteria");
         if (StringUtils.isNotEmpty(searchDateCriteria)) {
@@ -72,7 +72,7 @@ public class ContactCommand implements ActionCommand {
     }
 
     @SuppressWarnings("unchecked")
-    private HashMap<String,String> getMapSearchCriteria(HttpServletRequest request){
-        return (HashMap)request.getSession().getAttribute("search_criteria");
+    private Map<String, String> getMapSearchCriteria(HttpServletRequest request) {
+        return (Map)request.getSession().getAttribute("search_criteria");
     }
 }

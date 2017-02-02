@@ -22,9 +22,8 @@ import java.io.IOException;
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 public class NewCommand implements ActionCommand {
-    public NewCommand() {
-    }
 
+    @Override
     public String execute(HttpServletRequest request) {
         startCreateContact();
         Employee employee = getNewEmployee();

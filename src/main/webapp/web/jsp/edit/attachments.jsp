@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table class="table table-responsive">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<table class="table table-responsive" id = 'attachment_table'>
     <thead>
     <tr>
         <th></th>
-        <th>file name</th>
-        <th>date of load</th>
-        <th>comment</th>
+        <th>имя файла</th>
+        <th>дата загрузки</th>
+        <th>комментарий</th>
     </tr>
     </thead>
     <tbody>
@@ -19,10 +21,10 @@
                             <c:param name="file_path" value="${file.employeeID}/${file.id}"/>
                             <c:param name="file_name" value="${file.fileName}"/>
                         </c:url>"
-                       class="btn btn-link" onclick="return ${file.saved};">${file.fileName}</a>
+                       class="btn btn-link"><p>${file.fileName}</p></a>
                 </td>
-                <td>${file.loadDate}</td>
-                <td>${file.comment}</td>
+                <td><p>${file.loadDate}</p></td>
+                <td><p>${file.comment}</p></td>
             </tr>
         </c:if>
     </c:forEach>

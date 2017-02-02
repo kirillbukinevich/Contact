@@ -12,44 +12,41 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
-
 /**
  * Created by aefrd on 01.10.2016.
  */
 public class EditAttachmentCommand implements ActionCommand {
     private final UpdateCommand updateCommand = new UpdateCommand();
+
+    @Override
     public String execute(HttpServletRequest request) {
         updateFile(request);
-        updateCommand.fillAllParameters(request);
-        return getProperty("path.page.edit");
+        return "";
     }
 
     private void updateFile(HttpServletRequest request) {
-        Attachment oldAttachment = getEditAttachment(request);
-        Attachment newAttachment;
-        if (oldAttachment.isSaved()) {
-            oldAttachment.setUpdated(true);
-            newAttachment = oldAttachment.clone();
-            newAttachment.setSaved(false);
-            oldAttachment.setDeleted(true);
-        } else {
-            newAttachment = oldAttachment;
+        List<Attachment> attachments = updateCommand.getEmployeeFromSession(request).getAttachmentList();
+        Attachment updateAttachment = getUpdateAttachment(request);
+        for (Attachment attachment : attachments) {
+            if (updateAttachment.getId() == attachment.getId() &&
+                    attachment.isSaveOnDisk()) {
+                attachment.setDeleted(true);
+            }
         }
-
-        ArrayList<Attachment> attachments = updateCommand.getEmployeeFromSession(request).getAttachmentList();
-        if (oldAttachment != newAttachment) {
-            attachments.add(getFile(request, getFile(request,newAttachment)));
-        } else {
-            attachments.set(attachments.indexOf(oldAttachment), getFile(request,newAttachment));
-        }
+        attachments.add(updateAttachment);
     }
 
 
-    private Attachment getFile(HttpServletRequest request, Attachment attachment) {
+    private Attachment getUpdateAttachment(HttpServletRequest request) {
+        Attachment attachment = new Attachment();
+        attachment.setId(Integer.parseInt((String)request.getAttribute("id")));
         attachment.setComment((String) request.getAttribute("comment"));
-        attachment.setLoadDate(LocalDateTime.now());
+        attachment.setLoadDate(String.valueOf(LocalDateTime.now()));
+        attachment.setSaveOnDisk(false);
         processAttachmentFile(request, attachment);
+        System.out.println("UPDATE");
+        System.out.println(attachment);
+        System.out.println("UPDATE");
         return attachment;
     }
 
@@ -66,7 +63,7 @@ public class EditAttachmentCommand implements ActionCommand {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
-                if(StringUtils.isNotEmpty(fileName)) {
+                if (StringUtils.isNotEmpty(fileName)) {
                     attachment.setFileName(fileName);
                     attachment.setAttachment(fi.get());
                 }
@@ -75,11 +72,4 @@ public class EditAttachmentCommand implements ActionCommand {
             }
         }
     }
-
-    private Attachment getEditAttachment(HttpServletRequest request) {
-        Attachment editAttachment = (Attachment) request.getSession().getAttribute("edit_attachment");
-        request.getSession().setAttribute("edit_attachment", null);
-        return editAttachment;
-    }
-
 }

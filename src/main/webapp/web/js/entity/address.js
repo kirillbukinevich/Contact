@@ -8,58 +8,48 @@ function Address() {
     this._index = undefined;
 }
 Address.prototype = {
-    setId : function (id) {
+    setId: function (id) {
         this._id = id;
     },
-    getId : function () {
+    getId: function () {
         return this._id;
     }
 };
 Address.prototype = {
-    setCountryName : function (countryName) {
+    set countryName(countryName) {
         this._countryName = countryName;
     },
-    getCountryName : function () {
+    get countryName() {
         return this._countryName;
-    }
-};
-Address.prototype = {
-    setCityName : function (cityName) {
+    },
+    set cityName(cityName) {
         this._cityName = cityName;
     },
-    getCityName : function () {
+    get cityName() {
         return this._cityName;
-    }
-};
-Address.prototype = {
-    setStreetName : function (streetName) {
+    },
+    set streetName(streetName) {
         this._streetName = streetName;
     },
-    getStreetName : function () {
+    get streetName() {
         return this._streetName;
-    }
-};
-Address.prototype = {
-    setHouseNumber : function (houseNumber) {
+    },
+    set houseNumber(houseNumber) {
         this._houseNumber = houseNumber;
     },
-    getHouseNumber : function () {
+    get houseNumber() {
         return this._houseNumber;
-    }
-};
-Address.prototype = {
-    setFlatNumber : function (flatNumber) {
+    },
+    set flatNumber(flatNumber) {
         this._flatNumber = flatNumber;
     },
-    getFlatNumber : function () {
+    get flatNumber() {
         return this._flatNumber;
-    }
-};
-Address.prototype = {
-    setIndex : function (index) {
+    },
+    set index(index) {
         this._index = index;
     },
-    getIndex : function () {
+    get index() {
         return this._index;
     }
 };

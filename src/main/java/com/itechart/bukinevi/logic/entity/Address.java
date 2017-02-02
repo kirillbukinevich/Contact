@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 public class Address implements Serializable{
     private int id;
-    private String countryName;
-    private String cityName;
-    private String streetName;
-    private String houseNumber;
-    private Integer flatNumber;
-    private Integer index;
+    private String countryName = "";
+    private String cityName = "";
+    private String streetName = "";
+    private String houseNumber = "";
+    private int flatNumber;
+    private int index;
 
     public Address() {
     }
@@ -60,7 +60,7 @@ public class Address implements Serializable{
         return this.flatNumber==0 ? null:flatNumber;
     }
 
-    public void setFlatNumber(Integer flatNumber) {
+    public void setFlatNumber(int flatNumber) {
         this.flatNumber = flatNumber;
     }
 
@@ -68,30 +68,21 @@ public class Address implements Serializable{
         return this.index==0 ? null:index;
     }
 
-    public void setIndex(Integer index) {
+    public void setIndex(int index) {
         this.index = index;
     }
 
 
+    @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        if(StringUtils.isNotEmpty(countryName)){
-            result.append(countryName);
-        }
-        if(StringUtils.isNotEmpty(cityName)){
-            result.append(" city: ").append(cityName);
-        }
-        if(StringUtils.isNotEmpty(streetName)){
-            result.append(" stret: ").append(streetName);
-        }
-        if(StringUtils.isNotEmpty(houseNumber)){
-            result.append(" home: ").append(houseNumber);
-        }
-        if(flatNumber!=0){
-            result.append(" flat: ").append(flatNumber);
-        }
-
-        return result.toString();
+        return "Address{" +
+                "id=" + id +
+                ", countryName='" + countryName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", flatNumber=" + flatNumber +
+                ", index=" + index +
+                '}';
     }
-
 }

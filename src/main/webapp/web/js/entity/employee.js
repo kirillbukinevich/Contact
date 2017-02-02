@@ -1,6 +1,7 @@
 /**
  * Created by aefrd on 26.01.2017.
  */
+
 function Employee() {
     this._id = undefined;
     this._firstName = undefined;
@@ -18,127 +19,99 @@ function Employee() {
     this._address = undefined;
     this._phoneList = [];
     this._attachmentList = [];
-    this._photo = [];
+    this._photoName = undefined;
 
 }
 
 Employee.prototype = {
-    setId : function (id) {
+    set id(id) {
         this._id = id;
     },
-    getId : function () {
+    get id() {
         return this._id;
-    }
-};
-Employee.prototype = {
-    setFirstName : function (firstName) {
+    },
+    set firstName(firstName) {
         this._firstName = firstName;
     },
-    getFirstName : function () {
+    get firstName() {
         return this._firstName;
-    }
-};
-Employee.prototype = {
-    setLastName : function (lastName) {
+    },
+    set lastName(lastName) {
         this._lastName = lastName;
     },
-    getLastName : function () {
+    get lastName() {
         return this._lastName;
-    }
-};
-Employee.prototype = {
-    setPatronymic: function (patronymic) {
+    },
+    set  patronymic(patronymic) {
         this._patronymic = patronymic;
     },
-    getPatronymic: function () {
+    get  patronymic() {
         return this._patronymic;
-    }
-};
-Employee.prototype = {
-    setDateOfBirth : function (dateOfBirth) {
+    },
+    set  dateOfBirth(dateOfBirth) {
         this._dateOfBirth = dateOfBirth;
     },
-    getDateOfBirth : function () {
+    get  dateOfBirth() {
         return this._dateOfBirth;
-    }
-};
-Employee.prototype = {
-    setGender : function (gender) {
+    },
+    set gender(gender) {
         this._gender = gender;
     },
-    getGender : function () {
+    get gender() {
         return this._gender;
-    }
-};
-Employee.prototype = {
-    setNationality : function (nationality) {
+    },
+    set nationality(nationality) {
         this._nationality = nationality;
     },
-    getNationality : function () {
+    get nationality() {
         return this._nationality;
-    }
-};
-Employee.prototype = {
-    setFamilyStatus : function (familyStatus) {
+    },
+    set familyStatus(familyStatus) {
         this._familyStatus = familyStatus;
     },
-    getFamilyStatus : function () {
+    get familyStatus() {
         return this._familyStatus;
-    }
-};
-Employee.prototype = {
-    setWebSite : function (webSite) {
+    },
+    set webSite(webSite) {
         this._webSite = webSite;
     },
-    getWebSite : function () {
+    get webSite() {
         return this._webSite;
-    }
-};
-Employee.prototype = {
-    setEmail : function (email) {
+    },
+    set email(email) {
         this._email = email;
     },
-    getEmail : function () {
+    get email() {
         return this._email;
-    }
-};
-Employee.prototype = {
-    setWorkPlace : function (workPlace) {
+    },
+    set workPlace(workPlace) {
         this._workPlace = workPlace;
     },
-    getWorkPlace : function () {
+    get workPlace() {
         return this._workPlace;
-    }
-};
-Employee.prototype = {
-    setAddress : function (address) {
+    },
+    set address(address) {
         this._address = address;
     },
-    getAddress : function () {
+    get address() {
         return this._address;
-    }
-};
-Employee.prototype = {
-    setPhoneList : function (phoneList) {
+    },
+    set phoneList(phoneList) {
         this._phoneList = phoneList;
     },
-    getPhoneList : function () {
+    get phoneList() {
         return this._phoneList;
-    }
-};
-Employee.prototype = {
-    setAttachmentList : function (attachmentList) {
+    },
+    set attachmentList(attachmentList) {
         this._attachmentList = attachmentList;
     },
-    getAttachmentList : function () {
+    get attachmentList() {
         return this._attachmentList;
-    }
-};
-Employee.prototype = {
-    setPhoto : function (photo) {
-        this._photo = photo;
     },
-    getPhoto : function () {
-        return this._photo;
+    set photoName(photoName) {
+        this._photoName = photoName;
+    },
+    get photoName() {
+        return this._photoName;
     }
 };

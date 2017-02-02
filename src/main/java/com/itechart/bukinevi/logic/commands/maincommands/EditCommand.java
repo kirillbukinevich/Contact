@@ -20,6 +20,8 @@ import java.util.List;
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
 public class EditCommand implements ActionCommand {
+
+    @Override
     public String execute(HttpServletRequest request) {
 
         Employee employee = getEmployeeOnId(request);
@@ -67,8 +69,8 @@ public class EditCommand implements ActionCommand {
         this.fillPhotoParameter(request, employee);
     }
 
-
     private void fillEmployeeParameters(HttpServletRequest request, Employee employee) {
+        request.setAttribute("employee_id", employee.getId());
         request.setAttribute("first_name", employee.getFirstName());
         request.setAttribute("last_name", employee.getLastName());
         request.setAttribute("patronymic", employee.getPatronymic());
@@ -104,10 +106,38 @@ public class EditCommand implements ActionCommand {
 
     private void fillPhotoParameter(HttpServletRequest request, Employee employee) {
         Photo photo = employee.getPhoto();
-        request.setAttribute("photo", getPhotoForJSP(photo));
+        request.setAttribute("photo", getPhotoForJSP(photo,request));
+        request.setAttribute("default_photo", getDefaultPhotoForJSP());
     }
 
-    private String getPhotoForJSP(Photo photo) {
+    private String getDefaultPhotoForJSP() {
+        String resultFileName;
+        byte[] data;
+        byte[] encodeBase64;
+        FileInputStream fileInputStream = null;
+        try {
+            resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
+            File file = new File(resultFileName);
+            fileInputStream = new FileInputStream(file);
+            data = IOUtils.toByteArray(fileInputStream);
+            encodeBase64 = Base64.encodeBase64(data);
+
+            return new String(encodeBase64, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileInputStream != null) {
+                    fileInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "default";
+    }
+
+    private String getPhotoForJSP(Photo photo,HttpServletRequest request) {
         String resultFileName;
         byte[] data;
         byte[] encodeBase64;
@@ -116,9 +146,13 @@ public class EditCommand implements ActionCommand {
             if (photo.getBytes() == null || photo.isDeleted()) {
                 if (!photo.isSaved() || photo.isDeleted()) {
                     resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
+                    request.setAttribute("show_default_photo","");
+                    request.setAttribute("show_photo","none");
                 } else {
                     resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                             photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
+                    request.setAttribute("show_default_photo","none");
+                    request.setAttribute("show_photo","");
                 }
                 File file = new File(resultFileName);
                 fileInputStream = new FileInputStream(file);

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
-public class DeletePhotoCommand implements ActionCommand{
+public class DeletePhotoCommand implements ActionCommand {
     private final UpdateCommand updateCommand = new UpdateCommand();
+
+    @Override
     public String execute(HttpServletRequest request) {
 
         deletePhoto(request);

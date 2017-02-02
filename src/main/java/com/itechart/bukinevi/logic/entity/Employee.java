@@ -8,8 +8,9 @@ package com.itechart.bukinevi.logic.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Employee implements Serializable{
+public class Employee implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
@@ -22,9 +23,11 @@ public class Employee implements Serializable{
     private String email;
     private String workPlace;
     private Address address = new Address();
-    private ArrayList<ContactPhone> phoneList = new ArrayList<>();
-    private ArrayList<Attachment> attachmentList = new ArrayList<>();
+    private List<ContactPhone> phoneList = new ArrayList<>();
+    private List<Attachment> attachmentList = new ArrayList<>();
+    private String photoName;
     private Photo photo;
+
     public Employee() {
     }
 
@@ -72,8 +75,8 @@ public class Employee implements Serializable{
         return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = LocalDate.parse(dateOfBirth);
     }
 
     public String getNationality() {
@@ -132,20 +135,28 @@ public class Employee implements Serializable{
         this.photo = photo;
     }
 
-    public ArrayList<ContactPhone> getPhoneList() {
+    public List<ContactPhone> getPhoneList() {
         return phoneList;
     }
 
-    public void setPhoneList(ArrayList<ContactPhone> phoneList) {
+    public void setPhoneList(List<ContactPhone> phoneList) {
         this.phoneList = phoneList;
     }
 
-    public ArrayList<Attachment> getAttachmentList() {
+    public List<Attachment> getAttachmentList() {
         return attachmentList;
     }
 
-    public void setAttachmentList(ArrayList<Attachment> attachmentList) {
+    public void setAttachmentList(List<Attachment> attachmentList) {
         this.attachmentList = attachmentList;
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
     }
 
     public String toString() {

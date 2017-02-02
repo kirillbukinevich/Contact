@@ -2,30 +2,24 @@ package com.itechart.bukinevi.logic.processcommand;
 
 import com.itechart.bukinevi.logic.commands.EmptyCommand;
 import com.itechart.bukinevi.logic.commands.addcommands.AddAttachmentCommand;
-import com.itechart.bukinevi.logic.commands.addcommands.AddPhoneCommand;
 import com.itechart.bukinevi.logic.commands.addcommands.AddPhotoCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeleteAttachmentCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeleteCommand;
-import com.itechart.bukinevi.logic.commands.deletecommands.DeletePhoneCommand;
 import com.itechart.bukinevi.logic.commands.deletecommands.DeletePhotoCommand;
-import com.itechart.bukinevi.logic.commands.editcommands.*;
+import com.itechart.bukinevi.logic.commands.editcommands.CancelEdit;
+import com.itechart.bukinevi.logic.commands.editcommands.EditAttachmentCommand;
 import com.itechart.bukinevi.logic.commands.emailcommand.EmailCommand;
 import com.itechart.bukinevi.logic.commands.emailcommand.SendMailCommand;
 import com.itechart.bukinevi.logic.commands.emailcommand.template.ApplyTemplateEmailCommand;
 import com.itechart.bukinevi.logic.commands.maincommands.*;
 
 public enum CommandEnum {
-    NEW_PHONE {
-        {
-            this.command = new AddPhoneCommand();
-        }
-    },
     NEW_FILE {
         {
             this.command = new AddAttachmentCommand();
         }
     },
-    APPLY_TEMPLATE_EMAIL_COMMAND{
+    APPLY_TEMPLATE_EMAIL_COMMAND {
         {
             this.command = new ApplyTemplateEmailCommand();
         }
@@ -34,7 +28,7 @@ public enum CommandEnum {
         {
             this.command = new ContactCommand();
         }
-    },CANCEL_EDIT{
+    }, CANCEL_EDIT {
         {
             this.command = new CancelEdit();
         }
@@ -44,22 +38,17 @@ public enum CommandEnum {
             this.command = new DeleteCommand();
         }
     },
-    DELETEPHONE {
-        {
-            this.command = new DeletePhoneCommand();
-        }
-    },
     DELETEATTACHFILE {
         {
             this.command = new DeleteAttachmentCommand();
         }
     },
-    DELETE_PHOTO{
+    DELETE_PHOTO {
         {
             this.command = new DeletePhotoCommand();
         }
     },
-    EMAIL{
+    EMAIL {
         {
             this.command = new EmailCommand();
         }
@@ -69,12 +58,7 @@ public enum CommandEnum {
             this.command = new EditCommand();
         }
     },
-    EDIT_PHONE{
-        {
-            this.command = new EditPhoneCommand();
-        }
-    },
-    EDIT_FILE{
+    EDIT_FILE {
         {
             this.command = new EditAttachmentCommand();
         }
@@ -99,37 +83,27 @@ public enum CommandEnum {
             this.command = new AddPhotoCommand();
         }
     },
-    SEARCH{
+    SEARCH {
         {
             this.command = new SearchCommand();
         }
     },
-    SENDEMAIL{
+    SENDEMAIL {
         {
             this.command = new SendMailCommand();
         }
     },
-    UPDATE_ATTACHMENT{
+    UPDATE_ATTACHMENT {
         {
             this.command = new UpdateCommand();
         }
     },
-    UPDATE_PHONE{
+    UPDATE_PHONE {
         {
             this.command = new UpdateCommand();
         }
     },
-    UPDATE_EDIT_PHONE{
-        {
-            this.command = new ChooseEditPhoneCommand();
-        }
-    },
-    UPDATE_EDIT_ATTACHMENT{
-        {
-            this.command = new ChooseEditAttachmentCommand();
-        }
-    },
-    UPDATE_PHOTO{
+    UPDATE_PHOTO {
         {
             this.command = new UpdateCommand();
         }

@@ -14,6 +14,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 public class DeleteAttachmentCommand implements ActionCommand{
     private final UpdateCommand updateCommand = new UpdateCommand();
 
+    @Override
     public String execute(HttpServletRequest request) {
         String[] selectedFile = request.getParameterValues("check_selected_file");
         for (String aSelectedFile : selectedFile) {

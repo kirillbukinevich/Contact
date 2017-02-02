@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
     private static final Logger LOGGER = LogManager.getLogger(PhoneDAOUtil.class);
 
 
+    @Override
     public void addPhone(ContactPhone phone, final int EMPLOYEEID) {
         updatePrepareStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
                 "VALUES(?,?,?,?,?,?)");
@@ -38,12 +40,14 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
            this.closePreparedStatement("addPhone");
         }
     }
-    public ArrayList<ContactPhone> getPhoneList(int ID) {
-        ArrayList<ContactPhone> phoneList = new ArrayList<>();
+
+    @Override
+    public List<ContactPhone> getPhoneList(int ID) {
+        List<ContactPhone> phoneList = new ArrayList<>();
         String query = "SELECT * FROM phone WHERE phone.employee_id=?";
         try {
             updatePrepareStatement(query);
-            preparedStatement.setInt(1,ID);
+            this.preparedStatement.setInt(1,ID);
             ResultSet e = this.preparedStatement.executeQuery();
 
             while (e.next()) {
@@ -55,7 +59,6 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
                 contactPhone.setNumber(e.getInt(5));
                 contactPhone.setType(e.getString(6));
                 contactPhone.setComment(e.getString(7));
-                contactPhone.setIsSaved(true);
                 phoneList.add(contactPhone);
             }
         } catch (SQLException e) {
@@ -66,6 +69,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         return phoneList;
     }
 
+    @Override
     public void updatePhone(ContactPhone phone){
         String query = "UPDATE phone SET code_country=?,code_operator=?,number=?,type=?,comment=? " +
                 "WHERE id=?";
@@ -86,18 +90,52 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
         }
     }
 
-    public void deletePhone(final int PHONEID) {
+    @Override
+    public void deletePhones(List<ContactPhone> phones) {
+        if(phones.isEmpty()){
+            return;
+        }
         String deleteSQL = "DELETE FROM phone WHERE phone.id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
-            preparedStatement.setInt(1, PHONEID);
-            preparedStatement.executeUpdate();
-            LOGGER.info("delete phone to BD");
+            for (ContactPhone phone : phones) {
+                preparedStatement.setInt(1, phone.getId());
+                preparedStatement.addBatch();
+                LOGGER.info("delete phone from BD: " + phone.getId());
+            }
+            preparedStatement.executeBatch();
         } catch (SQLException e) {
             LOGGER.error("can't delete phone ",e);
         }finally {
            this.closePreparedStatement("deletePhone");
+        }
+    }
+
+    @Override
+    public void insertOrUpdatePhone(List<ContactPhone> phones, final int EMPLOYEEID) {
+        String query = "INSERT INTO phone (id,employee_id,code_country, code_operator, number, type, comment) VALUES (?,?,?,?,?,?,?)" +
+                "ON DUPLICATE KEY " +
+                "UPDATE employee_id = values(employee_id),code_country = values(code_country)," +
+                " code_operator = values(code_operator), number = values(number), type = values(type), comment = values(comment)";
+        updatePrepareStatement(query);
+        try {
+            for(ContactPhone phone : phones){
+                preparedStatement.setInt(1, phone.getId());
+                preparedStatement.setInt(2, EMPLOYEEID);
+                preparedStatement.setInt(3, phone.getCodeCountry());
+                preparedStatement.setInt(4, phone.getCodeOperator());
+                preparedStatement.setInt(5, phone.getNumber());
+                preparedStatement.setString(6, phone.getType());
+                preparedStatement.setString(7, phone.getComment());
+                preparedStatement.addBatch();
+                LOGGER.info("updateOrInsert phone to BD id: " + phone.getId());
+            }
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            LOGGER.error("can't updateOrInsert phone to BD ", e);
+        } finally {
+            this.closePreparedStatement("insertOrUpdatePhone");
         }
     }
 }

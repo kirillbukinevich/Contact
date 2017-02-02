@@ -14,7 +14,6 @@
 <link href="${pageContext.request.contextPath}/web/css/popBackgroundImage.css"
       rel="stylesheet">
 <script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popDialog.js"></script>
 
 <html>
 <head>

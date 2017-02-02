@@ -1,6 +1,7 @@
 package com.itechart.bukinevi.logic.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by aefrd on 13.09.2016.
@@ -59,5 +60,16 @@ public class Photo implements Serializable{
 
     public void setBytes(byte[] bytes) {
         this.bytes = bytes;
+    }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "id=" + id +
+                ", employeeID=" + employeeID +
+                ", photoName='" + photoName + '\'' +
+                ", saved=" + saved +
+                ", deleted=" + deleted +
+                '}';
     }
 }

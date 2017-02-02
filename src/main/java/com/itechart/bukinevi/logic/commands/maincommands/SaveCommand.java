@@ -5,88 +5,128 @@
 
 package com.itechart.bukinevi.logic.commands.maincommands;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
+import com.itechart.bukinevi.logic.database.PhoneDAO;
 import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
 import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
 import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
 import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
-import com.itechart.bukinevi.logic.entity.*;
+import com.itechart.bukinevi.logic.entity.Attachment;
+import com.itechart.bukinevi.logic.entity.ContactPhone;
+import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.entity.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 
 public class SaveCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(SaveCommand.class);
 
-    private final UpdateCommand updateCommand = new UpdateCommand();
-
-    public SaveCommand() {
-    }
-
+    @Override
     public String execute(HttpServletRequest request) {
         this.saveContact(request);
-        ContactCommand contactCommand = new ContactCommand();
-        return contactCommand.execute(request);
+        return "";
     }
 
+    private Employee getEmployeeFromJSON(HttpServletRequest request) {
+        System.out.println("!!!!!!!!!!!");
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("!" + sb.toString() + "!");
+        String jsonEmployee = new String(sb);
+        jsonEmployee = jsonEmployee.replaceAll("_", "");
+        System.out.println(jsonEmployee);
+        Employee employee = null;
+        try {
+            if (StringUtils.isNotEmpty(sb.toString())) {
+                ObjectMapper mapper = new ObjectMapper();
+                employee = mapper.readValue(jsonEmployee, Employee.class);
+                System.out.println(employee);
+            }
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("!!!!!!!!!!!");
+        return employee;
+    }
 
     private void saveContact(HttpServletRequest request) {
-        Employee employee = updateCommand.getEmployeeFromSession(request);
-        updateCommand.updateEmployee(request, employee);
-        savePhones(employee.getPhoneList(),employee.getId());
-        saveAttchment(employee);
-        if (!employee.getPhoto().isSaved() && employee.getPhoto().getPhotoName() != null) {
-            savePhoto(employee.getPhoto());
-        }
-        if (employee.getPhoto().isDeleted()) {
-            deletePhotoFromDisk(employee.getPhoto());
-        }
-
+        Employee employee = getEmployeeFromJSON(request);
+        savePhoto(employee.getPhotoName(), request);
+        savePhones(employee.getPhoneList(), employee.getId());
+        saveAttachment(employee.getAttachmentList(), employee.getId(), request);
         EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
         contactDAO.editEmployee(employee);
         contactDAO.saveContact();
 
     }
 
-    private void savePhones(ArrayList<ContactPhone> phones, final int EMPLOYEEID){
-        Iterator<ContactPhone> phoneIterator = phones.iterator();
+    private void savePhones(List<ContactPhone> phones, final int EMPLOYEEID) {
         PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
-        while (phoneIterator.hasNext()){
-            ContactPhone phone = phoneIterator.next();
-            if(!(phone.isSaved() || phone.isDeleted() || phone.isUpdated())){
-                phoneDAO.addPhone(phone,EMPLOYEEID);
-            }
-            if(!phone.isSaved() && phone.isUpdated()){
-                phoneDAO.updatePhone(phone);
-            }
-            if(phone.isDeleted() && !phone.isUpdated()){
-                phoneDAO.deletePhone(phone.getId());
-            }
-        }
+        phoneDAO.deletePhones(getDeletePhoneList(phones, phoneDAO, EMPLOYEEID));
+        phoneDAO.insertOrUpdatePhone(phones, EMPLOYEEID);
     }
 
-    private void saveAttchment(Employee employee) {
+    @SuppressWarnings("unchecked")
+    private List<ContactPhone> getDeletePhoneList(List<ContactPhone> phones, PhoneDAO phoneDAO, final int EMPLOYEEID) {
+        List<ContactPhone> oldPhoneList = phoneDAO.getPhoneList(EMPLOYEEID);
+        List<ContactPhone> deleteList = new ArrayList<>();
+        oldPhoneList.forEach(oldPhone -> {
+            boolean isDeletedElement = true;
+            for (ContactPhone phone : phones) {
+                if (Objects.equals(phone.getId(), oldPhone.getId())) {
+                    isDeletedElement = false;
+                }
+            }
+            if (isDeletedElement) {
+                deleteList.add(oldPhone);
+            }
+        });
+        return deleteList;
+
+    }
+
+    private void saveAttachment(List<Attachment> attachments, final int EMPLOYEEID, HttpServletRequest request) {
         AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
-        ArrayList<Attachment> attachments = employee.getAttachmentList();
-        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + employee.getId() + "/";
-        for (Attachment attachment : attachments) {
+        attachmentDAO.deleteAttachments(getDeleteAttachmentsList(attachments, request));
+        attachmentDAO.insertOrUpdatePhone(getAttachmentListFromSession(request), EMPLOYEEID);
+
+        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + EMPLOYEEID + "/";
+        for (Attachment attachment : getAttachmentListFromSession(request)) {
+            String resultFileName = filePath +
+                    attachment.getId();
             if (attachment.isDeleted()) {
-                attachmentDAO.deleteAttachment(attachment.getId());
-                deleteAttachmentFromDisk(filePath + attachment.getId());
-            }else if (isNewAttachment(attachment)) {
-                attachmentDAO.addAttachment(attachment);
-                String resultFileName = filePath +
-                        attachment.getId();
+                deleteAttachmentFromDisk(resultFileName);
+            }
+            if (!(attachment.isSaveOnDisk() || attachment.isDeleted())) {
                 try {
                     Path path = Paths.get(resultFileName);
                     Files.write(path, attachment.getAttachment());
@@ -97,14 +137,54 @@ public class SaveCommand implements ActionCommand {
         }
     }
 
-    private boolean isNewAttachment(Attachment attachment){
-        return !(attachment.isSaved() || attachment.isDeleted() || attachment.isUpdated())
-                || !attachment.isSaved() && attachment.isUpdated();
+    private List<Attachment> getAttachmentListFromSession(HttpServletRequest request) {
+        return this.getEmployeeFromSession(request).getAttachmentList();
+    }
+
+    private List<Attachment> getDeleteAttachmentsList(List<Attachment> attachments, HttpServletRequest
+            request) {
+        List<Attachment> oldAttachmentList = getAttachmentListFromSession(request);
+        List<Attachment> deleteList = new ArrayList<>();
+        oldAttachmentList.forEach(oldAttachment -> {
+            boolean isDeletedElement = true;
+            for (Attachment attachment : attachments) {
+                if (Objects.equals(attachment.getId(), oldAttachment.getId())) {
+                    isDeletedElement = false;
+                }
+            }
+            if (isDeletedElement) {
+                oldAttachment.setDeleted(true);
+                deleteList.add(oldAttachment);
+            }
+        });
+        return deleteList;
+    }
+
+    private void deleteAttachmentFromDisk(String fileName) {
+        Path path = Paths.get(fileName);
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            LOGGER.error("can't delete file from server ", e);
+        }
+
     }
 
 
-    private void savePhoto(Photo photo) {
+    private void savePhoto(String photoName, HttpServletRequest request) {
+        Photo photo = this.getEmployeeFromSession(request).getPhoto();
         PhotoDAOUtil photoDAO = new PhotoDAOUtil();
+        if (photoName.equals("delete") && photo.getPhotoName().equals(photoName) && photo.isSaved() || StringUtils.isEmpty(photoName)) {
+            return;
+        }
+        System.out.println(photoName.equals("delete"));
+        if (photoName.equals("delete")) {
+            System.out.println("???????????????");
+            deletePhotoFromDisk(photo);
+            photo.setPhotoName(null);
+            photoDAO.updatePhoto(photo);
+            return;
+        }
         photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") + photo.getEmployeeID() + "/photo/";
         File uploadDir = new File(resultFileName);
@@ -123,20 +203,10 @@ public class SaveCommand implements ActionCommand {
     }
 
     private void deletePhotoFromDisk(Photo photo) {
-        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
-        photoDAO.updatePhoto(photo);
         String resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                 photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
         deleteAttachmentFromDisk(resultFileName);
     }
 
-    private void deleteAttachmentFromDisk(String fileName){
-        Path path = Paths.get(fileName);
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            LOGGER.error("can't delete file from server ", e);
-        }
 
-    }
 }

@@ -28,3 +28,24 @@ function checkboxesForMail() {
         deletebutton.disabled = false;
     }
 }
+function checkboxesEditDelete(inputClassName,editButtonId,deleteButtonId) {
+    var inputs = document.getElementsByClassName(inputClassName);
+    count = 0;
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
+            count++;
+        }
+    }
+    var editbutton = document.getElementById(editButtonId);
+    var deleteButton = document.getElementById(deleteButtonId);
+    if(count==0){
+        deleteButton.disabled = true;
+        editbutton.disabled = true;
+    }else if (count == 1) {
+        editbutton.disabled = false;
+        deleteButton.disabled = false;
+    } else {
+        editbutton.disabled = true;
+        deleteButton.disabled = false;
+    }
+}

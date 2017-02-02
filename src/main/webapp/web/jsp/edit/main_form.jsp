@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <div id='div-main-form'>
+    <input type="hidden" value="${employee_id}" name="employee_id">
     <label id='label_first_name'><p>Имя</p>
         <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Введите ваше имя"
                value="${first_name}" pattern="^\w+(-?)\w+$" required>

@@ -13,13 +13,16 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 /**
  * Created by aefrd on 14.09.2016.
  */
-public class UpdateCommand implements ActionCommand{
+public class UpdateCommand implements ActionCommand {
+
+    @Override
     public String execute(HttpServletRequest request) {
         update(request);
         chooseDialog(request);
         return getProperty("path.page.edit");
     }
-    private void chooseDialog(HttpServletRequest request){
+
+    private void chooseDialog(HttpServletRequest request) {
         String command = request.getParameter("command");
         switch (command) {
             case "update_phone":
@@ -48,7 +51,7 @@ public class UpdateCommand implements ActionCommand{
         setEmployeeToSession(request, employee);
     }
 
-    void updateEmployee(HttpServletRequest request, Employee employee) {
+    private void updateEmployee(HttpServletRequest request, Employee employee) {
 
         employee.setFirstName(request.getParameter("first_name"));
         employee.setLastName(request.getParameter("last_name"));
@@ -57,7 +60,7 @@ public class UpdateCommand implements ActionCommand{
         if (!(request.getParameter("date_of_birth") == null)) {
             date = request.getParameter("date_of_birth").split("\\-");
             LocalDate localDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
-            employee.setDateOfBirth(localDate);
+            employee.setDateOfBirth(String.valueOf(localDate));
         }
 
         employee.setGender(request.getParameter("gender"));

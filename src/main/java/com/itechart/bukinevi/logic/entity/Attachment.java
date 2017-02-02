@@ -5,7 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class Attachment implements Cloneable,Serializable{
     private static final Logger LOGGER = LogManager.getLogger(Attachment.class.getName());
@@ -15,20 +17,10 @@ public class Attachment implements Cloneable,Serializable{
     private String fileName;
     private LocalDateTime loadDate;
     private String comment;
-    private boolean saved;
-    private boolean deleted;
-    private boolean updated;
     private byte[] attachment;
-
+    private boolean isSaveOnDisk = true;
+    private boolean isDeleted = false;
     public Attachment() {}
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 
     public byte[] getAttachment() {
         return attachment;
@@ -66,8 +58,8 @@ public class Attachment implements Cloneable,Serializable{
         return this.loadDate.toString().replace('T',' ');
     }
 
-    public void setLoadDate(LocalDateTime loadDate) {
-        this.loadDate = loadDate;
+    public void setLoadDate(String loadDate) {
+        this.loadDate = LocalDateTime.parse(loadDate.replace(" ","T"));
     }
 
     public String getComment() {
@@ -78,20 +70,20 @@ public class Attachment implements Cloneable,Serializable{
         this.comment = comment;
     }
 
-    public boolean isSaved() {
-        return saved;
+    public boolean isSaveOnDisk() {
+        return isSaveOnDisk;
     }
 
-    public void setSaved(boolean saved) {
-        this.saved = saved;
+    public void setSaveOnDisk(boolean saveOnDisk) {
+        isSaveOnDisk = saveOnDisk;
     }
 
-    public boolean isUpdated() {
-        return updated;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setUpdated(boolean updated) {
-        this.updated = updated;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override
@@ -110,9 +102,10 @@ public class Attachment implements Cloneable,Serializable{
                 "id=" + id +
                 ", employeeID=" + employeeID +
                 ", fileName='" + fileName + '\'' +
-                ", saved=" + saved +
-                ", deleted=" + deleted +
-                ", updated=" + updated +
-                "}\n";
+                ", loadDate=" + loadDate +
+                ", comment='" + comment + '\'' +
+                ", isSaveOnDisk=" + isSaveOnDisk +
+                ", isDeleted=" + isDeleted +
+                '}';
     }
 }

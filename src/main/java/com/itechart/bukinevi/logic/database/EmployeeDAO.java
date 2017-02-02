@@ -4,13 +4,14 @@ import com.itechart.bukinevi.logic.entity.Employee;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
- public interface EmployeeDAO{
+public interface EmployeeDAO{
      void editEmployee(Employee employee);
 
      List<String> getBirthdayList();
 
-     List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, HashMap<String, String> searchCriteriasMap);
+     List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, Map<String, String> searchCriteriasMap);
 
      String getEmail(final int ID);
 

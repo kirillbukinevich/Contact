@@ -12,7 +12,6 @@
     </tr>
     </thead>
     <tbody>
-    <input type="hidden" id="phone_id" name="phone_id" value="">
     <c:forEach var="phone" items="${phoneList}" varStatus="status">
             <tr>
                 <td><input type="checkbox" name="check_selected_phone" class="check_selected_phone" value="${phone.id}"
