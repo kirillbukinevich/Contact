@@ -26,7 +26,7 @@
         <p style="color: red; display: none">Неверная дата</p>
     </label>
 
-    <label><p>Выберите пол</p></label>
+    <label><p>Выберите пол</p>
     <select class="select-style" name="gender" required
             oninvalid="setCustomValidity('выберите пол')"
             oninput="setCustomValidity('')">
@@ -34,6 +34,8 @@
         <OPTION ${gender == 'женский' ? 'selected' : ''}> женский
         <OPTION ${gender == 'мужской' ? 'selected' : ''}> мужской
     </SELECT>
+        <p style="color: red; display: none">Выберите пол</p>
+    </label>
     <br><br>
 
 
@@ -43,19 +45,25 @@
         <p style="color: red; display: none">Введите корректную национальность</p>
     </label>
 
-    <label><p>Семейный статус</p></label>
-    <select class="select-style" name="family_status" id="family_status">
+    <label><p>Семейный статус</p>
+    <select class="select-style" name="family_status" id="family_status" required>
         <OPTION selected>
         <OPTION ${family_status == 'брак' ? 'selected' : ' '}> брак
         <OPTION ${family_status == 'свободен' ? 'selected' : ' '}> свободен
-    </SELECT><br><br>
+    </SELECT>
+        <p style="color: red; display: none">Выберите ваш семейный статус</p>
+    </label>
+        <br><br>
+
 
     <label><p>Веб сайт</p>
         <input type="url" class="form-control" name="web_site" id="web_site" value="${web_site}" placeholder="Веб сайт">
+        <p style="color: red; display: none">Введите валидный url</p>
     </label>
 
     <label><p>Email</p>
     <input type="email" class="form-control" name="email" id="email" value="${email}" placeholder="email" required>
+        <p style="color: red; display: none">Введите валидный email</p>
     </label>
 
     <label><p>Место работы</p></label>
