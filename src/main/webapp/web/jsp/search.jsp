@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!-- Trigger/Open The Modal -->
-<li><button class="btn btn-trans btn-trans-success" id="myBtn5" onclick="popDialog('searchModal')"><span
-        class="glyphicon glyphicon-search"></span>
-    Найти
-</button></li>
 
 <!-- The Modal -->
 <div id="searchModal" class="modal search-img">
@@ -20,11 +16,12 @@
                     <div class="form-group">
                         <br>
 
+                        <p><label for="find_first_name">Имя</label></p>
+                        <input type="text" class="form-control" name="find_first_name" id="find_first_name">
+
                         <p><label for="find_last_name">Фамилия</label></p>
                         <input type="text" class="form-control" name="find_last_name" id="find_last_name">
 
-                        <p><label for="find_first_name">Имя</label></p>
-                        <input type="text" class="form-control" name="find_first_name" id="find_first_name">
 
                         <p><label for="find_patronymic">Отчество</label></p>
                         <input type="text" class="form-control" name="find_patronymic" id="find_patronymic">

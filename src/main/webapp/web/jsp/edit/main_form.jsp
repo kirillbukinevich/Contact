@@ -4,19 +4,19 @@
     <input type="hidden" value="${employee_id}" name="employee_id">
     <label id='label_first_name'><p>Имя</p>
         <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Введите ваше имя"
-               value="${first_name}" pattern="^\w+(-?)\w+$" required>
+               value="${first_name}" pattern="^[а-яА-Я]+(-?)[а-яА-Я]+$" required>
         <p style="color: red; display: none">Введите ваше имя например: (Иван или Анна-Мария)</p>
     </label>
 
     <label for="last_name"><p>Фамилия</p>
         <input type="text" class="form-control" name="last_name" id="last_name" value="${last_name}"
-               placeholder="Введите вашу фамилию" pattern="^\w+(-?)\w+$" required>
+               placeholder="Введите вашу фамилию" pattern="^[а-яА-Я]+(-?)[а-яА-Я]+$" required>
         <p style="color: red; display: none">Введите вашу фамилию например: (Иванов или Джейд-Скайуокер)</p>
     </label>
 
     <label for="patronymic"><p>Отчество</p>
         <input type="text" class="form-control" name="patronymic" id="patronymic" value="${patronymic}"
-               placeholder="Введите ваше отчество" pattern="^\w+(-?)\w+$" required>
+               placeholder="Введите ваше отчество" pattern="^[а-яА-Я]+(-?)[а-яА-Я]+$" required>
         <p style="color: red; display: none">Введите ваше отчество например: (Иванович или Александр-Георгиевич)</p>
     </label>
 
@@ -41,7 +41,7 @@
 
     <label><p>Национальность</p>
         <input type="text" class="form-control" name="nationality" value="${nationality}"
-               placeholder="Nationality" pattern="^\w+((-?)|(\s?))\w+$">
+               placeholder="Nationality" pattern="^[а-яА-Я]+((-?)|(\s?))[а-яА-Я]+$">
         <p style="color: red; display: none">Введите корректную национальность</p>
     </label>
 
@@ -68,13 +68,13 @@
 
     <label><p>Место работы</p>
     <input type="text" class="form-control" name="work_place" value="${work_place}"
-           placeholder="Место работы" pattern="^\w+((-?)|(\s?))\w+$">
+           placeholder="Место работы" pattern="^[а-яА-Я0-9]+((-?)|(\s?))[а-яА-Я0-9]+$">
     <p style="color: red; display: none">Введите пожалуйста корректное место работы</p>
     </label>
 
     <label><p>Страна</p>
     <input type="text" class="form-control" name="country" id="country" value="${country}"
-           placeholder="страна" pattern="^\w+((-?)|(\s?))\w+$"
+           placeholder="страна" pattern="^[а-яА-Я0-9]+((-?)|(\s?))[а-яА-Я0-9]+$"
            oninvalid="setCustomValidity('Введите пожалуйста корректное название страны')"
            oninput="setCustomValidity('')">
     <p style="color: red; display: none">Введите пожалуйста корректное название страны</p>
@@ -82,7 +82,7 @@
 
     <label><p>Город</p>
     <input type="text" class="form-control" name="city" id="city" value="${city}"
-           placeholder="город" pattern="^\w+((-?)|(\s?))\w+$"
+           placeholder="город" pattern="^[а-яА-Я0-9]+((-?)|(\s?))[а-яА-Я0-9]+$"
            oninvalid="setCustomValidity('Введите пожалуйста корректное название города')"
            oninput="setCustomValidity('')">
         <p style="color: red; display: none">Введите пожалуйста корректное название города</p>
@@ -90,7 +90,7 @@
 
     <label><p>Улица</p>
     <input type="text" class="form-control" name="street" id="street" value="${street}"
-           placeholder="улица" pattern="^\w+((-?)|(\s?))\w+$"
+           placeholder="улица" pattern="^[а-яА-Я0-9]+((-?)|(\s?))[а-яА-Я0-9]+$"
            oninvalid="setCustomValidity('Введите пожалуйста корректное название улицы')"
            oninput="setCustomValidity('')">
     <p style="color: red; display: none">Введите пожалуйста корректное название улицы</p>

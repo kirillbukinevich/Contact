@@ -75,14 +75,23 @@ public class Address implements Serializable{
 
     @Override
     public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", countryName='" + countryName + '\'' +
-                ", cityName='" + cityName + '\'' +
-                ", streetName='" + streetName + '\'' +
-                ", houseNumber='" + houseNumber + '\'' +
-                ", flatNumber=" + flatNumber +
-                ", index=" + index +
-                '}';
+        StringBuilder result = new StringBuilder();
+        if(StringUtils.isNotEmpty(countryName)){
+            result.append(countryName);
+        }
+        if(StringUtils.isNotEmpty(cityName)){
+            result.append(" город: ").append(cityName);
+        }
+        if(StringUtils.isNotEmpty(streetName)){
+            result.append(" улица: ").append(streetName);
+        }
+        if(StringUtils.isNotEmpty(houseNumber)){
+            result.append(" дом: ").append(houseNumber);
+        }
+        if(flatNumber!=0){
+            result.append(" квартира: ").append(flatNumber);
+        }
+
+        return result.toString();
     }
 }
