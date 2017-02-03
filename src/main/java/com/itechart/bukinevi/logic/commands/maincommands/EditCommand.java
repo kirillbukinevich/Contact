@@ -106,6 +106,7 @@ public class EditCommand implements ActionCommand {
 
     private void fillPhotoParameter(HttpServletRequest request, Employee employee) {
         Photo photo = employee.getPhoto();
+        request.setAttribute("show_default_photo","inline-block");
         request.setAttribute("photo", getPhotoForJSP(photo,request));
         request.setAttribute("default_photo", getDefaultPhotoForJSP());
     }
@@ -146,13 +147,13 @@ public class EditCommand implements ActionCommand {
             if (photo.getBytes() == null || photo.isDeleted()) {
                 if (!photo.isSaved() || photo.isDeleted()) {
                     resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
-                    request.setAttribute("show_default_photo","");
+                    request.setAttribute("show_default_photo","inline-block");
                     request.setAttribute("show_photo","none");
                 } else {
                     resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
                             photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
                     request.setAttribute("show_default_photo","none");
-                    request.setAttribute("show_photo","");
+                    request.setAttribute("show_photo","inline-block");
                 }
                 File file = new File(resultFileName);
                 fileInputStream = new FileInputStream(file);

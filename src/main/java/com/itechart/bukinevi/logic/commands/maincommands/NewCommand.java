@@ -30,7 +30,7 @@ public class NewCommand implements ActionCommand {
         setEmployeeToSession(request, employee);
         request.setAttribute("employee_id",employee.getId());
         request.setAttribute("default_photo", getPhotoForJSP());
-        request.setAttribute("show_default_photo","");
+        request.setAttribute("show_default_photo","inline-block");
         request.setAttribute("show_photo","none");
 
         return getProperty("path.page.edit");

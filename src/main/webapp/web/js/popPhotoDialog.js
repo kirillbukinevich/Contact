@@ -7,7 +7,7 @@ function savePhotoChange() {
 
 function deletePhoto() {
     var default_img = document.getElementById('default_avatar');
-    default_img.style.display = '';
+    default_img.style.display = 'inline-block';
 
     var img = default_img.parentNode.childNodes[3];
     img.style.display = "none";
@@ -28,7 +28,7 @@ function performPhotoAjaxSubmit() {
         defaultImage.style.display = 'none';
         var img = document.getElementById("avatar");
         img.src = fr.result;
-        img.style.display = '';
+        img.style.display = 'inline-block';
         img.textContent = fileName;
     };
     fr.readAsDataURL(sampleFile);
