@@ -1,11 +1,12 @@
 (function () {
     var form = document.getElementById('edit_form');
-    var inputS = form.getElementsByTagName("input");
-    for (var input in inputS) {
-        if (!inputS.hasOwnProperty(input)) continue;
-        if (inputS[input].nodeName === 'INPUT' &&
-            (inputS[input].type === 'text' || inputS[input].type === 'email' || inputS[input].type === 'url')) {
-            inputS[input].oninput = function (event) {
+    var inputs = form.getElementsByTagName("input");
+    console.dir(inputs);
+    for (var input in inputs) {
+        if (!inputs.hasOwnProperty(input)) continue;
+        if (inputs[input].nodeName === 'INPUT' &&
+            (inputs[input].type === 'text' || inputs[input].type === 'email' || inputs[input].type === 'url')) {
+            inputs[input].oninput = function (event) {
                 checkForm(event);
             };
             checkForm(inputS[input]);
@@ -41,8 +42,6 @@
             label.getElementsByTagName('p')[1].style.display = 'none';
         }
     }
-
-
 }());
 
 
