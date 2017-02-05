@@ -3,7 +3,7 @@ package com.itechart.bukinevi.logic.commands.deletecommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.ContactCommand;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +29,7 @@ public class DeleteCommand implements ActionCommand {
     }
 
     private void deleteEmployee(final int ID) {
-        EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
+        MySqlEmployeeDAO employeeDAO = new MySqlEmployeeDAO();
         employeeDAO.deleteEmployee(ID);
         deleteAttachmentDirectory(ID);
     }
@@ -40,7 +40,7 @@ public class DeleteCommand implements ActionCommand {
             FileUtils.deleteDirectory(new File(path));
             LOGGER.info("deleted directory from server");
         } catch (IOException e) {
-            LOGGER.error(String.format("can't delete directory from server %s", e));
+            LOGGER.error("can't delete directory from server ", e);
         }
     }
 }

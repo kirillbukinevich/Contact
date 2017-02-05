@@ -30,7 +30,7 @@ function processEditCommand(command) {
             popDialog('phoneModal', 'Edit_Phone');
             break;
         case 'deletePhone':
-            deletePhones();
+            deleteAttachmentsOrPhone('check_selected_phone','phone_table');
             break;
         case 'update_attachment':
             popDialog('attachModal', 'Add_Attachment');
@@ -39,7 +39,7 @@ function processEditCommand(command) {
             popDialog('attachModal', 'Edit_Attachment');
             break;
         case  'deleteAttachFile':
-            deleteAttachments();
+            deleteAttachmentsOrPhone('check_selected_file','attachment_table');
             break;
         case 'contact':
             saveEmployee();
@@ -140,4 +140,15 @@ function getAttachmentArray() {
     }
     return attachmentArray;
 
+}
+function deleteAttachmentsOrPhone(checkboxId,tableId) {
+    var inputs = document.getElementsByClassName('check_selected_file');
+    var table = document.getElementById("attachment_table");
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
+            var tr = inputs[i].parentNode.parentNode;
+            table.deleteRow(tr.rowIndex);
+            i--;
+        }
+    }
 }

@@ -28,6 +28,9 @@ public class ApplyTemplateEmailCommand implements ActionCommand {
         GenerateTemplates generateTemplates = new GenerateTemplates();
         generateTemplates.chooseTemplate(templateType);
         request.setAttribute("template", generateTemplates);
+        request.setAttribute("subject", generateTemplates.getSubject());
+        request.setAttribute("text",generateTemplates.getText());
+        request.setAttribute("includePage",generateTemplates.getIncludePage());
         request.getSession().setAttribute("template",generateTemplates);
     }
 

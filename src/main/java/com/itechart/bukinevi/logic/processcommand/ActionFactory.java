@@ -23,7 +23,7 @@ public class ActionFactory {
             try {
                 CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
                 current = currentEnum.getCurrentCommand();
-                LOGGER.info(String.format("start : %s command", action));
+                LOGGER.info("start : {} command", action);
             } catch (IllegalArgumentException e) {
                 LOGGER.error("wrong command: ",e);
             }

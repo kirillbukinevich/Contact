@@ -11,6 +11,7 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/navbar.css"
       rel="stylesheet">
+<script src = "${pageContext.request.contextPath}/web/js/email.js"></script>
 <html>
 <head>
     <title>Email</title>
@@ -21,11 +22,12 @@
     <a href="controller?command=contact" class="btn btn-trans btn-trans-success">На главную</a>
 </nav>
 <div class="container">
-    <c:set var="template" value="${template}" scope="page"/>
+    <%--<c:set var="template" value="${template}" scope="page"/>--%>
     <div class="panel">
         <div class="panel-heading">
 
-            <h3>Отправить email</h3>
+            <h3>Отправить email ${template}</h3>
+            <%--<h3>Отправить email ${subject}</h3>--%>
         </div>
         <form id="emailForm" method="POST" action="controller">
             <input type="hidden" id="command" name="command" value="">
@@ -33,7 +35,7 @@
                 <div class="form">
                 <input type="text" class="form-control" name="list_mail" value="${lst_mail}">
                 <input type="text" class="form-control" name="theme" placeholder="Enter the theme"
-                       value="${template.subject}">
+                       value="${subject}">
                 <label>Выберите шаблон
                     <br>
                     <select class="select-style" name="template_type" id="template_type"
@@ -47,9 +49,9 @@
                     </SELECT><br><br>
                 </label>
             <textarea name="message" placeholder="Enter the message"
-                      style="display: ${editable_area == 'hide' ? 'none' : 'block'}">${template.text}</textarea>
+                      style="display: ${editable_area == 'hide' ? 'none' : 'block'}">${text}</textarea>
                 </div>
-                ${template.includePage}
+                ${includePage}
             </div>
             <div class="panel-footer">
                 <button class="btn btn-trans btn-trans-success" onclick="setCommand('sendemail')">Отправить</button>
@@ -59,10 +61,3 @@
 </div>
 </body>
 </html>
-<script>
-    function setCommand(value){
-        var command = document.getElementById("command");
-        command.value = value;
-
-    }
-</script>

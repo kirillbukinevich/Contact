@@ -15,6 +15,8 @@ class GenerateTemplates {
     private String text;
     private String includePage;
 
+    public GenerateTemplates(){}
+
     public String getIncludePage() {
         return includePage;
     }
@@ -38,6 +40,8 @@ class GenerateTemplates {
     public void setText(String text) {
         this.text = text;
     }
+
+
 
     private ST getSTInstance() throws URISyntaxException, IOException {
         return  new ST(new String(Files.readAllBytes(Paths
@@ -112,4 +116,5 @@ class GenerateTemplates {
     public String toString() {
         return subject;
     }
+
 }

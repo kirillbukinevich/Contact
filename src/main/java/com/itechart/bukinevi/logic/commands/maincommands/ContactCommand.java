@@ -1,13 +1,12 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class ContactCommand implements ActionCommand {
             page = Integer.parseInt(request.getParameter("page"));
         }
         String searchCriteria = getSearchCriteria(request);
-        EmployeeDAOUtil dao = new EmployeeDAOUtil();
+        MySqlEmployeeDAO dao = new MySqlEmployeeDAO();
         dao.rollBack();
 
         final byte RECORDSPERPAGE = 10;

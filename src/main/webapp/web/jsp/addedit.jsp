@@ -101,17 +101,16 @@
 </html>
 <script src="${pageContext.request.contextPath}/web/js/editScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popPhoneDialog.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/valid.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/validation/valid.js"></script>
+
 <script src="${pageContext.request.contextPath}/web/js/entity/contactPhone.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/entity/attachment.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/entity/employee.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/entity/address.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/deletePhone.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/deleteAttachment.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popDialog.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popPhoneDialog.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popAttachmentDialog.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/popPhotoDialog.js"></script>
+
+<script src="${pageContext.request.contextPath}/web/js/popDialog/popDialog.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/popDialog/processPhoneDialog.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/popDialog/processAttachmentDialog.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/popDialog/processPhotoDialog.js"></script>
 
 

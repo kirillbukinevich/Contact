@@ -12,18 +12,19 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
-    private static final Logger LOGGER = LogManager.getLogger(AttachmentDAOUtil.class.getName());
+public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MySqlAttachmentDAO.class.getName());
 
     @Override
     public void addAttachment(Attachment attachment) {
         final int EMPLOYEEID = attachment.getEmployeeID();
         updatePrepareStatement("INSERT INTO attachments(file_name,date_of_load,comment,employee_id) " +
-                "VALUES(?,?,?," + EMPLOYEEID + ")");
+                "VALUES(?,?,?,?");
         try {
             this.preparedStatement.setString(1, attachment.getFileName());
             this.preparedStatement.setTimestamp(2, Timestamp.valueOf(attachment.getLoadDate()));
             this.preparedStatement.setString(3, attachment.getComment());
+            this.preparedStatement.setInt(4,EMPLOYEEID);
             this.preparedStatement.executeUpdate();
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
@@ -90,7 +91,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
             for (Attachment attachment : attachments) {
                 preparedStatement.setInt(1, attachment.getId());
                 preparedStatement.addBatch();
-                LOGGER.info("delete attachment from BD: " + attachment.getId());
+                LOGGER.info("delete attachment from BD: {}", attachment.getId());
             }
             preparedStatement.executeBatch();
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class AttachmentDAOUtil extends AbstractDAO implements AttachmentDAO {
                     preparedStatement.setTimestamp(4, Timestamp.valueOf(attachment.getLoadDate()));
                     preparedStatement.setString(5, attachment.getComment());
                     preparedStatement.addBatch();
-                    LOGGER.info(String.format("updateOrInsert attachment to BD id: %d", attachment.getId()));
+                    LOGGER.info("updateOrInsert attachment to BD id: {}", attachment.getId());
                 }
             }
             preparedStatement.executeBatch();

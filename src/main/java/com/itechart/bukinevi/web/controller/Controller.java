@@ -49,9 +49,9 @@ public class Controller extends HttpServlet {
         assert command != null;
         String page = command.execute(request);
         if (StringUtils.isEmpty(request.getParameter("command"))) {
-            LOGGER.info(String.format("finish : %s command", request.getAttribute("command")));
+            LOGGER.info("finish : {} command", request.getAttribute("command"));
         } else {
-            LOGGER.info(String.format("finish : %s command", request.getParameter("command")));
+            LOGGER.info("finish : {} command", request.getParameter("command"));
         }
         if (page != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);

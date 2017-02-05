@@ -10,14 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by aefrd on 28.09.2016.
  */
-public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
-    private static final Logger LOGGER = LogManager.getLogger(PhoneDAOUtil.class);
+public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MySqlPhoneDAO.class);
 
 
     @Override
@@ -82,7 +81,7 @@ public class PhoneDAOUtil extends AbstractDAO implements PhoneDAO {
             preparedStatement.setString(5,phone.getComment());
             preparedStatement.setInt(6,phone.getId());
             preparedStatement.executeUpdate();
-            LOGGER.info(String.format("update phone to BD id: %d", phone.getId()));
+            LOGGER.info("update phone to BD id: {}", phone.getId());
         } catch (SQLException e) {
             LOGGER.error("can't update phone to BD ",e);
         }finally {

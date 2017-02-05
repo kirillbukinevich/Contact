@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.emailcommand;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class EmailCommand implements ActionCommand {
     }
     private StringBuilder getEmailsFromBD(String[] selectedEmployee){
         StringBuilder emails = new StringBuilder();
-        EmployeeDAOUtil employeeDAO = new EmployeeDAOUtil();
+        MySqlEmployeeDAO employeeDAO = new MySqlEmployeeDAO();
         for (String aSelectedEmployee : selectedEmployee) {
             emails.append(employeeDAO.getEmail(Integer.parseInt(aSelectedEmployee))).append(" ");
         }

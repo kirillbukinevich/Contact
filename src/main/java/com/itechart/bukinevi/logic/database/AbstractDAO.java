@@ -71,7 +71,7 @@ public abstract class AbstractDAO {
                 preparedStatement.close();
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't close preparedStatement method %s to BD %s",methodName, e));
+            LOGGER.error("can't close preparedStatement method %s to BD {}", methodName);
         }
 
     }
@@ -82,7 +82,7 @@ public abstract class AbstractDAO {
                 stmt.close();
             }
         } catch (SQLException e) {
-            LOGGER.error(String.format("can't close statement method %s to BD %s",methodName, e));
+            LOGGER.error("can't close statement method %s to BD {}",methodName);
         }
 
     }

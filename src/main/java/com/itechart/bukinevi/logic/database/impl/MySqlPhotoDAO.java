@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
-    private static final Logger LOGGER = LogManager.getLogger(PhotoDAOUtil.class.getName());
+public class MySqlPhotoDAO extends AbstractDAO implements PhotoDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MySqlPhotoDAO.class.getName());
 
     @Override
     public Photo getPhoto(final int ID) {
@@ -49,7 +49,7 @@ public class PhotoDAOUtil extends AbstractDAO implements PhotoDAO {
             }
             this.preparedStatement.setInt(2, EMPLOYEEID);
             this.preparedStatement.executeUpdate();
-            LOGGER.info(String.format("update photo to BD employee id: %d", photo.getEmployeeID()));
+            LOGGER.info("update photo to BD employee id: {}", photo.getEmployeeID());
         } catch (SQLException e) {
             LOGGER.error("can't update photo to BD ",e);
         } finally {

@@ -24,6 +24,5 @@
             Click Here</a>
     </div>
 </div>
-<%--<jsp:forward page="/controller?command=contact"/>--%>
 </body>
 </html>

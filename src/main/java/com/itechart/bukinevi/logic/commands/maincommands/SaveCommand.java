@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.PhoneDAO;
-import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlPhotoDAO;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
 import com.itechart.bukinevi.logic.entity.Employee;
@@ -83,7 +83,7 @@ public class SaveCommand implements ActionCommand {
         savePhoto(employee.getPhotoName(), request);
         savePhones(employee.getPhoneList(), employee.getId());
         saveAttachment(employee.getAttachmentList(), employee.getId(), request);
-        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
+        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
         System.out.println("HERE");
         contactDAO.editEmployee(employee);
         System.out.println("HERE");
@@ -93,7 +93,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     private void savePhones(List<ContactPhone> phones, final int EMPLOYEEID) {
-        PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
+        MySqlPhoneDAO phoneDAO = new MySqlPhoneDAO();
         phoneDAO.deletePhones(getDeletePhoneList(phones, phoneDAO, EMPLOYEEID));
         phoneDAO.insertOrUpdatePhone(phones, EMPLOYEEID);
     }
@@ -118,7 +118,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     private void saveAttachment(List<Attachment> attachments, final int EMPLOYEEID, HttpServletRequest request) {
-        AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
+        MySqlAttachmentDAO attachmentDAO = new MySqlAttachmentDAO();
         attachmentDAO.deleteAttachments(getDeleteAttachmentsList(attachments, request));
         attachmentDAO.insertOrUpdatePhone(getAttachmentListFromSession(request), EMPLOYEEID);
 
@@ -176,7 +176,7 @@ public class SaveCommand implements ActionCommand {
 
     private void savePhoto(String photoName, HttpServletRequest request) {
         Photo photo = this.getEmployeeFromSession(request).getPhoto();
-        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
+        MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
         if (photoName.equals("delete") && photo.getPhotoName().equals(photoName) && photo.isSaved() || StringUtils.isEmpty(photoName)) {
             return;
         }

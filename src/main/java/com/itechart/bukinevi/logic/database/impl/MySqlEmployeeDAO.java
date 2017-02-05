@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
-    private static final Logger LOGGER = LogManager.getLogger(EmployeeDAOUtil.class);
+public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MySqlEmployeeDAO.class);
 
     private int noOfRecords;
 
@@ -43,7 +43,7 @@ public class EmployeeDAOUtil extends AbstractDAO implements EmployeeDAO {
             this.preparedStatement.setObject(17, employee.getId());
             this.preparedStatement.executeUpdate();
 
-            LOGGER.info(String.format("update employee to BD id: %d", employee.getId()));
+            LOGGER.info("update employee to BD id: {}", employee.getId());
         } catch (SQLException e) {
             LOGGER.error("can't update employee to BD ", e);
         } finally {

@@ -2,10 +2,10 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
-import com.itechart.bukinevi.logic.database.impl.AttachmentDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.EmployeeDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.PhoneDAOUtil;
-import com.itechart.bukinevi.logic.database.impl.PhotoDAOUtil;
+import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
+import com.itechart.bukinevi.logic.database.impl.MySqlPhotoDAO;
 import com.itechart.bukinevi.logic.entity.*;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.codec.binary.Base64;
@@ -42,13 +42,13 @@ public class EditCommand implements ActionCommand {
             ID = Integer.parseInt(employee_id);
         }
         employee.setId(ID);
-        EmployeeDAOUtil contactDAO = new EmployeeDAOUtil();
+        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
         employee = contactDAO.getEmployeeOnId(employee.getId());
-        AttachmentDAOUtil attachmentDAO = new AttachmentDAOUtil();
+        MySqlAttachmentDAO attachmentDAO = new MySqlAttachmentDAO();
         employee.setAttachmentList(attachmentDAO.getAttachmentList(employee.getId()));
-        PhoneDAOUtil phoneDAO = new PhoneDAOUtil();
+        MySqlPhoneDAO phoneDAO = new MySqlPhoneDAO();
         employee.setPhoneList(phoneDAO.getPhoneList(employee.getId()));
-        PhotoDAOUtil photoDAO = new PhotoDAOUtil();
+        MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
         Photo photo = photoDAO.getPhoto(employee.getId());
         employee.setPhoto(photo);
 
@@ -56,7 +56,7 @@ public class EditCommand implements ActionCommand {
     }
 
     private void startEditContact() {
-        AbstractDAO abstractDAO = new EmployeeDAOUtil();
+        AbstractDAO abstractDAO = new MySqlEmployeeDAO();
         abstractDAO.startEditContact();
     }
 
