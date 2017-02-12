@@ -4,6 +4,7 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/welcome.css"
       rel="stylesheet">
+<jsp:include page="web/jsp/errorMessage.jsp"/>
 <html>
 <body>
 <div class="container text-center background_image">

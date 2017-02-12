@@ -1,33 +1,25 @@
-
 package com.itechart.bukinevi.logic.entity;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
-public class Attachment implements Cloneable,Serializable{
-    private static final Logger LOGGER = LogManager.getLogger(Attachment.class.getName());
+public class Attachment implements Serializable{
 
     private int id;
     private int employeeID;
     private String fileName;
     private LocalDateTime loadDate;
     private String comment;
-    private byte[] attachment;
+    private byte[] bytes;
     private boolean isSaveOnDisk = true;
     private boolean isDeleted = false;
-    public Attachment() {}
 
-    public byte[] getAttachment() {
-        return attachment;
+    public byte[] getBytes() {
+        return bytes;
     }
 
-    public void setAttachment(byte[] attachment) {
-        this.attachment = attachment;
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     public int getId() {
@@ -55,11 +47,11 @@ public class Attachment implements Cloneable,Serializable{
     }
 
     public String getLoadDate() {
-        return this.loadDate.toString().replace('T',' ');
+        return this.loadDate.toString().replace('T', ' ');
     }
 
     public void setLoadDate(String loadDate) {
-        this.loadDate = LocalDateTime.parse(loadDate.replace(" ","T"));
+        this.loadDate = LocalDateTime.parse(loadDate.replace(" ", "T"));
     }
 
     public String getComment() {
@@ -84,16 +76,6 @@ public class Attachment implements Cloneable,Serializable{
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
-    }
-
-    @Override
-    public Attachment clone(){
-        try {
-            return (Attachment)super.clone();
-        } catch (CloneNotSupportedException e) {
-            LOGGER.error("can't clone attachment: ", e);
-        }
-        return new Attachment();
     }
 
     @Override

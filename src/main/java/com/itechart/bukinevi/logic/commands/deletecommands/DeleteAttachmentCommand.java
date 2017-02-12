@@ -4,6 +4,8 @@ import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import com.itechart.bukinevi.logic.utils.SessionUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
@@ -26,16 +28,15 @@ public class DeleteAttachmentCommand implements ActionCommand{
     }
 
 
-    private void deleteAttachment(HttpServletRequest request, final int ATTACHMENTID) {
-        Employee employee = updateCommand.getEmployeeFromSession(request);
+    private void deleteAttachment(HttpServletRequest request, final int ATTACHMENT_ID) {
+        Employee employee = new SessionUtils().getEmployeeFromSession(request);
         List<Attachment> attachmentList = employee.getAttachmentList();
-        Attachment removeFile = null;
+        Attachment removeFile = new Attachment();
         for(Attachment attachment : attachmentList){
-            if(attachment.getId()==ATTACHMENTID){
+            if(attachment.getId()==ATTACHMENT_ID){
                 removeFile = attachment;
             }
         }
-        assert removeFile != null;
         removeFile.setDeleted(true);
     }
 }

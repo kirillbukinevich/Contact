@@ -3,6 +3,7 @@ package com.itechart.bukinevi.logic.database.impl;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
 import com.itechart.bukinevi.logic.database.AttachmentDAO;
 import com.itechart.bukinevi.logic.entity.Attachment;
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,18 +18,19 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
 
     @Override
     public void addAttachment(Attachment attachment) {
-        final int EMPLOYEEID = attachment.getEmployeeID();
+        final int EMPLOYEE_ID = attachment.getEmployeeID();
         updatePrepareStatement("INSERT INTO attachments(file_name,date_of_load,comment,employee_id) " +
                 "VALUES(?,?,?,?");
         try {
             this.preparedStatement.setString(1, attachment.getFileName());
             this.preparedStatement.setTimestamp(2, Timestamp.valueOf(attachment.getLoadDate()));
             this.preparedStatement.setString(3, attachment.getComment());
-            this.preparedStatement.setInt(4,EMPLOYEEID);
+            this.preparedStatement.setInt(4,EMPLOYEE_ID);
             this.preparedStatement.executeUpdate();
             attachment.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
             LOGGER.error("can't add attachment to BD ", e);
+            throw new DaoException("Не удаётся сохранить файл");
         } finally {
             this.closePreparedStatement("addAttachment");
         }
@@ -47,10 +49,10 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
             return attachment.getId();
         } catch (SQLException e) {
             LOGGER.error("can't update attachment to BD ", e);
+            throw new DaoException("Не удаётся обновить файл");
         } finally {
             this.closePreparedStatement("updateAttachment");
         }
-        return -1;
     }
 
     @Override
@@ -73,6 +75,7 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't get attachment list ", e);
+            throw new DaoException("Не удаётся извлечь файлы");
         } finally {
             this.closeStatement("getAttachmentList");
         }
@@ -96,13 +99,14 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
             LOGGER.error("can't delete attachment ", e);
+            throw new DaoException("Не удаётся удалить файл");
         } finally {
             this.closePreparedStatement("deleteAttachment");
         }
     }
 
     @Override
-    public void insertOrUpdatePhone(List<Attachment> attachments, final int EMPLOYEEID) {
+    public void insertOrUpdateAttachments(List<Attachment> attachments, final int EMPLOYEE_ID) {
         String query = "INSERT INTO attachments (id,employee_id,file_name, date_of_load,comment) " +
                 "VALUES (?,?,?,?,?) " +
                 "ON DUPLICATE KEY " +
@@ -113,7 +117,7 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
             for (Attachment attachment : attachments) {
                 if (!attachment.isDeleted()) {
                     preparedStatement.setInt(1, attachment.getId());
-                    preparedStatement.setInt(2, EMPLOYEEID);
+                    preparedStatement.setInt(2, EMPLOYEE_ID);
                     preparedStatement.setString(3, attachment.getFileName());
                     preparedStatement.setTimestamp(4, Timestamp.valueOf(attachment.getLoadDate()));
                     preparedStatement.setString(5, attachment.getComment());
@@ -124,8 +128,9 @@ public class MySqlAttachmentDAO extends AbstractDAO implements AttachmentDAO {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
             LOGGER.error("can't updateOrInsert attachment to BD ", e);
+            throw new DaoException("Не удаётся сохранить/обновить список файлов");
         } finally {
-            this.closePreparedStatement("insertOrUpdatePhone");
+            this.closePreparedStatement("insertOrUpdateAttachments");
         }
     }
 

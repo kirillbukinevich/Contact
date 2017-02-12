@@ -4,6 +4,7 @@ import com.itechart.bukinevi.logic.database.AbstractDAO;
 import com.itechart.bukinevi.logic.database.EmployeeDAO;
 import com.itechart.bukinevi.logic.entity.Address;
 import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,6 +47,7 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
             LOGGER.info("update employee to BD id: {}", employee.getId());
         } catch (SQLException e) {
             LOGGER.error("can't update employee to BD ", e);
+            throw new DaoException("Не удаётся обновить информацию о сотруднике");
         } finally {
             this.closePreparedStatement("editEmplloyee");
         }
@@ -66,6 +68,7 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't get birthdayList: ", e);
+            throw new DaoException("Не удаётся получить список именниников");
         } finally {
             this.closeStatement("getBirthdayList");
 
@@ -75,7 +78,7 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
 
     @Override
     public List<Employee> getEmployeesList(int offset, int recordsPerPage, String criteria, Map<String, String> searchCriteriasMap) {
-        String query = "select SQL_CALC_FOUND_ROWS * from main_info "
+        String query = "select distinct * from main_info "
                 + criteria + " limit " + offset + ", " + recordsPerPage;
         List<Employee> list = new ArrayList<>();
 
@@ -89,7 +92,7 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
 
                 }
             }
-            ResultSet rs = preparedStatement.executeQuery("SELECT FOUND_ROWS()");
+            ResultSet rs = preparedStatement.executeQuery("SELECT COUNT(*) FROM main_info");
             if (rs.next()) {
                 this.noOfRecords = rs.getInt(1);
             }
@@ -119,21 +122,19 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
                 employee.setAddress(address);
                 list.add(employee);
             }
-
-
         } catch (SQLException e) {
             LOGGER.error("can't get employee list ", e);
-        }finally {
+            throw new DaoException("Не удаётся получить список сотрудников");
+        } finally {
             this.closePreparedStatement("getEmployeesList");
         }
-
         return list;
     }
 
     @Override
     public String getEmail(final int ID) {
         String query = "SELECT email FROM main_info WHERE id = ?";
-        String email = new String();
+        String email = null;
         try {
             updatePrepareStatement(query);
             preparedStatement.setInt(1, ID);
@@ -142,7 +143,8 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
             email = resultSet.getString(1);
         } catch (SQLException e) {
             LOGGER.error("can't get email ", e);
-        }finally {
+            throw new DaoException("Не удаётся получить email");
+        } finally {
             this.closePreparedStatement("getEmail");
         }
         return email;
@@ -182,7 +184,8 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't get employee on id ", e);
-        }finally {
+            throw new DaoException("Не удаётся отобразить сотрудника");
+        } finally {
             this.closePreparedStatement("getEmployeeOnId");
         }
 
@@ -194,17 +197,17 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
         try {
             this.updatePrepareStatement("INSERT INTO main_info (id) VALUES (NULL)");
             this.preparedStatement.executeUpdate();
-            final int EMPLOYEEID = retriveId(preparedStatement);
+            final int EMPLOYEE_ID = retriveId(preparedStatement);
             this.updatePrepareStatement("INSERT INTO photo (employee_id) VALUES (?)");
-            this.preparedStatement.setInt(1, EMPLOYEEID);
+            this.preparedStatement.setInt(1, EMPLOYEE_ID);
             this.preparedStatement.executeUpdate();
-            return EMPLOYEEID;
+            return EMPLOYEE_ID;
         } catch (SQLException e) {
             LOGGER.error("can't get new employee id ", e);
+            throw new DaoException("Не удаётся отбразить нового сотрудников");
         } finally {
             this.closePreparedStatement("getNewEmployeeID");
         }
-        return -1;
     }
 
 
@@ -217,8 +220,10 @@ public class MySqlEmployeeDAO extends AbstractDAO implements EmployeeDAO {
             preparedStatement = connection.prepareStatement(deleteSQL);
             preparedStatement.setInt(1, ID);
             preparedStatement.executeUpdate();
+            LOGGER.info("delete employee id: {}", ID);
         } catch (SQLException e) {
-            LOGGER.error("can't delete employee ", e);
+            LOGGER.error("can't delete employee id: {}", ID);
+            throw new DaoException("Не удаётся удалить сотрудника");
         } finally {
             this.closePreparedStatement("deleteEmployee");
         }

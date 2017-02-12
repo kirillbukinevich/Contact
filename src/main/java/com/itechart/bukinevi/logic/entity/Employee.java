@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Employee implements Serializable {
+public class Employee implements Serializable{
     private int id;
     private String firstName;
     private String lastName;
@@ -27,9 +27,6 @@ public class Employee implements Serializable {
     private List<Attachment> attachmentList = new ArrayList<>();
     private String photoName;
     private Photo photo;
-
-    public Employee() {
-    }
 
     public int getId() {
         return this.id;
@@ -159,6 +156,7 @@ public class Employee implements Serializable {
         this.photoName = photoName;
     }
 
+    @Override
     public String toString() {
         return "Employee{id=" + this.id + ", firstName=\'" + this.firstName + '\'' + ", lastName=\'" + this.lastName + '\'' + ", patronymic=\'" + this.patronymic + '\'' + ", dateOfBirth=" + this.dateOfBirth + ", gender=\'" + this.gender + '\'' + ", nationality=\'" + this.nationality + '\'' + ", familyStatus=\'" + this.familyStatus + '\'' + ", webSite=\'" + this.webSite + '\'' + ", email=\'" + this.email + '\'' + ", workPlace=\'" + this.workPlace + '\'' + ", address=" + this.address + '}';
     }

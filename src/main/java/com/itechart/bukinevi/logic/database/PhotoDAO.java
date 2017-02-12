@@ -6,5 +6,4 @@ import com.itechart.bukinevi.logic.entity.Photo;
      Photo getPhoto(final int ID);
 
      void updatePhoto(Photo photo);
-
-}
+ }

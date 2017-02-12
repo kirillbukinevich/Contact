@@ -121,5 +121,3 @@
     </label>
 
 </div>
-<script src="${pageContext.request.contextPath}/web/js/validation/valid.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/validation/validDate.js"></script>

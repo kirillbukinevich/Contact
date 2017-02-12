@@ -6,6 +6,7 @@ function getEditAttachment() {
             var data = tr.getElementsByTagName('p');
             var attachment = getAttachment(tr.rowIndex,inputs[i].value, data);
             fillInputAttachmentForm(document.forms.popAttachmentForm,attachment);
+            inputs[i].checked = false;
         }
     }
 }
@@ -38,7 +39,7 @@ function cleanAttachForm() {
 }
 function saveAttachmentChange() {
     var form =  document.forms.popAttachmentForm;
-    id = form.attachment_id.value;
+    var id = form.attachment_id.value;
     if(id == 0) {
         id = Math.floor(Math.random() * 10000000);
     }
@@ -87,26 +88,29 @@ function performAjaxSubmit(id) {
         command = 'EDIT_FILE'
     }
 
-    console.dir(document.getElementById("file_name"));
     var sampleFile = document.getElementById("file_name").files[0];
+    console.dir(sampleFile);
+    if(sampleFile.size <= 1e6) {
+        var formdata = new FormData();
 
-    var formdata = new FormData();
 
+        formdata.append("id", id);
 
-    formdata.append("id",id);
+        formdata.append("comment_attachment", comment);
 
-    formdata.append("comment_attachment", comment);
+        formdata.append("file_name", sampleFile);
 
-    formdata.append("file_name", sampleFile);
+        formdata.append("command", command);
 
-    formdata.append("command", command);
+        var xhr = new XMLHttpRequest();
 
-    var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/zcontact/upload", true);
 
-    xhr.open("POST","/zcontact/upload", true);
-
-    xhr.send(formdata);
-
+        xhr.send(formdata);
+    }else {
+        alert("Максимальный размер файла 1 мегабайт");
+        throw new Error("Максимальный размер файла 1 мегабайт");
+    }
 }
 
 

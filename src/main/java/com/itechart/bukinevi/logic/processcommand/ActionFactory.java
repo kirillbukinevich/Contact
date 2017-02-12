@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionFactory {
     private static final Logger LOGGER = LogManager.getLogger(ActionFactory.class);
 
-    public ActionFactory() {
-    }
-
     public ActionCommand defineCommand(HttpServletRequest request) {
         Object current = new EmptyCommand();
         String action = request.getParameter("command");

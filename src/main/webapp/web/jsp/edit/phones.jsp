@@ -18,7 +18,7 @@
                            onchange="checkboxesEditDelete('check_selected_phone','editPhone','deletePhone')"></td>
                 <td>
                     <button name="command" value="update_edit_phone" class="btn-link"
-                            onclick="popDialog('phoneModal','Edit_Phone')">
+                            onclick="labelInput(event)">
                             <p>+${phone.codeCountry}-${phone.codeOperator}-${phone.number}</p>
                     </button>
                 </td>

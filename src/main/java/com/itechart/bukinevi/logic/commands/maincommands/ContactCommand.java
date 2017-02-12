@@ -16,10 +16,11 @@ public class ContactCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         int page = 1;
-        if (StringUtils.equals(request.getParameter("search_info"), "false")) {
+        String searchParameter = "search_info";
+        if (StringUtils.equals(request.getParameter(searchParameter), "false")) {
             request.getSession().setAttribute("search_criteria", null);
-            request.getSession().setAttribute("search_info", null);
-        } else if (StringUtils.isNotEmpty((String) request.getSession().getAttribute("search_info"))) {
+            request.getSession().setAttribute(searchParameter, null);
+        } else if (StringUtils.isNotEmpty((String) request.getSession().getAttribute(searchParameter))) {
             request.setAttribute("search_bar", "show");
 
         }
@@ -30,15 +31,16 @@ public class ContactCommand implements ActionCommand {
         MySqlEmployeeDAO dao = new MySqlEmployeeDAO();
         dao.rollBack();
 
-        final byte RECORDSPERPAGE = 10;
-        List employeesList = dao.getEmployeesList((page - 1) * RECORDSPERPAGE, RECORDSPERPAGE,
+        final int RECORDS_PER_PAGE = 10;
+
+        List employeesList = dao.getEmployeesList((page - 1) * RECORDS_PER_PAGE, RECORDS_PER_PAGE,
                 searchCriteria, getMapSearchCriteria(request));
-        int noOfRecords = dao.getNoOfRecords();
-        int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDSPERPAGE);
-
-
         request.setAttribute("employeeList", employeesList);
+
+        int noOfRecords = dao.getNoOfRecords();
+        int noOfPages = (int) Math.ceil((double) noOfRecords * 1.0D / (double) RECORDS_PER_PAGE);
         request.setAttribute("noOfPages", noOfPages);
+
         request.setAttribute("currentPage", page);
         return ConfigurationManager.getProperty("path.page.main");
     }

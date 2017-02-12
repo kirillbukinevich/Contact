@@ -13,9 +13,6 @@ public class Address implements Serializable{
     private int flatNumber;
     private int index;
 
-    public Address() {
-    }
-
     public int getId() {
         return this.id;
     }

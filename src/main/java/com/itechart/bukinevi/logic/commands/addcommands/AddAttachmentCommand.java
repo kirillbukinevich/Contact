@@ -1,24 +1,21 @@
 package com.itechart.bukinevi.logic.commands.addcommands;
 
-import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
 import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Enumeration;
 import java.util.List;
 
 public class AddAttachmentCommand implements ActionCommand {
-    private final UpdateCommand updateCommand = new UpdateCommand();
-
     @Override
     public String execute(HttpServletRequest request) {
-        Employee employee = updateCommand.getEmployeeFromSession(request);
+        Employee employee = new SessionUtils().getEmployeeFromSession(request);
         addFileToList(request, employee);
         return "";
     }
@@ -28,40 +25,34 @@ public class AddAttachmentCommand implements ActionCommand {
     }
 
     private Attachment getFile(HttpServletRequest request, Employee employee) {
-        try {
-            Attachment attachment = new Attachment();
-            final int EMPLOYEEID = employee.getId();
-            attachment.setEmployeeID(EMPLOYEEID);
-            attachment.setComment((String) request.getAttribute("comment"));
-            attachment.setLoadDate(String.valueOf(LocalDateTime.now()));
-            System.out.println(request.getAttribute("id"));
-            attachment.setId(Integer.parseInt((String) request.getAttribute("id")));
-            attachment.setSaveOnDisk(false);
-            processAttachmentFile(request, employee, attachment);
-            return attachment;
-        }catch (NullPointerException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
+        Attachment attachment = new Attachment();
+        final int EMPLOYEE_ID = employee.getId();
+        attachment.setEmployeeID(EMPLOYEE_ID);
+        attachment.setComment((String) request.getAttribute("comment"));
+        attachment.setLoadDate(String.valueOf(LocalDateTime.now()));
+        attachment.setId(Integer.parseInt((String) request.getAttribute("id")));
+        attachment.setSaveOnDisk(false);
+        processAttachmentFile(request, employee, attachment);
+        return attachment;
     }
 
     private void processAttachmentFile(HttpServletRequest request, Employee employee, Attachment attachment) {
         @SuppressWarnings("unchecked")
         List<FileItem> fileItems = (List<FileItem>) request.getAttribute("file_item");
 
-        String filePath = request.getAttribute("file_path").toString();
+        StringBuilder filePath = new StringBuilder(request.getAttribute("file_path").toString());
         for (FileItem fi : fileItems) {
             if (!fi.isFormField()) {
                 String fileName = fi.getName();
-                filePath += attachment.getEmployeeID() + "/";
-                File uploadDir = new File(filePath);
+                filePath.append(attachment.getEmployeeID() + "/");
+                File uploadDir = new File(filePath.toString());
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
 
                 fileName = getSaveName(employee, fileName);
                 attachment.setFileName(fileName);
-                attachment.setAttachment(fi.get());
+                attachment.setBytes(fi.get());
             } else {
                 request.setAttribute(fi.getFieldName(), fi.getString());
             }

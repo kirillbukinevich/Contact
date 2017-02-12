@@ -49,10 +49,10 @@ public class SearchCommand implements ActionCommand {
         StringBuilder criteria = new StringBuilder();
         if (!date.isEmpty()) {
             String direct = request.getParameter("find_date_direction");
-            if (direct.equals("since")) {
+            if ("since".equals(direct)) {
                 criteria.append(" date_of_birth >" + "'").append(date).append("' ");
             }
-            if (direct.equals("until")) {
+            if ("until".equals(direct)) {
                 criteria.append(" date_of_birth <" + "'").append(date).append("' ");
             }
             if (direct.isEmpty()) {

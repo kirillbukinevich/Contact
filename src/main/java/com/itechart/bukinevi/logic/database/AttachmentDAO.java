@@ -1,9 +1,7 @@
 package com.itechart.bukinevi.logic.database;
 
 import com.itechart.bukinevi.logic.entity.Attachment;
-import com.itechart.bukinevi.logic.entity.ContactPhone;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface AttachmentDAO{
@@ -15,5 +13,5 @@ public interface AttachmentDAO{
 
      void deleteAttachments(List<Attachment> attachments);
 
-    void insertOrUpdatePhone(List<Attachment> attachments, int EMPLOYEEID);
+    void insertOrUpdateAttachments(List<Attachment> attachments, int EMPLOYEE_ID);
 }

@@ -20,32 +20,38 @@ function performPhotoAjaxSubmit() {
 
     console.dir(document.getElementById("photo_name").files[0]);
     var sampleFile = document.getElementById("photo_name").files[0];
-    var fileName = document.getElementById("photo_name").files[0].name;
+    if (sampleFile.size <= 1e6) {
+        var fileName = document.getElementById("photo_name").files[0].name;
 
-    var fr = new FileReader();
-    fr.onload = function () {
-        var defaultImage = document.getElementById('default_avatar');
-        defaultImage.style.display = 'none';
-        var img = document.getElementById("avatar");
-        img.src = fr.result;
-        img.style.display = 'inline-block';
-        img.textContent = fileName;
-    };
-    fr.readAsDataURL(sampleFile);
+        var fr = new FileReader();
+        fr.onload = function () {
+            var defaultImage = document.getElementById('default_avatar');
+            defaultImage.style.display = 'none';
+            var img = document.getElementById("avatar");
+            img.src = fr.result;
+            img.style.display = 'inline-block';
+            img.textContent = fileName;
+        };
+        fr.readAsDataURL(sampleFile);
 
-    var formdata = new FormData();
+        var formdata = new FormData();
 
-    formdata.append("photo", sampleFile);
+        formdata.append("photo", sampleFile);
 
-    formdata.append("photo_name", fileName);
+        formdata.append("photo_name", fileName);
 
-    formdata.append("command", 'UPDATE_PHOTO');
+        formdata.append("command", 'UPDATE_PHOTO');
 
-    var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
-    xhr.open("POST", "/zcontact/upload", true);
+        xhr.open("POST", "/zcontact/upload", true);
 
-    xhr.send(formdata);
+        xhr.send(formdata);
+    } else {
+        alert("Максимальный размер файла 1 мегабайт");
+        throw new Error("Максимальный размер файла 1 мегабайт");
+    }
+
 }
 
 

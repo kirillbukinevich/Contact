@@ -20,6 +20,7 @@
     };
     checkForm(form.gender);
     checkForm(form.family_status);
+    checkDate();
 
 
     function checkForm(event) {

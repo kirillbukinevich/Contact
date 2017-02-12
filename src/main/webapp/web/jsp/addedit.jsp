@@ -13,10 +13,6 @@
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/web/css/popBackgroundImage.css"
       rel="stylesheet">
-<jsp:include page="edit/popPhone.jsp"/>
-<jsp:include page="edit/popattachfile.jsp"/>
-<jsp:include page="edit/popPhoto.jsp"/>
-
 <html>
 <head>
     <title>Редактируем</title>
@@ -99,8 +95,14 @@
 </form>
 </body>
 </html>
+<jsp:include page="edit/popPhone.jsp"/>
+<jsp:include page="edit/popattachfile.jsp"/>
+<jsp:include page="edit/popPhoto.jsp"/>
+<jsp:include page="errorMessage.jsp"/>
+
 <script src="${pageContext.request.contextPath}/web/js/editScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/validation/validDate.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/validation/valid.js"></script>
 
 <script src="${pageContext.request.contextPath}/web/js/entity/contactPhone.js"></script>

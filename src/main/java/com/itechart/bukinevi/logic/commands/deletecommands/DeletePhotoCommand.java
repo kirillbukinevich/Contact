@@ -4,6 +4,7 @@ import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.entity.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import com.itechart.bukinevi.logic.utils.SessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +22,7 @@ public class DeletePhotoCommand implements ActionCommand {
     }
 
     private void deletePhoto(HttpServletRequest request) {
-        Employee employee = updateCommand.getEmployeeFromSession(request);
+        Employee employee = new SessionUtils().getEmployeeFromSession(request);
         Photo photo = employee.getPhoto();
         photo.setDeleted(true);
     }

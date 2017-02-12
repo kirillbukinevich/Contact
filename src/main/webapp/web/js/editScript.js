@@ -1,27 +1,32 @@
+(function () {
+    var form = document.forms.edit_form;
+    form.onclick = function (event) {
+        console.dir(event.target);
+        processEditCommand(event.target.parentNode.value);
+    }
+})();
+
 function submitEditForm(command) {
-    if(command === "cancel_edit"){
+    if (command === "cancel_edit") {
         location.reload();
     }
     var form = document.forms.edit_form;
     form.onsubmit = function () {
         return false;
     };
-    if (document.getElementsByClassName('error').length == 0) {
-        if (command === "contact") {
-            console.dir(form.btnSave.validity);
-            setTimeout(function () {
-                form.action = "controller?command=contact";
-                form.onsubmit = function () {
-                    return true;
-                };
-                form.submit();
-            }, 1500);
-        }
+    if (command === "contact" && document.getElementsByClassName('error').length == 0) {
+        console.dir(form.btnSave.validity);
+        setTimeout(function () {
+            form.action = "controller?command=contact";
+            form.onsubmit = function () {
+                return true;
+            };
+            form.submit();
+        }, 1500);
     }
 }
 
 function processEditCommand(command) {
-    console.log(command);
     switch (command) {
         case 'update_phone':
             popDialog('phoneModal', 'Add_Phone');
@@ -30,7 +35,7 @@ function processEditCommand(command) {
             popDialog('phoneModal', 'Edit_Phone');
             break;
         case 'deletePhone':
-            deleteAttachmentsOrPhone('check_selected_phone','phone_table');
+            deleteAttachmentsOrPhone('check_selected_phone', 'phone_table');
             break;
         case 'update_attachment':
             popDialog('attachModal', 'Add_Attachment');
@@ -39,7 +44,7 @@ function processEditCommand(command) {
             popDialog('attachModal', 'Edit_Attachment');
             break;
         case  'deleteAttachFile':
-            deleteAttachmentsOrPhone('check_selected_file','attachment_table');
+            deleteAttachmentsOrPhone('check_selected_file', 'attachment_table');
             break;
         case 'contact':
             saveEmployee();
@@ -47,28 +52,19 @@ function processEditCommand(command) {
         case 'update_photo':
             popDialog('photoModal', 'Update_Photo');
             break;
+        default:
+            throw new Error("Неизвестная команда");
     }
     submitEditForm(command);
 
 }
 
-(function () {
-    var form = document.forms.edit_form;
-    form.onclick = function (event) {
-        console.dir(event.target);
-        processEditCommand(event.target.parentNode.value);
-    }
-})();
-function getPhoto() {
-
-}
 function saveEmployee() {
     if (document.getElementsByClassName('error').length == 0) {
         var employee = getEmployee();
         employee.photoName = document.getElementById("avatar").textContent;
         employee.phoneList = getPhoneArray();
         employee.attachmentList = getAttachmentArray();
-        console.log(JSON.stringify(employee));
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", "/zcontact/controller?command=save", true);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
@@ -141,9 +137,10 @@ function getAttachmentArray() {
     return attachmentArray;
 
 }
-function deleteAttachmentsOrPhone(checkboxId,tableId) {
-    var inputs = document.getElementsByClassName('check_selected_file');
-    var table = document.getElementById("attachment_table");
+function deleteAttachmentsOrPhone(checkboxId, tableId) {
+    var inputs = document.getElementsByClassName(checkboxId),
+        table = document.getElementById(tableId);
+
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].checked) {
             var tr = inputs[i].parentNode.parentNode;

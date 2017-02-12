@@ -5,6 +5,7 @@
 
 package com.itechart.bukinevi.logic.database;
 
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,19 +17,23 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 class ConnectionFactory {
-    private static Connection con;
     private static final Logger LOGGER = LogManager.getLogger(ConnectionFactory.class);
 
     private ConnectionFactory() {
     }
 
     static synchronized Connection getConnection() {
-            try {
+        Connection con;
+        try {
                 Context ctx = new InitialContext();
                 DataSource dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/EmployeesDS");
                 con = dataSource.getConnection();
-            } catch (NamingException | SQLException e) {
+            } catch (NamingException e) {
                 LOGGER.error(e);
+                throw new DaoException("Ошибка имени драйвера");
+            } catch (SQLException e) {
+                LOGGER.error(e);
+                throw new DaoException("Ошибка подключения к базе данных");
             }
         return con;
     }

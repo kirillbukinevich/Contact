@@ -3,6 +3,7 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 import com.itechart.bukinevi.logic.entity.Address;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,31 +25,32 @@ public class UpdateCommand implements ActionCommand {
 
     private void chooseDialog(HttpServletRequest request) {
         String command = request.getParameter("command");
+        String dialogName = "popDialog";
         switch (command) {
             case "update_phone":
             case "update_edit_phone":
-                request.setAttribute("popDialog", "phoneModal");
+                request.setAttribute(dialogName, "phoneModal");
                 request.setAttribute("type_operation", "New_Phone");
                 break;
             case "update_attachment":
             case "update_edit_attachment":
-                request.setAttribute("popDialog", "attachModal");
+                request.setAttribute(dialogName, "attachModal");
                 request.setAttribute("type_operation", "New_File");
                 break;
             case "update_photo":
-                request.setAttribute("popDialog", "photoModal");
+                request.setAttribute(dialogName, "photoModal");
                 break;
             case "save":
-                request.setAttribute("popDialog", "saveModal");
+                request.setAttribute(dialogName, "saveModal");
                 break;
         }
     }
 
     private void update(HttpServletRequest request) {
-        Employee employee = getEmployeeFromSession(request);
+        Employee employee = new SessionUtils().getEmployeeFromSession(request);
         updateEmployee(request, employee);
         fillAllParameters(request);
-        setEmployeeToSession(request, employee);
+        new SessionUtils().setEmployeeToSession(request, employee);
     }
 
     private void updateEmployee(HttpServletRequest request, Employee employee) {
@@ -57,7 +59,7 @@ public class UpdateCommand implements ActionCommand {
         employee.setLastName(request.getParameter("last_name"));
         employee.setPatronymic(request.getParameter("patronymic"));
         String[] date;
-        if (!(request.getParameter("date_of_birth") == null)) {
+        if (request.getParameter("date_of_birth") != null) {
             date = request.getParameter("date_of_birth").split("\\-");
             LocalDate localDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
             employee.setDateOfBirth(String.valueOf(localDate));

@@ -161,6 +161,8 @@
     </div>
 </div>
 <jsp:include page="search.jsp"/>
+<jsp:include page="errorMessage.jsp"/>
+
 <script src="${pageContext.request.contextPath}/web/js/checkboxScript.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/popDialog/popDialog.js"></script>
 

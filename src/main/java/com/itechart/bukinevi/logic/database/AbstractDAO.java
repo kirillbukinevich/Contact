@@ -1,5 +1,6 @@
 package com.itechart.bukinevi.logic.database;
 
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,8 +10,8 @@ import java.sql.*;
  * Created by aefrd on 28.09.2016.
  */
 public abstract class AbstractDAO {
-    protected static final Connection connection = ConnectionFactory.getConnection();
-    private static final Logger LOGGER = LogManager.getLogger(AttachmentDAO.class.getName());
+    protected static Connection connection = ConnectionFactory.getConnection();
+    private static final Logger LOGGER = LogManager.getLogger(AbstractDAO.class.getName());
     protected Statement stmt;
     protected PreparedStatement preparedStatement;
 
@@ -20,6 +21,7 @@ public abstract class AbstractDAO {
             LOGGER.info("start edit contact");
         } catch (SQLException e) {
             LOGGER.error("can't start edit contact: ", e);
+            throw new DaoException("Не удаётся начать транзакцию");
         }
     }
 
@@ -32,6 +34,7 @@ public abstract class AbstractDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't save contact: ", e);
+            throw new DaoException("Не удаётся сохранить сотрудника");
         }
     }
 
@@ -44,6 +47,7 @@ public abstract class AbstractDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't cancel edit contact: ", e);
+            throw new DaoException("Не удаётся закрыть транзакцию");
         }
     }
 
@@ -52,17 +56,18 @@ public abstract class AbstractDAO {
         try {
             this.preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException var3) {
-            var3.printStackTrace();
+            LOGGER.error("can't updatePrepareStatement: ",var3);
+            throw new DaoException("Ошибка обращения к базе данных");
         }
     }
 
     protected int retriveId(PreparedStatement preparedStatement) throws SQLException {
         ResultSet rs = preparedStatement.getGeneratedKeys();
-        int last_inserted_id = 0;
+        int lastInsertedId = 0;
         if (rs.next()) {
-            last_inserted_id = rs.getInt(1);
+            lastInsertedId = rs.getInt(1);
         }
-        return last_inserted_id;
+        return lastInsertedId;
     }
 
     protected void closePreparedStatement(String methodName){
@@ -72,6 +77,7 @@ public abstract class AbstractDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't close preparedStatement method %s to BD {}", methodName);
+            throw new DaoException("Не удаётся закрыть соединение");
         }
 
     }
@@ -83,6 +89,7 @@ public abstract class AbstractDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't close statement method %s to BD {}",methodName);
+            throw new DaoException("Не удаётся закрыть соединение");
         }
 
     }

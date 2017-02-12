@@ -3,10 +3,10 @@ package com.itechart.bukinevi.logic.database.impl;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
 import com.itechart.bukinevi.logic.database.PhoneDAO;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
 
 
     @Override
-    public void addPhone(ContactPhone phone, final int EMPLOYEEID) {
+    public void addPhone(ContactPhone phone, final int EMPLOYEE_ID) {
         updatePrepareStatement("INSERT INTO phone(code_country,code_operator,number,type,comment,employee_id) " +
                 "VALUES(?,?,?,?,?,?)");
         try {
@@ -29,12 +29,13 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
             this.preparedStatement.setInt(3, phone.getNumber());
             this.preparedStatement.setString(4, phone.getType());
             this.preparedStatement.setString(5, phone.getComment());
-            this.preparedStatement.setInt(6, EMPLOYEEID);
+            this.preparedStatement.setInt(6, EMPLOYEE_ID);
             this.preparedStatement.executeUpdate();
             LOGGER.info("add phone to BD");
             phone.setId(retriveId(preparedStatement));
         } catch (SQLException e) {
             LOGGER.error("can't add phone to BD ", e);
+            throw new DaoException("Не удаётся сохранить телефон");
         }finally {
            this.closePreparedStatement("addPhone");
         }
@@ -62,6 +63,7 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't get phone list ",e);
+            throw new DaoException("Не удаётся извлечь список телефонов");
         } finally {
             this.closePreparedStatement("getPhoneList");
         }
@@ -84,6 +86,7 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
             LOGGER.info("update phone to BD id: {}", phone.getId());
         } catch (SQLException e) {
             LOGGER.error("can't update phone to BD ",e);
+            throw new DaoException("Не удаётся обновить телефон");
         }finally {
             this.closePreparedStatement("updatePhone");
         }
@@ -97,7 +100,7 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
         String deleteSQL = "DELETE FROM phone WHERE phone.id = ?";
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(deleteSQL);
+            preparedStatement = connection.prepareStatement(deleteSQL);
             for (ContactPhone phone : phones) {
                 preparedStatement.setInt(1, phone.getId());
                 preparedStatement.addBatch();
@@ -106,13 +109,14 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
             LOGGER.error("can't delete phone ",e);
+            throw new DaoException("Не удаётся удалить телефон");
         }finally {
            this.closePreparedStatement("deletePhone");
         }
     }
 
     @Override
-    public void insertOrUpdatePhone(List<ContactPhone> phones, final int EMPLOYEEID) {
+    public void insertOrUpdatePhones(List<ContactPhone> phones, final int EMPLOYEE_ID) {
         String query = "INSERT INTO phone (id,employee_id,code_country, code_operator, number, type, comment) VALUES (?,?,?,?,?,?,?)" +
                 "ON DUPLICATE KEY " +
                 "UPDATE employee_id = values(employee_id),code_country = values(code_country)," +
@@ -121,7 +125,7 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
         try {
             for(ContactPhone phone : phones){
                 preparedStatement.setInt(1, phone.getId());
-                preparedStatement.setInt(2, EMPLOYEEID);
+                preparedStatement.setInt(2, EMPLOYEE_ID);
                 preparedStatement.setInt(3, phone.getCodeCountry());
                 preparedStatement.setInt(4, phone.getCodeOperator());
                 preparedStatement.setInt(5, phone.getNumber());
@@ -133,8 +137,9 @@ public class MySqlPhoneDAO extends AbstractDAO implements PhoneDAO {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
             LOGGER.error("can't updateOrInsert phone to BD ", e);
+            throw new DaoException("Не удаётся сохранить/обновить телефоны");
         } finally {
-            this.closePreparedStatement("insertOrUpdatePhone");
+            this.closePreparedStatement("insertOrUpdateAttachments");
         }
     }
 }

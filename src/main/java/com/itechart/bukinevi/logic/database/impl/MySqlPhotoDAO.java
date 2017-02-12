@@ -3,6 +3,7 @@ package com.itechart.bukinevi.logic.database.impl;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
 import com.itechart.bukinevi.logic.database.PhotoDAO;
 import com.itechart.bukinevi.logic.entity.Photo;
+import com.itechart.bukinevi.logic.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,7 @@ public class MySqlPhotoDAO extends AbstractDAO implements PhotoDAO {
             }
         } catch (SQLException e) {
             LOGGER.error("can't get photo ",e);
+            throw new DaoException("Не удаётся извлечь фото");
         } finally {
             this.closePreparedStatement("getPhoto");
         }
@@ -39,7 +41,7 @@ public class MySqlPhotoDAO extends AbstractDAO implements PhotoDAO {
 
     @Override
     public void updatePhoto(Photo photo) {
-        final int EMPLOYEEID = photo.getEmployeeID();
+        final int EMPLOYEE_ID = photo.getEmployeeID();
         updatePrepareStatement("UPDATE photo SET photo_name=? WHERE employee_id=?");
         try {
             if (photo.isDeleted()) {
@@ -47,11 +49,12 @@ public class MySqlPhotoDAO extends AbstractDAO implements PhotoDAO {
             } else {
                 this.preparedStatement.setString(1, photo.getPhotoName());
             }
-            this.preparedStatement.setInt(2, EMPLOYEEID);
+            this.preparedStatement.setInt(2, EMPLOYEE_ID);
             this.preparedStatement.executeUpdate();
             LOGGER.info("update photo to BD employee id: {}", photo.getEmployeeID());
         } catch (SQLException e) {
             LOGGER.error("can't update photo to BD ",e);
+            throw new DaoException("Не удаётся обновить фото");
         } finally {
             this.closePreparedStatement("updatePhoto");
         }

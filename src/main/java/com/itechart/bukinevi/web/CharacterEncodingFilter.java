@@ -3,8 +3,8 @@ package com.itechart.bukinevi.web;
 /**
  * Created by aefrd on 28.09.2016.
  */
-import java.io.IOException;
 import javax.servlet.*;
+import java.io.IOException;
 
 public class CharacterEncodingFilter implements Filter {
 

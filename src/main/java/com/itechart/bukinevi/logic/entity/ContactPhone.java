@@ -2,7 +2,8 @@ package com.itechart.bukinevi.logic.entity;
 
 import java.io.Serializable;
 
-public class ContactPhone implements Cloneable,Serializable{
+public class ContactPhone implements Serializable{
+
     private int id;
     private int employeeID;
     private int codeCountry;
@@ -10,8 +11,6 @@ public class ContactPhone implements Cloneable,Serializable{
     private int number;
     private String type;
     private String comment;
-    public ContactPhone() {
-    }
 
     public int getId() {
         return this.id;
@@ -67,16 +66,6 @@ public class ContactPhone implements Cloneable,Serializable{
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    @Override
-    public ContactPhone clone() {
-        try {
-            return (ContactPhone) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return new ContactPhone();
     }
 
     @Override

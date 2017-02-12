@@ -1,19 +1,8 @@
 package com.itechart.bukinevi.logic.processcommand;
 
-import com.itechart.bukinevi.logic.entity.Employee;
-
 import javax.servlet.http.HttpServletRequest;
 
+@FunctionalInterface
 public interface ActionCommand {
     String execute(HttpServletRequest request);
-
-    default void setEmployeeToSession(HttpServletRequest request, Employee employee) {
-        request.getSession().setAttribute("employee", employee);
-    }
-
-    default Employee getEmployeeFromSession(HttpServletRequest request) {
-        return (Employee) request.getSession().getAttribute("employee");
-    }
-
-
 }

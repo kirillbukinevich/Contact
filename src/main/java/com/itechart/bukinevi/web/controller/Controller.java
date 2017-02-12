@@ -5,12 +5,12 @@
 
 package com.itechart.bukinevi.web.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.exceptions.DaoException;
+import com.itechart.bukinevi.logic.exceptions.ExecutingCommandsException;
+import com.itechart.bukinevi.logic.exceptions.IncorrectDataException;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.processcommand.ActionFactory;
+import com.itechart.bukinevi.logic.utils.RequestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +21,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
@@ -30,47 +29,50 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
 
-    public Controller() {
-    }
-
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         doPost(req, resp);
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
         this.processRequest(req, resp);
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getParameter("command"));
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) {
         ActionFactory client = new ActionFactory();
         response.setContentType("text/html; charset=UTF-8");
         ActionCommand command = client.defineCommand(request);
-        assert command != null;
-        String page = command.execute(request);
-        if (StringUtils.isEmpty(request.getParameter("command"))) {
-            LOGGER.info("finish : {} command", request.getAttribute("command"));
-        } else {
-            LOGGER.info("finish : {} command", request.getParameter("command"));
+        String page = null;
+        try {
+            page = command.execute(request);
+        } catch (DaoException e) {
+            addErrorMessage(request, e, "Ошибка обращения к базе данных.");
+        } catch (IncorrectDataException e) {
+            addErrorMessage(request, e, "Неверный формат данных");
+        } catch (ExecutingCommandsException e) {
+            addErrorMessage(request, e, "Ошибка выполнения команды");
         }
-        if (page != null) {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
-            try {
-                dispatcher.forward(request, response);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ServletException e) {
-                e.printStackTrace();
-            }
-
+        String commandParameter = "command";
+        if (StringUtils.isEmpty(request.getParameter(commandParameter))) {
+            LOGGER.info("finish : {} command", request.getAttribute(commandParameter));
         } else {
+            LOGGER.info("finish : {} command", request.getParameter(commandParameter));
+        }
+        if (StringUtils.isEmpty(page)) {
             page = getProperty("path.page.start");
-            try {
-                response.sendRedirect(request.getContextPath() + page);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
+        try {
+            dispatcher.forward(request, response);
+        } catch (IOException | ServletException e) {
+            LOGGER.error(e);
+        }
+    }
 
+    private void addErrorMessage(HttpServletRequest request, Throwable e, String message) {
+        LOGGER.error(message, e);
+        RequestUtils.addErrorMessage(request, message);
+        RequestUtils.addErrorMessage(request, e.getMessage());
     }
 }

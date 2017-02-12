@@ -5,8 +5,6 @@
 
 package com.itechart.bukinevi.logic.commands.maincommands;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.PhoneDAO;
@@ -18,7 +16,10 @@ import com.itechart.bukinevi.logic.entity.Attachment;
 import com.itechart.bukinevi.logic.entity.ContactPhone;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.entity.Photo;
+import com.itechart.bukinevi.logic.exceptions.ExecutingCommandsException;
+import com.itechart.bukinevi.logic.exceptions.IncorrectDataException;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
+import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,62 +46,49 @@ public class SaveCommand implements ActionCommand {
     }
 
     private Employee getEmployeeFromJSON(HttpServletRequest request) {
-        System.out.println("!!!!!!!!!!!");
+
         StringBuilder sb = new StringBuilder();
+        Employee employee = new Employee();
+
         try (BufferedReader reader = request.getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append('\n');
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("!" + sb.toString() + "!");
         String jsonEmployee = new String(sb);
         jsonEmployee = jsonEmployee.replaceAll("_", "");
-        System.out.println(jsonEmployee);
-        Employee employee = null;
-        try {
+
             if (StringUtils.isNotEmpty(sb.toString())) {
                 ObjectMapper mapper = new ObjectMapper();
                 employee = mapper.readValue(jsonEmployee, Employee.class);
-                System.out.println(employee);
             }
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
+            throw new IncorrectDataException("Не удаётся извлечь сотрудники из JSON",e);
         }
-
-        System.out.println("!!!!!!!!!!!");
         return employee;
     }
 
     private void saveContact(HttpServletRequest request) {
         Employee employee = getEmployeeFromJSON(request);
+
         savePhoto(employee.getPhotoName(), request);
         savePhones(employee.getPhoneList(), employee.getId());
         saveAttachment(employee.getAttachmentList(), employee.getId(), request);
         MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
-        System.out.println("HERE");
         contactDAO.editEmployee(employee);
-        System.out.println("HERE");
         contactDAO.saveContact();
-        System.out.println("HERE");
-
     }
 
-    private void savePhones(List<ContactPhone> phones, final int EMPLOYEEID) {
+    private void savePhones(List<ContactPhone> phones, final int EMPLOYEE_ID) {
         MySqlPhoneDAO phoneDAO = new MySqlPhoneDAO();
-        phoneDAO.deletePhones(getDeletePhoneList(phones, phoneDAO, EMPLOYEEID));
-        phoneDAO.insertOrUpdatePhone(phones, EMPLOYEEID);
+        phoneDAO.deletePhones(getDeletePhoneList(phones, phoneDAO, EMPLOYEE_ID));
+        phoneDAO.insertOrUpdatePhones(phones, EMPLOYEE_ID);
     }
 
     @SuppressWarnings("unchecked")
-    private List<ContactPhone> getDeletePhoneList(List<ContactPhone> phones, PhoneDAO phoneDAO, final int EMPLOYEEID) {
-        List<ContactPhone> oldPhoneList = phoneDAO.getPhoneList(EMPLOYEEID);
+    private List<ContactPhone> getDeletePhoneList(List<ContactPhone> phones, PhoneDAO phoneDAO, final int EMPLOYEE_ID) {
+        List<ContactPhone> oldPhoneList = phoneDAO.getPhoneList(EMPLOYEE_ID);
         List<ContactPhone> deleteList = new ArrayList<>();
         oldPhoneList.forEach(oldPhone -> {
             boolean isDeletedElement = true;
@@ -117,12 +105,12 @@ public class SaveCommand implements ActionCommand {
 
     }
 
-    private void saveAttachment(List<Attachment> attachments, final int EMPLOYEEID, HttpServletRequest request) {
+    private void saveAttachment(List<Attachment> attachments, final int EMPLOYEE_ID, HttpServletRequest request) {
         MySqlAttachmentDAO attachmentDAO = new MySqlAttachmentDAO();
         attachmentDAO.deleteAttachments(getDeleteAttachmentsList(attachments, request));
-        attachmentDAO.insertOrUpdatePhone(getAttachmentListFromSession(request), EMPLOYEEID);
+        attachmentDAO.insertOrUpdateAttachments(getAttachmentListFromSession(request), EMPLOYEE_ID);
 
-        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + EMPLOYEEID + "/";
+        String filePath = ConfigurationManager.getPathProperty("path.saveFile") + EMPLOYEE_ID + "/";
         for (Attachment attachment : getAttachmentListFromSession(request)) {
             String resultFileName = filePath +
                     attachment.getId();
@@ -132,16 +120,17 @@ public class SaveCommand implements ActionCommand {
             if (!(attachment.isSaveOnDisk() || attachment.isDeleted())) {
                 try {
                     Path path = Paths.get(resultFileName);
-                    Files.write(path, attachment.getAttachment());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    Files.write(path, attachment.getBytes());
+                } catch (IOException e) {
+                    LOGGER.error(e);
+                    throw new ExecutingCommandsException("Не удаётся сохранить файл на сервере");
                 }
             }
         }
     }
 
     private List<Attachment> getAttachmentListFromSession(HttpServletRequest request) {
-        return this.getEmployeeFromSession(request).getAttachmentList();
+        return new SessionUtils().getEmployeeFromSession(request).getAttachmentList();
     }
 
     private List<Attachment> getDeleteAttachmentsList(List<Attachment> attachments, HttpServletRequest
@@ -169,20 +158,20 @@ public class SaveCommand implements ActionCommand {
             Files.delete(path);
         } catch (IOException e) {
             LOGGER.error("can't delete file from server ", e);
+            throw new ExecutingCommandsException("Не удаётся удалить файл с сервера");
         }
 
     }
 
 
     private void savePhoto(String photoName, HttpServletRequest request) {
-        Photo photo = this.getEmployeeFromSession(request).getPhoto();
+        Photo photo = new SessionUtils().getEmployeeFromSession(request).getPhoto();
         MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
-        if (photoName.equals("delete") && photo.getPhotoName().equals(photoName) && photo.isSaved() || StringUtils.isEmpty(photoName)) {
+        if (("delete".equals(photoName) && photo.getPhotoName().equals(photoName) && photo.isSaved()) ||
+                StringUtils.isEmpty(photoName)) {
             return;
         }
-        System.out.println(photoName.equals("delete"));
-        if (photoName.equals("delete")) {
-            System.out.println("???????????????");
+        if ("delete".equals(photoName)) {
             deletePhotoFromDisk(photo);
             photo.setPhotoName(null);
             photoDAO.updatePhoto(photo);
@@ -200,7 +189,7 @@ public class SaveCommand implements ActionCommand {
             Files.write(path, photo.getBytes());
         } catch (IOException e) {
             LOGGER.error("can't write photo on disk: ", e);
-        }
+            throw new ExecutingCommandsException("Не удаётся сохранить фото на сервере");}
 
 
     }

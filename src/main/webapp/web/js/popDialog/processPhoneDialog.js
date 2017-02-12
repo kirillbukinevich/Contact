@@ -3,14 +3,14 @@ function getEditPhone() {
     for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].checked) {
             var tr = inputs[i].parentNode.parentNode;
-            console.log(inputs[i].value);
             var data = tr.getElementsByTagName('p');
-            var contactPhone = getContactPhone(inputs[i].value,tr.rowIndex, data);
+            var contactPhone = getContactPhone(inputs[i].value, tr.rowIndex, data);
             fillInputPhoneForm(document.forms.popPhoneForm, contactPhone);
+            inputs[i].checked = false;
         }
     }
 }
-function getContactPhone(phoneId,rowIndex, data) {
+function getContactPhone(phoneId, rowIndex, data) {
     var contactPhone = new ContactPhone;
     var number = data[0].textContent.slice(1).split('-');
     contactPhone.id = phoneId;
@@ -30,15 +30,20 @@ function fillInputPhoneForm(form, contactPhone) {
     form.code_operator.value = contactPhone.codeOperator;
     form.phone_number.value = contactPhone.number;
     var select = form.phone_type;
-    switch (contactPhone.type){
-        case 'домашний': select.selectedIndex = 1; break;
-        case 'мобильный': select.selectedIndex = 2; break;
-        default: select.selectedIndex = 0;
+    switch (contactPhone.type) {
+        case 'домашний':
+            select.selectedIndex = 1;
+            break;
+        case 'мобильный':
+            select.selectedIndex = 2;
+            break;
+        default:
+            select.selectedIndex = 0;
     }
     form.comment.value = contactPhone.comment;
 }
 function cleanPhoneForm() {
-    var form =  document.forms.popPhoneForm;
+    var form = document.forms.popPhoneForm;
     form.phone_id.value = "";
     form.tableRowIndex.value = "";
     form.code_country.value = "";
@@ -48,7 +53,7 @@ function cleanPhoneForm() {
     form.comment.value = "";
 }
 function savePhoneChange() {
-    var form =  document.forms.popPhoneForm;
+    var form = document.forms.popPhoneForm;
     var table = document.getElementById("phone_table");
 
     var row = table.insertRow();
@@ -65,13 +70,19 @@ function savePhoneChange() {
     cell2.innerHTML = "<p>" + form.phone_type.value + "</p>";
     cell3.innerHTML = "<p>" + form.comment.value + "</p>";
 
-    if(form.parentNode.value == 'Edit_Phone') {
+    if (form.parentNode.value == 'Edit_Phone') {
         table.deleteRow(form.tableRowIndex.value);
     }
     form.parentNode.style.display = "none";
     cleanPhoneForm();
-    checkboxesEditDelete('check_selected_phone','editPhone','deletePhone');
+    checkboxesEditDelete('check_selected_phone', 'editPhone', 'deletePhone');
     return false;
+}
+
+function labelInput(event) {
+    var input = event.target.parentNode.parentNode.parentNode.children[0].children[0];
+    console.dir(input);
+    input.checked = true;
 }
 
 

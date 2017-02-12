@@ -1,7 +1,6 @@
 package com.itechart.bukinevi.logic.entity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Created by aefrd on 13.09.2016.
