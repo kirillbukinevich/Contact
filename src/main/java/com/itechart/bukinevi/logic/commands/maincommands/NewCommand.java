@@ -7,6 +7,8 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
 import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.MySqlFactory;
 import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.entity.Employee;
 import com.itechart.bukinevi.logic.entity.Photo;
@@ -26,6 +28,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 
 public class NewCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(EditCommand.class.getName());
+    private MySqlFactory mySqlFactory = new MySqlFactory();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -46,7 +49,7 @@ public class NewCommand implements ActionCommand {
     }
 
     private Employee getNewEmployee() {
-        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
+        EmployeeDAO contactDAO = mySqlFactory.getEmployeeDAO();
         final int ID = contactDAO.getNewEmployeeID();
         Employee employee = new Employee();
         employee.setId(ID);

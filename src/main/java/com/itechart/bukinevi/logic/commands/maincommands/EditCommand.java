@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.AbstractDAO;
+import com.itechart.bukinevi.logic.database.*;
 import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
 import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
@@ -24,7 +24,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 
 public class EditCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(EditCommand.class.getName());
-
+    private MySqlFactory mySqlFactory = new MySqlFactory();
     @Override
     public String execute(HttpServletRequest request) {
 
@@ -46,13 +46,17 @@ public class EditCommand implements ActionCommand {
             ID = Integer.parseInt(employeeId);
         }
         employee.setId(ID);
-        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
+
+        EmployeeDAO contactDAO = mySqlFactory.getEmployeeDAO();
         employee = contactDAO.getEmployeeOnId(employee.getId());
-        MySqlAttachmentDAO attachmentDAO = new MySqlAttachmentDAO();
+
+        AttachmentDAO attachmentDAO = mySqlFactory.getAttachmentDAO();
         employee.setAttachmentList(attachmentDAO.getAttachmentList(employee.getId()));
-        MySqlPhoneDAO phoneDAO = new MySqlPhoneDAO();
+
+        PhoneDAO phoneDAO = mySqlFactory.getPhoneDAO();
         employee.setPhoneList(phoneDAO.getPhoneList(employee.getId()));
-        MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
+
+        PhotoDAO photoDAO = mySqlFactory.getPhotoDAO();
         Photo photo = photoDAO.getPhoto(employee.getId());
         employee.setPhoto(photo);
 

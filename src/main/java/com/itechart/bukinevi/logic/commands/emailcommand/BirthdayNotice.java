@@ -1,6 +1,8 @@
 package com.itechart.bukinevi.logic.commands.emailcommand;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
+import com.itechart.bukinevi.logic.database.EmployeeDAO;
+import com.itechart.bukinevi.logic.database.MySqlFactory;
 import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,7 +47,7 @@ public class BirthdayNotice implements Runnable {
     }
 
     private List<String> getBirthdayListFromDB() {
-        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
+        EmployeeDAO contactDAO = new MySqlFactory().getEmployeeDAO();
         return contactDAO.getBirthdayList();
 
     }

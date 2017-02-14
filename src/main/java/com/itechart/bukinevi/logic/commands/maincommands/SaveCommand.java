@@ -7,7 +7,10 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
+import com.itechart.bukinevi.logic.database.AttachmentDAO;
+import com.itechart.bukinevi.logic.database.MySqlFactory;
 import com.itechart.bukinevi.logic.database.PhoneDAO;
+import com.itechart.bukinevi.logic.database.PhotoDAO;
 import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
 import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
 import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
@@ -38,6 +41,7 @@ import java.util.Objects;
 
 public class SaveCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(SaveCommand.class);
+    private MySqlFactory mySqlFactory = new MySqlFactory();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -75,13 +79,14 @@ public class SaveCommand implements ActionCommand {
         savePhoto(employee.getPhotoName(), request);
         savePhones(employee.getPhoneList(), employee.getId());
         saveAttachment(employee.getAttachmentList(), employee.getId(), request);
+
         MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
         contactDAO.editEmployee(employee);
         contactDAO.saveContact();
     }
 
     private void savePhones(List<ContactPhone> phones, final int EMPLOYEE_ID) {
-        MySqlPhoneDAO phoneDAO = new MySqlPhoneDAO();
+        PhoneDAO phoneDAO = mySqlFactory.getPhoneDAO();
         phoneDAO.deletePhones(getDeletePhoneList(phones, phoneDAO, EMPLOYEE_ID));
         phoneDAO.insertOrUpdatePhones(phones, EMPLOYEE_ID);
     }
@@ -106,7 +111,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     private void saveAttachment(List<Attachment> attachments, final int EMPLOYEE_ID, HttpServletRequest request) {
-        MySqlAttachmentDAO attachmentDAO = new MySqlAttachmentDAO();
+        AttachmentDAO attachmentDAO = mySqlFactory.getAttachmentDAO();
         attachmentDAO.deleteAttachments(getDeleteAttachmentsList(attachments, request));
         attachmentDAO.insertOrUpdateAttachments(getAttachmentListFromSession(request), EMPLOYEE_ID);
 
@@ -166,7 +171,7 @@ public class SaveCommand implements ActionCommand {
 
     private void savePhoto(String photoName, HttpServletRequest request) {
         Photo photo = SessionUtils.getEmployeeFromSession(request).getPhoto();
-        MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
+        PhotoDAO photoDAO = mySqlFactory.getPhotoDAO();
         if (("delete".equals(photoName) && photo.getPhotoName().equals(photoName) && photo.isSaved()) ||
                 StringUtils.isEmpty(photoName)) {
             return;
