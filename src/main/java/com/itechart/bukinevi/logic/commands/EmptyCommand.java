@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
 
-public class  EmptyCommand implements ActionCommand {
+public class EmptyCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         return getProperty("path.page.start");
