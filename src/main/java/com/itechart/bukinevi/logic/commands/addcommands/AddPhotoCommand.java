@@ -15,7 +15,7 @@ import java.util.List;
 public class AddPhotoCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         savePhoto(request, employee);
         return "";
     }

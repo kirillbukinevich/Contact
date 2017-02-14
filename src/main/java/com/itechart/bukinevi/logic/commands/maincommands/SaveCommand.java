@@ -130,7 +130,7 @@ public class SaveCommand implements ActionCommand {
     }
 
     private List<Attachment> getAttachmentListFromSession(HttpServletRequest request) {
-        return new SessionUtils().getEmployeeFromSession(request).getAttachmentList();
+        return SessionUtils.getEmployeeFromSession(request).getAttachmentList();
     }
 
     private List<Attachment> getDeleteAttachmentsList(List<Attachment> attachments, HttpServletRequest
@@ -165,7 +165,7 @@ public class SaveCommand implements ActionCommand {
 
 
     private void savePhoto(String photoName, HttpServletRequest request) {
-        Photo photo = new SessionUtils().getEmployeeFromSession(request).getPhoto();
+        Photo photo = SessionUtils.getEmployeeFromSession(request).getPhoto();
         MySqlPhotoDAO photoDAO = new MySqlPhotoDAO();
         if (("delete".equals(photoName) && photo.getPhotoName().equals(photoName) && photo.isSaved()) ||
                 StringUtils.isEmpty(photoName)) {

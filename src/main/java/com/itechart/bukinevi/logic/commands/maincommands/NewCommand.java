@@ -31,7 +31,7 @@ public class NewCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         startCreateContact();
         Employee employee = getNewEmployee();
-        new SessionUtils().setEmployeeToSession(request, employee);
+        SessionUtils.setEmployeeToSession(request, employee);
         request.setAttribute("employee_id",employee.getId());
         request.setAttribute("default_photo", getPhotoForJSP());
         request.setAttribute("show_default_photo","inline-block");

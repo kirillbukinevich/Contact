@@ -22,7 +22,7 @@ public class DeletePhotoCommand implements ActionCommand {
     }
 
     private void deletePhoto(HttpServletRequest request) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         Photo photo = employee.getPhoto();
         photo.setDeleted(true);
     }

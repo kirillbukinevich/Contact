@@ -15,7 +15,7 @@ import java.util.List;
 public class AddAttachmentCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         addFileToList(request, employee);
         return "";
     }

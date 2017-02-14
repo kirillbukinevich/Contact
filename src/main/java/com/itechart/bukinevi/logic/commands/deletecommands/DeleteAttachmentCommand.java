@@ -29,7 +29,7 @@ public class DeleteAttachmentCommand implements ActionCommand{
 
 
     private void deleteAttachment(HttpServletRequest request, final int ATTACHMENT_ID) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         List<Attachment> attachmentList = employee.getAttachmentList();
         Attachment removeFile = new Attachment();
         for(Attachment attachment : attachmentList){

@@ -29,7 +29,7 @@ public class EditCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
 
         Employee employee = getEmployeeOnId(request);
-        new SessionUtils().setEmployeeToSession(request, employee);
+        SessionUtils.setEmployeeToSession(request, employee);
         fillAllParameters(request);
         startEditContact();
         return getProperty("path.page.edit");
@@ -65,7 +65,7 @@ public class EditCommand implements ActionCommand {
     }
 
     public void fillAllParameters(HttpServletRequest request) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         this.fillEmployeeParameters(request, employee);
         this.fillAddressParameters(request, employee.getAddress());
         this.fillPhoneParameters(request, employee.getPhoneList());

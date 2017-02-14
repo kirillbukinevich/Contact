@@ -22,7 +22,7 @@ public class EditAttachmentCommand implements ActionCommand {
     }
 
     private void updateFile(HttpServletRequest request) {
-        List<Attachment> attachments = new SessionUtils().getEmployeeFromSession(request).getAttachmentList();
+        List<Attachment> attachments = SessionUtils.getEmployeeFromSession(request).getAttachmentList();
         Attachment updateAttachment = getUpdateAttachment(request);
         for (Attachment attachment : attachments) {
             if (updateAttachment.getId() == attachment.getId() &&

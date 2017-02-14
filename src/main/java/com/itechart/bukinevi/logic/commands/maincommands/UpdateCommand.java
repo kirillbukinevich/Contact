@@ -47,10 +47,10 @@ public class UpdateCommand implements ActionCommand {
     }
 
     private void update(HttpServletRequest request) {
-        Employee employee = new SessionUtils().getEmployeeFromSession(request);
+        Employee employee = SessionUtils.getEmployeeFromSession(request);
         updateEmployee(request, employee);
         fillAllParameters(request);
-        new SessionUtils().setEmployeeToSession(request, employee);
+        SessionUtils.setEmployeeToSession(request, employee);
     }
 
     private void updateEmployee(HttpServletRequest request, Employee employee) {
