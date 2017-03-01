@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.addcommands;
 
-import com.itechart.bukinevi.logic.entity.Attachment;
-import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.domain.Attachment;
+import com.itechart.bukinevi.logic.domain.Employee;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.fileupload.FileItem;

@@ -1,4 +1,4 @@
-package com.itechart.bukinevi.web;
+package com.itechart.bukinevi.web.listeners;
 
 import com.itechart.bukinevi.logic.commands.emailcommand.BirthdayNotice;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
@@ -22,7 +22,7 @@ public class BackgroundManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         ConfigurationManager.initProperty(event.getServletContext());
 
-        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler = Executors.  newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new BirthdayNotice(), 0, 1, TimeUnit.DAYS);
     }
 

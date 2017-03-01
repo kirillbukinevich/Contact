@@ -1,8 +1,8 @@
 package com.itechart.bukinevi.logic.commands.deletecommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.UpdateCommand;
-import com.itechart.bukinevi.logic.entity.Employee;
-import com.itechart.bukinevi.logic.entity.Photo;
+import com.itechart.bukinevi.logic.domain.Employee;
+import com.itechart.bukinevi.logic.domain.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 

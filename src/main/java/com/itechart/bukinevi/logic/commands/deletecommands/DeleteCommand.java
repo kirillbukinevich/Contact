@@ -2,7 +2,7 @@ package com.itechart.bukinevi.logic.commands.deletecommands;
 
 import com.itechart.bukinevi.logic.commands.maincommands.ContactCommand;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
+import com.itechart.bukinevi.logic.dao.mysqlImpl.EmployeeDAOImpl;
 import com.itechart.bukinevi.logic.exceptions.ExecutingCommandsException;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import org.apache.commons.io.FileUtils;
@@ -30,7 +30,7 @@ public class DeleteCommand implements ActionCommand {
     }
 
     private void deleteEmployee(final int ID) {
-        MySqlEmployeeDAO employeeDAO = new MySqlEmployeeDAO();
+        EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
         employeeDAO.deleteEmployee(ID);
         deleteAttachmentDirectory(ID);
     }

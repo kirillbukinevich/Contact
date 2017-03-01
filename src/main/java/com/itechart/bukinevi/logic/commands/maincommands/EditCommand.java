@@ -1,12 +1,9 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.*;
-import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlPhotoDAO;
-import com.itechart.bukinevi.logic.entity.*;
+import com.itechart.bukinevi.logic.dao.*;
+import com.itechart.bukinevi.logic.dao.mysqlImpl.EmployeeDAOImpl;
+import com.itechart.bukinevi.logic.domain.*;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -15,9 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.getProperty;
@@ -25,6 +20,7 @@ import static com.itechart.bukinevi.logic.configuration.ConfigurationManager.get
 public class EditCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger(EditCommand.class.getName());
     private MySqlFactory mySqlFactory = new MySqlFactory();
+
     @Override
     public String execute(HttpServletRequest request) {
 
@@ -64,7 +60,7 @@ public class EditCommand implements ActionCommand {
     }
 
     private void startEditContact() {
-        AbstractDAO abstractDAO = new MySqlEmployeeDAO();
+        AbstractDAO abstractDAO = new EmployeeDAOImpl();
         abstractDAO.startEditContact();
     }
 
@@ -114,12 +110,16 @@ public class EditCommand implements ActionCommand {
 
     private void fillPhotoParameter(HttpServletRequest request, Employee employee) {
         Photo photo = employee.getPhoto();
-        request.setAttribute("show_default_photo","inline-block");
-        request.setAttribute("photo", getPhotoForJSP(photo,request));
-        request.setAttribute("default_photo", getDefaultPhotoForJSP());
+        request.setAttribute("show_default_photo", "inline-block");
+        try {
+            request.setAttribute("photo", getPhotoForJSP(photo, request));
+            request.setAttribute("default_photo", getDefaultPhotoForJSP());
+        } catch (IOException e) {
+            LOGGER.error(e);
+        }
     }
 
-    private String getDefaultPhotoForJSP() {
+    private String getDefaultPhotoForJSP() throws IOException {
         String resultFileName;
         byte[] data;
         byte[] encodeBase64;
@@ -127,53 +127,43 @@ public class EditCommand implements ActionCommand {
         resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
         File file = new File(resultFileName);
 
-        try(FileInputStream fileInputStream = new FileInputStream(file)) {
-            data = IOUtils.toByteArray(fileInputStream);
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file))) {
+            data = IOUtils.toByteArray(bufferedInputStream);
             encodeBase64 = Base64.encodeBase64(data);
 
             return new String(encodeBase64, "UTF-8");
-        } catch (IOException e) {
-            LOGGER.error(e);
         }
-        return "default";
     }
 
-    private String getPhotoForJSP(Photo photo,HttpServletRequest request) {
+    private String getPhotoForJSP(Photo photo, HttpServletRequest request) throws IOException {
+
         String resultFileName;
-        byte[] data;
         byte[] encodeBase64;
-        FileInputStream fileInputStream = null;
-        try {
-            if (photo.getBytes() == null || photo.isDeleted()) {
-                if (!photo.isSaved() || photo.isDeleted()) {
-                    resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
-                    request.setAttribute("show_default_photo","inline-block");
-                    request.setAttribute("show_photo","none");
-                } else {
-                    resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
-                            photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
-                    request.setAttribute("show_default_photo","none");
-                    request.setAttribute("show_photo","inline-block");
-                }
-                File file = new File(resultFileName);
-                fileInputStream = new FileInputStream(file);
-                data = IOUtils.toByteArray(fileInputStream);
-                encodeBase64 = Base64.encodeBase64(data);
+        if (photo.getBytes() == null || photo.isDeleted()) {
+            if (!photo.isSaved() || photo.isDeleted()) {
+                resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
+                request.setAttribute("show_default_photo", "inline-block");
+                request.setAttribute("show_photo", "none");
             } else {
-                encodeBase64 = Base64.encodeBase64(photo.getBytes());
+                resultFileName = ConfigurationManager.getPathProperty("path.saveFile") +
+                        photo.getEmployeeID() + "/photo/" + photo.getPhotoName();
+                request.setAttribute("show_default_photo", "none");
+                request.setAttribute("show_photo", "inline-block");
             }
 
-            return new String(encodeBase64, "UTF-8");
-        } catch (IOException e) {
-            LOGGER.error(e);
-        } finally {
-            try {
-                if (fileInputStream != null) {
-                    fileInputStream.close();
-                }
-            } catch (IOException e) {
-                LOGGER.error(e);
+
+            try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(resultFileName))) {
+
+                byte[] data = IOUtils.toByteArray(bufferedInputStream);
+                encodeBase64 = Base64.encodeBase64(data);
             }
+        } else {
+            encodeBase64 = Base64.encodeBase64(photo.getBytes());
+        }
+        try {
+            return new String(encodeBase64, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error(e);
         }
         return "default";
     }

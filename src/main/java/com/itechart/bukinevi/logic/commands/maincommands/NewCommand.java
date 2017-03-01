@@ -6,12 +6,12 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.AbstractDAO;
-import com.itechart.bukinevi.logic.database.EmployeeDAO;
-import com.itechart.bukinevi.logic.database.MySqlFactory;
-import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
-import com.itechart.bukinevi.logic.entity.Employee;
-import com.itechart.bukinevi.logic.entity.Photo;
+import com.itechart.bukinevi.logic.dao.AbstractDAO;
+import com.itechart.bukinevi.logic.dao.EmployeeDAO;
+import com.itechart.bukinevi.logic.dao.MySqlFactory;
+import com.itechart.bukinevi.logic.dao.mysqlImpl.EmployeeDAOImpl;
+import com.itechart.bukinevi.logic.domain.Employee;
+import com.itechart.bukinevi.logic.domain.Photo;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -36,7 +36,11 @@ public class NewCommand implements ActionCommand {
         Employee employee = getNewEmployee();
         SessionUtils.setEmployeeToSession(request, employee);
         request.setAttribute("employee_id",employee.getId());
-        request.setAttribute("default_photo", getPhotoForJSP());
+        try {
+            request.setAttribute("default_photo", getPhotoForJSP());
+        } catch (IOException e) {
+            LOGGER.error(e);
+        }
         request.setAttribute("show_default_photo","inline-block");
         request.setAttribute("show_photo","none");
 
@@ -44,7 +48,7 @@ public class NewCommand implements ActionCommand {
     }
 
     private void startCreateContact() {
-        AbstractDAO contactDAO = new MySqlEmployeeDAO();
+        AbstractDAO contactDAO = new EmployeeDAOImpl();
         contactDAO.startEditContact();
     }
 
@@ -60,22 +64,15 @@ public class NewCommand implements ActionCommand {
         return employee;
     }
 
-    private String getPhotoForJSP() {
-        String resultFileName;
-        byte[] data;
-        byte[] encodeBase64;
+    private String getPhotoForJSP() throws IOException{
 
-        resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
-        File file = new File(resultFileName);
+        String resultFileName = ConfigurationManager.getPathProperty("path.defaultPhoto");
 
-        try (FileInputStream fileInputStream = new FileInputStream(file)){
-            data = IOUtils.toByteArray(fileInputStream);
-            encodeBase64 = Base64.encodeBase64(data);
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(resultFileName))){
+            byte[]  data = IOUtils.toByteArray(bufferedInputStream);
+            byte[] encodeBase64 = Base64.encodeBase64(data);
             return new String(encodeBase64, "UTF-8");
-        } catch (IOException e) {
-            LOGGER.error(e);
         }
-        return "default";
     }
 
 }

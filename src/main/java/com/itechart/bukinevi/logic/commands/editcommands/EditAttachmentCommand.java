@@ -1,6 +1,6 @@
 package com.itechart.bukinevi.logic.commands.editcommands;
 
-import com.itechart.bukinevi.logic.entity.Attachment;
+import com.itechart.bukinevi.logic.domain.Attachment;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.fileupload.FileItem;

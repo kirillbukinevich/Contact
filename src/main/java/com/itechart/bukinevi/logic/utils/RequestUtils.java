@@ -13,6 +13,7 @@ public class RequestUtils {
     }
 
     private static List<String> getErrorMessages(HttpServletRequest request){
+        @SuppressWarnings("unchecked")
         List<String> errors = (List<String>) request.getAttribute("errors");
         if(errors == null){
             errors = new LinkedList<>();

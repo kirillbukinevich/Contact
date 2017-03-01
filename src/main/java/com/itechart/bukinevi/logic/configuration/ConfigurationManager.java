@@ -27,7 +27,7 @@ public class ConfigurationManager {
             inputStream = request.getResourceAsStream("/WEB-INF/classes/mail.properties");
             mailProperties = new Properties();
             mailProperties.load(inputStream);
-            LOGGER.debug("config resources loaded");
+            LOGGER.info("config resources loaded");
         } catch (IOException e) {
             LOGGER.error("can't config resources");
         }

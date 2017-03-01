@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../index.html?com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html" target="_top">Frames</a></li>
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.itechart.bukinevi.logic.database.impl</div>
+<div class="subTitle">com.itechart.bukinevi.logic.dao.mysqlImpl</div>
 <h2 title="Class AttachmentDAOUtil" class="title">Class AttachmentDAOUtil</h2>
 </div>
 <div class="contentContainer">
@@ -99,10 +99,10 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">com.itechart.bukinevi.logic.database.AbstractDAO</a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">com.itechart.bukinevi.logic.dao.AbstractDAO</a></li>
 <li>
 <ul class="inheritance">
-<li>com.itechart.bukinevi.logic.database.impl.AttachmentDAOImpl</li>
+<li>com.itechart.bukinevi.logic.dao.mysqlImpl.AttachmentDAOImpl</li>
 </ul>
 </li>
 </ul>
@@ -113,13 +113,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></dd>
+<dd><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">AttachmentDAOUtil</span>
-extends <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a>
-implements <a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></pre>
+extends <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a>
+implements <a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></pre>
 </li>
 </ul>
 </div>
@@ -136,7 +136,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <li class="blockList"><a name="fields.inherited.from.class.com.itechart.bukinevi.logic.database.AbstractDAO">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;com.itechart.bukinevi.logic.database.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a></h3>
+<h3>Fields inherited from class&nbsp;com.itechart.bukinevi.logic.dao.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a></h3>
 <code><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#connection">connection</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#preparedStatement">preparedStatement</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#stmt">stmt</a></code></li>
 </ul>
 </li>
@@ -172,26 +172,26 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#addAttachment-com.itechart.bukinevi.logic.entity.Attachment-">addAttachment</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&nbsp;bytes)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#addAttachment-com.itechart.bukinevi.logic.entity.Attachment-">addAttachment</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&nbsp;bytes)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#deleteAttachment-int-">deleteAttachment</a></span>(int&nbsp;ATTACHMENTID)</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#getAttachmentList-int-">getAttachmentList</a></span>(int&nbsp;ID)</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#updateAttachment-com.itechart.bukinevi.logic.entity.Attachment-">updateAttachment</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&nbsp;bytes)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html#updateAttachment-com.itechart.bukinevi.logic.entity.Attachment-">updateAttachment</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&nbsp;bytes)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.itechart.bukinevi.logic.database.AbstractDAO">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;com.itechart.bukinevi.logic.database.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a></h3>
+<h3>Methods inherited from class&nbsp;com.itechart.bukinevi.logic.dao.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a></h3>
 <code><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#retriveId-java.sql.PreparedStatement-">retriveId</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#rollBack--">rollBack</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#saveContact--">saveContact</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#startEditContact--">startEditContact</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#updatePrepareStatement-java.lang.String-">updatePrepareStatement</a></code></li>
 </ul>
 <ul class="blockList">
@@ -238,10 +238,10 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <ul class="blockList">
 <li class="blockList">
 <h4>addAttachment</h4>
-<pre>public&nbsp;void&nbsp;addAttachment(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&nbsp;bytes)</pre>
+<pre>public&nbsp;void&nbsp;addAttachment(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&nbsp;bytes)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#addAttachment-com.itechart.bukinevi.logic.entity.Attachment-">addAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#addAttachment-com.itechart.bukinevi.logic.entity.Attachment-">addAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -251,10 +251,10 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <ul class="blockList">
 <li class="blockList">
 <h4>updateAttachment</h4>
-<pre>public&nbsp;int&nbsp;updateAttachment(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&nbsp;bytes)</pre>
+<pre>public&nbsp;int&nbsp;updateAttachment(<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&nbsp;bytes)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#updateAttachment-com.itechart.bukinevi.logic.entity.Attachment-">updateAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#updateAttachment-com.itechart.bukinevi.logic.entity.Attachment-">updateAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -264,10 +264,10 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <ul class="blockList">
 <li class="blockList">
 <h4>getAttachmentList</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.entity">Attachment</a>&gt;&nbsp;getAttachmentList(int&nbsp;ID)</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/Attachment.html" title="class in com.itechart.bukinevi.logic.domain">Attachment</a>&gt;&nbsp;getAttachmentList(int&nbsp;ID)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#getAttachmentList-int-">getAttachmentList</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#getAttachmentList-int-">getAttachmentList</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -280,7 +280,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <pre>public&nbsp;void&nbsp;deleteAttachment(int&nbsp;ATTACHMENTID)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#deleteAttachment-int-">deleteAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.database">AttachmentDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html#deleteAttachment-int-">deleteAttachment</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/AttachmentDAO.html" title="interface in com.itechart.bukinevi.logic.dao">AttachmentDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -312,7 +312,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Attac
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../index.html?com/itechart/bukinevi/logic/database/impl/AttachmentDAOUtil.html" target="_top">Frames</a></li>

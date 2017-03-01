@@ -3,7 +3,7 @@
     <Appenders>
         <File name="FileAppender" fileName="dk-contact-logs/contactapp.log" append="false">
             <PatternLayout>
-                <Pattern>%d [%p] %c{1}.%M %m%n</Pattern>
+                <Pattern>%d{DATE} [%p] %c{1}.%M %m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>

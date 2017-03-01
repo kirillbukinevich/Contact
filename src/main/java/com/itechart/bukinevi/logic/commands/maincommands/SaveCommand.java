@@ -7,18 +7,15 @@ package com.itechart.bukinevi.logic.commands.maincommands;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.bukinevi.logic.configuration.ConfigurationManager;
-import com.itechart.bukinevi.logic.database.AttachmentDAO;
-import com.itechart.bukinevi.logic.database.MySqlFactory;
-import com.itechart.bukinevi.logic.database.PhoneDAO;
-import com.itechart.bukinevi.logic.database.PhotoDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlAttachmentDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlEmployeeDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlPhoneDAO;
-import com.itechart.bukinevi.logic.database.impl.MySqlPhotoDAO;
-import com.itechart.bukinevi.logic.entity.Attachment;
-import com.itechart.bukinevi.logic.entity.ContactPhone;
-import com.itechart.bukinevi.logic.entity.Employee;
-import com.itechart.bukinevi.logic.entity.Photo;
+import com.itechart.bukinevi.logic.dao.AttachmentDAO;
+import com.itechart.bukinevi.logic.dao.MySqlFactory;
+import com.itechart.bukinevi.logic.dao.PhoneDAO;
+import com.itechart.bukinevi.logic.dao.PhotoDAO;
+import com.itechart.bukinevi.logic.dao.mysqlImpl.EmployeeDAOImpl;
+import com.itechart.bukinevi.logic.domain.Attachment;
+import com.itechart.bukinevi.logic.domain.ContactPhone;
+import com.itechart.bukinevi.logic.domain.Employee;
+import com.itechart.bukinevi.logic.domain.Photo;
 import com.itechart.bukinevi.logic.exceptions.ExecutingCommandsException;
 import com.itechart.bukinevi.logic.exceptions.IncorrectDataException;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
@@ -80,7 +77,7 @@ public class SaveCommand implements ActionCommand {
         savePhones(employee.getPhoneList(), employee.getId());
         saveAttachment(employee.getAttachmentList(), employee.getId(), request);
 
-        MySqlEmployeeDAO contactDAO = new MySqlEmployeeDAO();
+        EmployeeDAOImpl contactDAO = new EmployeeDAOImpl();
         contactDAO.editEmployee(employee);
         contactDAO.saveContact();
     }
@@ -158,9 +155,8 @@ public class SaveCommand implements ActionCommand {
     }
 
     private void deleteAttachmentFromDisk(String fileName) {
-        Path path = Paths.get(fileName);
         try {
-            Files.delete(path);
+            Files.delete(Paths.get(fileName));
         } catch (IOException e) {
             LOGGER.error("can't delete file from server ", e);
             throw new ExecutingCommandsException("Не удаётся удалить файл с сервера");

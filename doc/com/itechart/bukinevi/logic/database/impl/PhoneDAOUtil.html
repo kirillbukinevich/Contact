@@ -48,8 +48,8 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhotoDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhotoDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../index.html?com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html" target="_top">Frames</a></li>
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.itechart.bukinevi.logic.database.impl</div>
+<div class="subTitle">com.itechart.bukinevi.logic.dao.mysqlImpl</div>
 <h2 title="Class PhoneDAOUtil" class="title">Class PhoneDAOUtil</h2>
 </div>
 <div class="contentContainer">
@@ -99,10 +99,10 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">com.itechart.bukinevi.logic.database.AbstractDAO</a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">com.itechart.bukinevi.logic.dao.AbstractDAO</a></li>
 <li>
 <ul class="inheritance">
-<li>com.itechart.bukinevi.logic.database.impl.PhoneDAOImpl</li>
+<li>com.itechart.bukinevi.logic.dao.mysqlImpl.PhoneDAOImpl</li>
 </ul>
 </li>
 </ul>
@@ -113,13 +113,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></dd>
+<dd><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">PhoneDAOUtil</span>
-extends <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a>
-implements <a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></pre>
+extends <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a>
+implements <a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></pre>
 <div class="block">Created by aefrd on 28.09.2016.</div>
 </li>
 </ul>
@@ -137,7 +137,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <li class="blockList"><a name="fields.inherited.from.class.com.itechart.bukinevi.logic.database.AbstractDAO">
 <!--   -->
 </a>
-<h3>Fields inherited from class&nbsp;com.itechart.bukinevi.logic.database.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a></h3>
+<h3>Fields inherited from class&nbsp;com.itechart.bukinevi.logic.dao.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a></h3>
 <code><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#connection">connection</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#preparedStatement">preparedStatement</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#stmt">stmt</a></code></li>
 </ul>
 </li>
@@ -173,7 +173,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#addPhone-com.itechart.bukinevi.logic.entity.ContactPhone-int-">addPhone</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&nbsp;phone,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#addPhone-com.itechart.bukinevi.logic.entity.ContactPhone-int-">addPhone</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&nbsp;phone,
         int&nbsp;EMPLOYEEID)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -181,19 +181,19 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#deletePhone-int-">deletePhone</a></span>(int&nbsp;PHONEID)</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#getPhoneList-int-">getPhoneList</a></span>(int&nbsp;ID)</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#updatePhone-com.itechart.bukinevi.logic.entity.ContactPhone-">updatePhone</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&nbsp;phone)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html#updatePhone-com.itechart.bukinevi.logic.entity.ContactPhone-">updatePhone</a></span>(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&nbsp;phone)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.itechart.bukinevi.logic.database.AbstractDAO">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;com.itechart.bukinevi.logic.database.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.database">AbstractDAO</a></h3>
+<h3>Methods inherited from class&nbsp;com.itechart.bukinevi.logic.dao.<a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html" title="class in com.itechart.bukinevi.logic.dao">AbstractDAO</a></h3>
 <code><a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#retriveId-java.sql.PreparedStatement-">retriveId</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#rollBack--">rollBack</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#saveContact--">saveContact</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#startEditContact--">startEditContact</a>, <a href="../../../../../../com/itechart/bukinevi/logic/database/AbstractDAO.html#updatePrepareStatement-java.lang.String-">updatePrepareStatement</a></code></li>
 </ul>
 <ul class="blockList">
@@ -240,11 +240,11 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <ul class="blockList">
 <li class="blockList">
 <h4>addPhone</h4>
-<pre>public&nbsp;void&nbsp;addPhone(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&nbsp;phone,
+<pre>public&nbsp;void&nbsp;addPhone(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&nbsp;phone,
                      int&nbsp;EMPLOYEEID)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#addPhone-com.itechart.bukinevi.logic.entity.ContactPhone-int-">addPhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#addPhone-com.itechart.bukinevi.logic.entity.ContactPhone-int-">addPhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -254,10 +254,10 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <ul class="blockList">
 <li class="blockList">
 <h4>getPhoneList</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&gt;&nbsp;getPhoneList(int&nbsp;ID)</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&gt;&nbsp;getPhoneList(int&nbsp;ID)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#getPhoneList-int-">getPhoneList</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#getPhoneList-int-">getPhoneList</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -267,10 +267,10 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <ul class="blockList">
 <li class="blockList">
 <h4>updatePhone</h4>
-<pre>public&nbsp;void&nbsp;updatePhone(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.entity">ContactPhone</a>&nbsp;phone)</pre>
+<pre>public&nbsp;void&nbsp;updatePhone(<a href="../../../../../../com/itechart/bukinevi/logic/entity/ContactPhone.html" title="class in com.itechart.bukinevi.logic.domain">ContactPhone</a>&nbsp;phone)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#updatePhone-com.itechart.bukinevi.logic.entity.ContactPhone-">updatePhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#updatePhone-com.itechart.bukinevi.logic.entity.ContactPhone-">updatePhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -283,7 +283,7 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 <pre>public&nbsp;void&nbsp;deletePhone(int&nbsp;PHONEID)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#deletePhone-int-">deletePhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.database">PhoneDAO</a></code></dd>
+<dd><code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html#deletePhone-int-">deletePhone</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/itechart/bukinevi/logic/database/PhoneDAO.html" title="interface in com.itechart.bukinevi.logic.dao">PhoneDAO</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -314,8 +314,8 @@ implements <a href="../../../../../../com/itechart/bukinevi/logic/database/Phone
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhotoDAOUtil.html" title="class in com.itechart.bukinevi.logic.database.impl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/EmployeeDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../../com/itechart/bukinevi/logic/database/impl/PhotoDAOUtil.html" title="class in com.itechart.bukinevi.logic.dao.mysqlImpl"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../index.html?com/itechart/bukinevi/logic/database/impl/PhoneDAOUtil.html" target="_top">Frames</a></li>

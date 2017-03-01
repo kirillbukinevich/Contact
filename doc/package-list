@@ -6,9 +6,9 @@ com.itechart.bukinevi.logic.commands.emailcommand
 com.itechart.bukinevi.logic.commands.emailcommand.template
 com.itechart.bukinevi.logic.commands.maincommands
 com.itechart.bukinevi.logic.configuration
-com.itechart.bukinevi.logic.database
-com.itechart.bukinevi.logic.database.impl
-com.itechart.bukinevi.logic.entity
+com.itechart.bukinevi.logic.dao
+com.itechart.bukinevi.logic.dao.mysqlImpl
+com.itechart.bukinevi.logic.domain
 com.itechart.bukinevi.logic.processcommand
 com.itechart.bukinevi.web
-com.itechart.bukinevi.web.controller
+com.itechart.bukinevi.web.servlets.controller

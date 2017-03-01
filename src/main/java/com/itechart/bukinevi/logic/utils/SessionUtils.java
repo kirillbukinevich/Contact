@@ -1,6 +1,6 @@
 package com.itechart.bukinevi.logic.utils;
 
-import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.domain.Employee;
 
 import javax.servlet.http.HttpServletRequest;
 

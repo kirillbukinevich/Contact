@@ -1,7 +1,7 @@
 package com.itechart.bukinevi.logic.commands.maincommands;
 
-import com.itechart.bukinevi.logic.entity.Address;
-import com.itechart.bukinevi.logic.entity.Employee;
+import com.itechart.bukinevi.logic.domain.Address;
+import com.itechart.bukinevi.logic.domain.Employee;
 import com.itechart.bukinevi.logic.processcommand.ActionCommand;
 import com.itechart.bukinevi.logic.utils.SessionUtils;
 import org.apache.commons.lang3.StringUtils;
