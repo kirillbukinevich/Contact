@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context reloadable="true" antiResourceLocking="true" path="/zcontact">
+<Context reloadable="true" antiResourceLocking="true" privileged="true" path="/zcontact">
 
     <WatchedResource>WEB-INF/com.itechart.bukinevi.web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/com.itechart.bukinevi.web.xml</WatchedResource>
     <Resource
             driverClassName="com.mysql.jdbc.Driver"
-            maxActive="4"
+            maxTotal="4"
             maxIdle="2"
-            maxWait="5000"
+            maxWaitMillis="5000"
             name="jdbc/EmployeesDS"
             username="kirillbukinevich"
             password="password"
