@@ -16,11 +16,11 @@ CREATE TABLE IF NOT EXISTS `main_info` (
   `country` varchar(15) DEFAULT NULL,
   `city` varchar(15) DEFAULT NULL,
   `street` varchar(15) DEFAULT NULL,
-  `house` int(11) DEFAULT NULL,
-  `flat` int(11) DEFAULT NULL,
+  `house` varchar(10) DEFAULT NULL,
+  `flat` int(11) unsigned DEFAULT NULL,
   `index_address` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=306 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `attachments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -31,22 +31,22 @@ CREATE TABLE IF NOT EXISTS `attachments` (
   PRIMARY KEY (`id`),
   KEY `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` (`employee_id`),
   CONSTRAINT `FK_attachments_main_info_Cascadebukinevichkirillstudentlabdb` FOREIGN KEY (`employee_id`) REFERENCES `main_info` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5299329 DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE IF NOT EXISTS `phone` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) unsigned NOT NULL,
-  `code_country` int(3) DEFAULT NULL,
-  `code_operator` int(2) DEFAULT NULL,
-  `number` int(11) NOT NULL,
+  `code_country` int(3) unsigned DEFAULT NULL,
+  `code_operator` int(2) unsigned DEFAULT NULL,
+  `number` int(11) unsigned NOT NULL,
   `type` varchar(20) DEFAULT NULL,
   `comment` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_phone_main_info_Cascade` (`employee_id`),
   CONSTRAINT `FK_phone_main_info_Cascade` FOREIGN KEY (`employee_id`) REFERENCES `main_info` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `photo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -56,5 +56,5 @@ CREATE TABLE IF NOT EXISTS `photo` (
   UNIQUE KEY `id` (`id`),
   KEY `FK_photo_main_info_Cascade` (`employee_id`),
   CONSTRAINT `FK_photo_main_info_Cascade` FOREIGN KEY (`employee_id`) REFERENCES `main_info` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
